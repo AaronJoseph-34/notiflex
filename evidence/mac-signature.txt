@@ -1,0 +1,14 @@
+--prepared:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/Frameworks/libMonoPosixHelper.dylib
+--validated:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/Frameworks/libMonoPosixHelper.dylib
+--prepared:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/PlugIns/libXrApiLayer_METAX_operator.dylib
+--validated:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/PlugIns/libXrApiLayer_METAX_operator.dylib
+--prepared:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/Frameworks/libmono-native.dylib
+--validated:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/Frameworks/libmono-native.dylib
+--prepared:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/Frameworks/libmonobdwgc-2.0.dylib
+--validated:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/Frameworks/libmonobdwgc-2.0.dylib
+--prepared:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/PlugIns/OVRPlugin.dylib
+--validated:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/PlugIns/OVRPlugin.dylib
+--prepared:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/Frameworks/UnityPlayer.dylib
+--validated:/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app/Contents/Frameworks/UnityPlayer.dylib
+/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app: valid on disk
+/private/tmp/notiflex-vr-release-20261111/NotiflexVR.app: satisfies its Designated Requirement

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Notiflex/Scenes/Desk.unity
+    guid: 283a3341443934dd5b255f61a9cfebf8
+  - enabled: 1
+    path: Assets/Notiflex/Scenes/Kitchen.unity
+    guid: 2ef6ad1dff28b49f083b967b16892afd
+  - enabled: 1
+    path: Assets/Notiflex/Scenes/LivingRoom.unity
+    guid: 8368c4029be2c4d2ca9583f7898bdabb
+  - enabled: 1
+    path: Assets/Notiflex/Scenes/Passthrough.unity
+    guid: 6c92a16242c964665b201cf0a72f1969
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9c5584cc89c0f408e9946ef5c614654e, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: f62133681cb334f3bab63944b47a4d22, type: 2}

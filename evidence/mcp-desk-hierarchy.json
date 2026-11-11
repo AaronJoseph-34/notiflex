@@ -1,0 +1,1237 @@
+{
+  "meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Retrieved hierarchy page for scene 'Desk'.\",\"data\":{\"scope\":\"roots\",\"cursor\":0,\"pageSize\":50,\"next_cursor\":null,\"truncated\":false,\"total\":33,\"items\":[{\"name\":\"Environment Desk\",\"instanceID\":46714,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Environment Desk\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"EnvironmentBindings\"],\"transform\":{\"position\":[0.0,0.0,0.0],\"rotation\":[0.0,0.0,0.0],\"scale\":[1.0,1.0,1.0]}},{\"name\":\"Floor\",\"instanceID\":46876,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Floor\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[0.0,-0.08,0.0],\"rotation\":[0.0,0.0,0.0],\"scale\":[9.0,0.15,10.0]}},{\"name\":\"Back wall\",\"instanceID\":46750,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Back wall\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[0.0,1.6,4.5],\"rotation\":[0.0,0.0,0.0],\"scale\":[9.0,3.2,0.15]}},{\"name\":\"Left wall\",\"instanceID\":46958,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Left wall\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-4.5,1.6,0.0],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.15,3.2,9.0]}},{\"name\":\"Right wall\",\"instanceID\":46796,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Right wall\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[4.5,1.6,0.0],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.15,3.2,9.0]}},{\"name\":\"Daylight\",\"instanceID\":46780,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Daylight\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"Light\"],\"transform\":{\"position\":[0.0,0.0,0.0],\"rotation\":[45.0,325.0,1.20741834e-6],\"scale\":[1.0,1.0,1.0]}},{\"name\":\"Room lamp\",\"instanceID\":46688,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Room lamp\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"Light\"],\"transform\":{\"position\":[2.0,2.6,0.0],\"rotation\":[0.0,0.0,0.0],\"scale\":[1.0,1.0,1.0]}},{\"name\":\"Window frame\",\"instanceID\":46866,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Window frame\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[2.3,2.0,4.38],\"rotation\":[0.0,0.0,0.0],\"scale\":[1.5,1.3,0.08]}},{\"name\":\"Window sky\",\"instanceID\":46816,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Window sky\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[2.3,2.0,4.31],\"rotation\":[0.0,0.0,0.0],\"scale\":[1.36,1.16,0.04]}},{\"name\":\"Desk surface\",\"instanceID\":46806,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Desk surface\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[0.0,0.78,1.6],\"rotation\":[0.0,0.0,0.0],\"scale\":[2.6,0.12,1.2]}},{\"name\":\"Desk leg -1\",\"instanceID\":46720,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Desk leg -1\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-1.0,0.36,1.6],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.1,0.72,0.7]}},{\"name\":\"Desk leg 1\",\"instanceID\":46922,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Desk leg 1\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[1.0,0.36,1.6],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.1,0.72,0.7]}},{\"name\":\"Monitor bezel\",\"instanceID\":46846,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Monitor bezel\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[0.0,1.35,1.72],\"rotation\":[0.0,0.0,0.0],\"scale\":[1.02,0.68,0.08]}},{\"name\":\"Monitor display\",\"instanceID\":46968,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Monitor display\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[0.0,1.35,1.66],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.92,0.58,0.03]}},{\"name\":\"Keyboard\",\"instanceID\":46988,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Keyboard\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[0.0,0.87,1.15],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.7,0.05,0.22]}},{\"name\":\"Screen line 0\",\"instanceID\":46942,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Screen line 0\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-0.1,1.53,1.635],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.55,0.018,0.01]}},{\"name\":\"Screen line 1\",\"instanceID\":46856,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Screen line 1\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-0.1,1.43,1.635],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.55,0.018,0.01]}},{\"name\":\"Screen line 2\",\"instanceID\":46896,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Screen line 2\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-0.1,1.32999992,1.635],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.55,0.018,0.01]}},{\"name\":\"Screen line 3\",\"instanceID\":46760,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Screen line 3\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-0.1,1.23,1.635],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.55,0.018,0.01]}},{\"name\":\"Task monitor\",\"instanceID\":46952,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Task monitor\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"ProtectedRegion\"],\"transform\":{\"position\":[0.0,1.35,1.62],\"rotation\":[0.0,180.0,0.0],\"scale\":[1.0,1.0,1.0]}},{\"name\":\"Bookshelf\",\"instanceID\":46740,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Bookshelf\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[2.8,1.0,3.8],\"rotation\":[0.0,0.0,0.0],\"scale\":[1.2,2.0,0.35]}},{\"name\":\"Book 0\",\"instanceID\":46932,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Book 0\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[2.35,1.3,3.53],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.08,0.4,0.18]}},{\"name\":\"Book 1\",\"instanceID\":46978,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Book 1\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[2.49,1.3,3.53],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.08,0.4,0.18]}},{\"name\":\"Book 2\",\"instanceID\":46770,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Book 2\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[2.62999988,1.3,3.53],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.08,0.4,0.18]}},{\"name\":\"Book 3\",\"instanceID\":46786,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Book 3\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[2.77,1.3,3.53],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.08,0.4,0.18]}},{\"name\":\"Book 4\",\"instanceID\":46886,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Book 4\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[2.90999985,1.3,3.53],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.08,0.4,0.18]}},{\"name\":\"Book 5\",\"instanceID\":46704,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Book 5\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[3.05,1.3,3.53],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.08,0.4,0.18]}},{\"name\":\"Book 6\",\"instanceID\":46836,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Book 6\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[3.18999982,1.3,3.53],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.08,0.4,0.18]}},{\"name\":\"Conversation partner torso\",\"instanceID\":46730,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Conversation partner torso\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"BoxCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-1.5,1.11999989,1.6],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.5,0.75,0.3]}},{\"name\":\"Conversation partner head\",\"instanceID\":46826,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Conversation partner head\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"SphereCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-1.5,1.67,1.6],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.3,0.4,0.28]}},{\"name\":\"Protected partner face\",\"instanceID\":46916,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Protected partner face\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"ProtectedRegion\"],\"transform\":{\"position\":[-1.5,1.67,1.44],\"rotation\":[0.0,180.0,0.0],\"scale\":[1.0,1.0,1.0]}},{\"name\":\"Plant pot\",\"instanceID\":46906,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Plant pot\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"CapsuleCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-3.0,0.25,3.4],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.45,0.5,0.45]}},{\"name\":\"Plant leaves\",\"instanceID\":46694,\"activeSelf\":true,\"activeInHierarchy\":true,\"tag\":\"Untagged\",\"layer\":0,\"isStatic\":false,\"path\":\"Plant leaves\",\"childCount\":0,\"childrenTruncated\":false,\"childrenCursor\":null,\"childrenPageSizeDefault\":200,\"componentTypes\":[\"Transform\",\"MeshFilter\",\"SphereCollider\",\"MeshRenderer\"],\"transform\":{\"position\":[-3.0,0.9,3.4],\"rotation\":[0.0,0.0,0.0],\"scale\":[0.8,1.1,0.65]}}]}}",
+      "annotations": null,
+      "meta": null
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Retrieved hierarchy page for scene 'Desk'.",
+    "data": {
+      "scope": "roots",
+      "cursor": 0,
+      "pageSize": 50,
+      "next_cursor": null,
+      "truncated": false,
+      "total": 33,
+      "items": [
+        {
+          "name": "Environment Desk",
+          "instanceID": 46714,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Environment Desk",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "EnvironmentBindings"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Floor",
+          "instanceID": 46876,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Floor",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              -0.08,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              9.0,
+              0.15,
+              10.0
+            ]
+          }
+        },
+        {
+          "name": "Back wall",
+          "instanceID": 46750,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Back wall",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              1.6,
+              4.5
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              9.0,
+              3.2,
+              0.15
+            ]
+          }
+        },
+        {
+          "name": "Left wall",
+          "instanceID": 46958,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Left wall",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -4.5,
+              1.6,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.15,
+              3.2,
+              9.0
+            ]
+          }
+        },
+        {
+          "name": "Right wall",
+          "instanceID": 46796,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Right wall",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              4.5,
+              1.6,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.15,
+              3.2,
+              9.0
+            ]
+          }
+        },
+        {
+          "name": "Daylight",
+          "instanceID": 46780,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Daylight",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "Light"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              45.0,
+              325.0,
+              1.20741834e-6
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Room lamp",
+          "instanceID": 46688,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Room lamp",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "Light"
+          ],
+          "transform": {
+            "position": [
+              2.0,
+              2.6,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Window frame",
+          "instanceID": 46866,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Window frame",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              2.3,
+              2.0,
+              4.38
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.5,
+              1.3,
+              0.08
+            ]
+          }
+        },
+        {
+          "name": "Window sky",
+          "instanceID": 46816,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Window sky",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              2.3,
+              2.0,
+              4.31
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.36,
+              1.16,
+              0.04
+            ]
+          }
+        },
+        {
+          "name": "Desk surface",
+          "instanceID": 46806,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Desk surface",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              0.78,
+              1.6
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              2.6,
+              0.12,
+              1.2
+            ]
+          }
+        },
+        {
+          "name": "Desk leg -1",
+          "instanceID": 46720,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Desk leg -1",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -1.0,
+              0.36,
+              1.6
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.1,
+              0.72,
+              0.7
+            ]
+          }
+        },
+        {
+          "name": "Desk leg 1",
+          "instanceID": 46922,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Desk leg 1",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              1.0,
+              0.36,
+              1.6
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.1,
+              0.72,
+              0.7
+            ]
+          }
+        },
+        {
+          "name": "Monitor bezel",
+          "instanceID": 46846,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Monitor bezel",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              1.35,
+              1.72
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.02,
+              0.68,
+              0.08
+            ]
+          }
+        },
+        {
+          "name": "Monitor display",
+          "instanceID": 46968,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Monitor display",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              1.35,
+              1.66
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.92,
+              0.58,
+              0.03
+            ]
+          }
+        },
+        {
+          "name": "Keyboard",
+          "instanceID": 46988,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Keyboard",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              0.87,
+              1.15
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.7,
+              0.05,
+              0.22
+            ]
+          }
+        },
+        {
+          "name": "Screen line 0",
+          "instanceID": 46942,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Screen line 0",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -0.1,
+              1.53,
+              1.635
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.55,
+              0.018,
+              0.01
+            ]
+          }
+        },
+        {
+          "name": "Screen line 1",
+          "instanceID": 46856,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Screen line 1",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -0.1,
+              1.43,
+              1.635
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.55,
+              0.018,
+              0.01
+            ]
+          }
+        },
+        {
+          "name": "Screen line 2",
+          "instanceID": 46896,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Screen line 2",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -0.1,
+              1.32999992,
+              1.635
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.55,
+              0.018,
+              0.01
+            ]
+          }
+        },
+        {
+          "name": "Screen line 3",
+          "instanceID": 46760,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Screen line 3",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -0.1,
+              1.23,
+              1.635
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.55,
+              0.018,
+              0.01
+            ]
+          }
+        },
+        {
+          "name": "Task monitor",
+          "instanceID": 46952,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Task monitor",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "ProtectedRegion"
+          ],
+          "transform": {
+            "position": [
+              0.0,
+              1.35,
+              1.62
+            ],
+            "rotation": [
+              0.0,
+              180.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Bookshelf",
+          "instanceID": 46740,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Bookshelf",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              2.8,
+              1.0,
+              3.8
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              1.2,
+              2.0,
+              0.35
+            ]
+          }
+        },
+        {
+          "name": "Book 0",
+          "instanceID": 46932,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Book 0",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              2.35,
+              1.3,
+              3.53
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.08,
+              0.4,
+              0.18
+            ]
+          }
+        },
+        {
+          "name": "Book 1",
+          "instanceID": 46978,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Book 1",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              2.49,
+              1.3,
+              3.53
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.08,
+              0.4,
+              0.18
+            ]
+          }
+        },
+        {
+          "name": "Book 2",
+          "instanceID": 46770,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Book 2",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              2.62999988,
+              1.3,
+              3.53
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.08,
+              0.4,
+              0.18
+            ]
+          }
+        },
+        {
+          "name": "Book 3",
+          "instanceID": 46786,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Book 3",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              2.77,
+              1.3,
+              3.53
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.08,
+              0.4,
+              0.18
+            ]
+          }
+        },
+        {
+          "name": "Book 4",
+          "instanceID": 46886,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Book 4",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              2.90999985,
+              1.3,
+              3.53
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.08,
+              0.4,
+              0.18
+            ]
+          }
+        },
+        {
+          "name": "Book 5",
+          "instanceID": 46704,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Book 5",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              3.05,
+              1.3,
+              3.53
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.08,
+              0.4,
+              0.18
+            ]
+          }
+        },
+        {
+          "name": "Book 6",
+          "instanceID": 46836,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Book 6",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              3.18999982,
+              1.3,
+              3.53
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.08,
+              0.4,
+              0.18
+            ]
+          }
+        },
+        {
+          "name": "Conversation partner torso",
+          "instanceID": 46730,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Conversation partner torso",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "BoxCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -1.5,
+              1.11999989,
+              1.6
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.5,
+              0.75,
+              0.3
+            ]
+          }
+        },
+        {
+          "name": "Conversation partner head",
+          "instanceID": 46826,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Conversation partner head",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "SphereCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -1.5,
+              1.67,
+              1.6
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.3,
+              0.4,
+              0.28
+            ]
+          }
+        },
+        {
+          "name": "Protected partner face",
+          "instanceID": 46916,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Protected partner face",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "ProtectedRegion"
+          ],
+          "transform": {
+            "position": [
+              -1.5,
+              1.67,
+              1.44
+            ],
+            "rotation": [
+              0.0,
+              180.0,
+              0.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Plant pot",
+          "instanceID": 46906,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Plant pot",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "CapsuleCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -3.0,
+              0.25,
+              3.4
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.45,
+              0.5,
+              0.45
+            ]
+          }
+        },
+        {
+          "name": "Plant leaves",
+          "instanceID": 46694,
+          "activeSelf": true,
+          "activeInHierarchy": true,
+          "tag": "Untagged",
+          "layer": 0,
+          "isStatic": false,
+          "path": "Plant leaves",
+          "childCount": 0,
+          "childrenTruncated": false,
+          "childrenCursor": null,
+          "childrenPageSizeDefault": 200,
+          "componentTypes": [
+            "Transform",
+            "MeshFilter",
+            "SphereCollider",
+            "MeshRenderer"
+          ],
+          "transform": {
+            "position": [
+              -3.0,
+              0.9,
+              3.4
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "scale": [
+              0.8,
+              1.1,
+              0.65
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "isError": false
+}

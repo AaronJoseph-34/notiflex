@@ -1,0 +1,11 @@
+PASS Empty room admits a visual candidate
+PASS Lost tracking rejects every spatial candidate
+PASS Stale pose rejects every spatial candidate
+PASS Wall blocks all candidate sight volumes
+PASS Blocked view uses allowed audio fallback
+PASS Blocked conversational view defers
+PASS Initial collider overlap rejects candidates too
+PASS Protected face makes all overlapping candidates ineligible
+PASS Protected hazard makes all overlapping candidates ineligible
+PASS Nearer face still blocks projected overlay without real-room depth occlusion
+PASS Nearer hazard still blocks projected overlay

@@ -1,0 +1,19 @@
+{
+  "name": "Notiflex.Editor",
+  "references": [
+    "Notiflex.Runtime",
+    "Unity.XR.Management",
+    "Unity.XR.Management.Editor",
+    "Unity.XR.OpenXR",
+    "Unity.XR.OpenXR.Editor",
+    "Oculus.VR",
+    "Oculus.VR.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": true
+}

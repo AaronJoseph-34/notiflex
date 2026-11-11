@@ -1,0 +1,8 @@
+{
+  "name": "Notiflex.Runtime",
+  "references": [
+    "Oculus.VR",
+    "UnityEngine.UI"
+  ],
+  "autoReferenced": true
+}

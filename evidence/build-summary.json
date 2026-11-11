@@ -1,0 +1,27 @@
+{
+  "version": "0.3.0",
+  "unity": "6000.4.7f1",
+  "macBuild": "Succeeded",
+  "androidBuild": "Succeeded",
+  "nunitGroupsPassed": 3,
+  "policyChecksPassed": 40,
+  "scoreCombinations": 864,
+  "spatialScenarios": 486,
+  "failureChecksPassed": 11,
+  "runtimeAssertionsPassed": 68,
+  "physicalQuestAcceptance": "Pending hardware",
+  "sourceFiles": {
+    "UnityProject/Assets/Notiflex/Editor/BuildPrivacy.cs": "a43ac3eccd293877e67ae2cb351cf6329722060eb3f6148bfb2cbb46385e3fc2",
+    "UnityProject/Assets/Notiflex/Editor/Checks.cs": "541459289c1552363b356401c32252f69bae7982b9a57b645a54660de53d1e01",
+    "UnityProject/Assets/Notiflex/Editor/PlatformBuilder.cs": "d25c3baf9c2bcb0328137c46eb3012cb91a2f4fc6dc654f786d718bddff2369d",
+    "UnityProject/Assets/Notiflex/Runtime/EnvironmentBindings.cs": "d449d0e389a02dac3f7eb155996ccc8c4f322f4af3972c20ec51a62cf01eedef",
+    "UnityProject/Assets/Notiflex/Runtime/NotificationView.cs": "3efb408027fd01fa73c06664c7c08e62af1b7ecb00d25a80efd24613f3b9039f",
+    "UnityProject/Assets/Notiflex/Runtime/NotiflexRuntime.cs": "dbdf83c61e67de90cbc3efa532d3bcf3c86b052869db5c66603ca4e8ddc17930",
+    "UnityProject/Assets/Notiflex/Runtime/PlacementPolicy.cs": "67d57b97e129fa7d928420c1ef72a905f098cca99db7c191a8f5a5243d4a1b10",
+    "UnityProject/Assets/Notiflex/Runtime/ProtectedRegion.cs": "e0f3e116b6d3a7eff7105b5e102121c40942daf70da1d99621a8ceea744b5ac9",
+    "UnityProject/Assets/Notiflex/Runtime/RuntimeAudit.cs": "37412b960dd73b09e0821bd9a611730c544e898720dfaaba623f1f4f1e1fa0c2",
+    "UnityProject/Assets/Notiflex/Runtime/SpatialEvaluator.cs": "3c596c423b796b3d36152407f75e9559714e2dfd45249978d083fe865a6f48ef"
+  },
+  "renderFootprintAssertionsPassed": 9,
+  "macZipSignatureRoundTrip": "Passed"
+}

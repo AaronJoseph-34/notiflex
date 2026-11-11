@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "fastmcp": {
+      "wrap_result": true
+    }
+  },
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job status retrieved.\",\"error\":null,\"data\":{\"job_id\":\"21f6c7f96b71488c92d42465cf5ad2c0\",\"status\":\"succeeded\",\"mode\":\"EditMode\",\"started_unix_ms\":1794379324894,\"finished_unix_ms\":1794379325214,\"last_update_unix_ms\":1794379325214,\"progress\":{\"completed\":3,\"total\":3,\"current_test_full_name\":null,\"current_test_started_unix_ms\":null,\"last_finished_test_full_name\":\"Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases\",\"last_finished_unix_ms\":1794379325209,\"stuck_suspected\":false,\"editor_is_focused\":true,\"run_in_background\":true,\"focus_nudge_attempts\":null,\"focus_nudge_limit\":null,\"focus_nudge_status\":null,\"blocked_reason\":null,\"failures_so_far\":[],\"failures_capped\":false},\"error\":null,\"result\":{\"mode\":\"EditMode\",\"summary\":{\"total\":3,\"passed\":3,\"failed\":0,\"skipped\":0,\"durationSeconds\":0.1449429,\"resultState\":\"Passed\"},\"results\":[{\"name\":\"PolicyRulesAndBoundedScores\",\"fullName\":\"Notiflex.VR.Editor.PolicyTests.PolicyRulesAndBoundedScores\",\"state\":\"Passed\",\"durationSeconds\":0.0057728,\"message\":null,\"stackTrace\":null,\"output\":\"NOTIFLEX_POLICY_PASS 40\\n\"},{\"name\":\"RoomGeometryAndSpatialConstraints\",\"fullName\":\"Notiflex.VR.Editor.PolicyTests.RoomGeometryAndSpatialConstraints\",\"state\":\"Passed\",\"durationSeconds\":0.103666,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SpatialFailureAndTrackingCases\",\"fullName\":\"Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases\",\"state\":\"Passed\",\"durationSeconds\":0.0252157,\"message\":null,\"stackTrace\":null,\"output\":\"\"}]}},\"hint\":null}",
+      "annotations": null,
+      "meta": null
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "21f6c7f96b71488c92d42465cf5ad2c0",
+        "status": "succeeded",
+        "mode": "EditMode",
+        "started_unix_ms": 1794379324894,
+        "finished_unix_ms": 1794379325214,
+        "last_update_unix_ms": 1794379325214,
+        "progress": {
+          "completed": 3,
+          "total": 3,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases",
+          "last_finished_unix_ms": 1794379325209,
+          "stuck_suspected": false,
+          "editor_is_focused": true,
+          "run_in_background": true,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "EditMode",
+          "summary": {
+            "total": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "durationSeconds": 0.1449429,
+            "resultState": "Passed"
+          },
+          "results": [
+            {
+              "name": "PolicyRulesAndBoundedScores",
+              "fullName": "Notiflex.VR.Editor.PolicyTests.PolicyRulesAndBoundedScores",
+              "state": "Passed",
+              "durationSeconds": 0.0057728,
+              "message": null,
+              "stackTrace": null,
+              "output": "NOTIFLEX_POLICY_PASS 40\n"
+            },
+            {
+              "name": "RoomGeometryAndSpatialConstraints",
+              "fullName": "Notiflex.VR.Editor.PolicyTests.RoomGeometryAndSpatialConstraints",
+              "state": "Passed",
+              "durationSeconds": 0.103666,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SpatialFailureAndTrackingCases",
+              "fullName": "Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases",
+              "state": "Passed",
+              "durationSeconds": 0.0252157,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

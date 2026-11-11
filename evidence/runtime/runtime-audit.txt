@@ -1,0 +1,69 @@
+PASS Desk runtime and scene bindings exist
+PASS Desk has exactly one persistent runtime
+PASS Desk starts with no notification
+PASS Desk infers Focus after dwell
+PASS Desk Focus chooses Visual
+PASS Desk Focus visibility matches delivery
+PASS Desk Focus has a valid scored placement
+PASS Desk Focus read expands to visual
+PASS Desk Focus dismissal clears notification
+PASS Desk infers Physical after dwell
+PASS Desk Physical chooses SpatialAudio
+PASS Desk Physical visibility matches delivery
+PASS Desk Physical has a valid scored placement
+PASS Desk Physical read expands to visual
+PASS Desk Physical dismissal clears notification
+PASS Desk infers Conversation after dwell
+PASS Desk Conversation chooses Peripheral
+PASS Desk Conversation visibility matches delivery
+PASS Desk Conversation has a valid scored placement
+PASS Desk Conversation read expands to visual
+PASS Desk Conversation dismissal clears notification
+PASS Kitchen runtime and scene bindings exist
+PASS Kitchen has exactly one persistent runtime
+PASS Kitchen starts with no notification
+PASS Kitchen infers Focus after dwell
+PASS Kitchen Focus chooses Visual
+PASS Kitchen Focus visibility matches delivery
+PASS Kitchen Focus has a valid scored placement
+PASS Kitchen Focus read expands to visual
+PASS Kitchen Focus dismissal clears notification
+PASS Kitchen infers Physical after dwell
+PASS Kitchen Physical chooses SpatialAudio
+PASS Kitchen Physical visibility matches delivery
+PASS Kitchen Physical has a valid scored placement
+PASS Kitchen Physical read expands to visual
+PASS Kitchen Physical dismissal clears notification
+PASS Kitchen infers Conversation after dwell
+PASS Kitchen Conversation chooses Peripheral
+PASS Kitchen Conversation visibility matches delivery
+PASS Kitchen Conversation has a valid scored placement
+PASS Kitchen Conversation read expands to visual
+PASS Kitchen Conversation dismissal clears notification
+PASS LivingRoom runtime and scene bindings exist
+PASS LivingRoom has exactly one persistent runtime
+PASS LivingRoom starts with no notification
+PASS LivingRoom infers Focus after dwell
+PASS LivingRoom Focus chooses Visual
+PASS LivingRoom Focus visibility matches delivery
+PASS LivingRoom Focus has a valid scored placement
+PASS LivingRoom Focus read expands to visual
+PASS LivingRoom Focus dismissal clears notification
+PASS LivingRoom infers Physical after dwell
+PASS LivingRoom Physical chooses SpatialAudio
+PASS LivingRoom Physical visibility matches delivery
+PASS LivingRoom Physical has a valid scored placement
+PASS LivingRoom Physical read expands to visual
+PASS LivingRoom Physical dismissal clears notification
+PASS LivingRoom infers Conversation after dwell
+PASS LivingRoom Conversation chooses Peripheral
+PASS LivingRoom Conversation visibility matches delivery
+PASS LivingRoom Conversation has a valid scored placement
+PASS LivingRoom Conversation read expands to visual
+PASS LivingRoom Conversation dismissal clears notification
+PASS Replacement keeps one active notification
+PASS Notification expires after 16 seconds
+PASS Notification is active before scene switch
+PASS Passthrough scene switch clears prior notification
+PASS Passthrough contains no simulated room renderers
+COMPLETE desktop player lifecycle audit; headset tracking and compositor require physical hardware

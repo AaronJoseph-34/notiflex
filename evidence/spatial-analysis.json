@@ -1,0 +1,77 @@
+{
+  "scenarioCount": 486,
+  "minimumSelectionVerified": true,
+  "evaluationMilliseconds": {
+    "median": 0.025299999862909317,
+    "p95": 0.039400000125169754,
+    "max": 5.884799957275391
+  },
+  "selections": {
+    "Focus/Low": {
+      "View left": 28,
+      "View right": 17,
+      "View upper": 3,
+      "Referent left": 2,
+      "Referent right": 4
+    },
+    "Focus/Normal": {
+      "View left": 28,
+      "View right": 17,
+      "View upper": 3,
+      "Referent right": 5,
+      "Referent left": 1
+    },
+    "Focus/Urgent": {
+      "View upper": 51,
+      "Referent right": 1,
+      "Referent left": 2
+    },
+    "Physical/Low": {
+      "View center": 43,
+      "View upper": 8,
+      "View left": 1,
+      "View right": 1,
+      "Referent left": 1
+    },
+    "Physical/Normal": {
+      "View center": 43,
+      "View upper": 8,
+      "View left": 1,
+      "View right": 1,
+      "Referent left": 1
+    },
+    "Physical/Urgent": {
+      "View center": 44,
+      "View upper": 8,
+      "Referent right": 1,
+      "Referent left": 1
+    },
+    "Conversation/Low": {
+      "View right": 5,
+      "View upper": 5,
+      "Referent left": 5,
+      "Referent right": 2,
+      "View left": 11,
+      "View center": 23,
+      "Partner left": 1,
+      "Partner right": 2
+    },
+    "Conversation/Normal": {
+      "View right": 14,
+      "View upper": 6,
+      "Referent left": 3,
+      "Referent right": 2,
+      "View left": 15,
+      "View center": 7,
+      "Partner left": 4,
+      "Partner right": 3
+    },
+    "Conversation/Urgent": {
+      "View center": 41,
+      "View upper": 8,
+      "Referent left": 3,
+      "Referent right": 2
+    }
+  },
+  "timingScope": "Mac Unity EditMode synchronous spatial evaluation, not headset frame timing"
+}
