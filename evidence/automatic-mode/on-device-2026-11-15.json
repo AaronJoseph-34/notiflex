@@ -1,0 +1,288 @@
+{
+  "date": "2026-11-15",
+  "model": "Quest 3S",
+  "appVersion": "0.4.0",
+  "versionCode": 3,
+  "apkSha256": "c98f2b19ef7bc6b5d213e971add6f2f7157fb56dd9ebb0a8b8fda14ed4eb87e3",
+  "installation": "Success; cold launch Status ok",
+  "cameraPermission": "HEADSET_CAMERA granted=true, USER_SET",
+  "operatorConfirmed": [
+    "camera permission allowed",
+    "notification visibly appears while looking toward work objects",
+    "A-only comparison: short cue facing away, full message after returning to screen"
+  ],
+  "observations": 447,
+  "observedClassIds": [
+    0,
+    62,
+    63,
+    64,
+    76
+  ],
+  "observedClasses": [
+    "person (unverified ground truth)",
+    "tvmonitor",
+    "laptop",
+    "mouse",
+    "scissors"
+  ],
+  "inferenceElapsedMs": {
+    "min": 248.39,
+    "median": 263.74,
+    "max": 278.13,
+    "interpretation": "sampled inference elapsed time across frames; not render frame time or a sustained benchmark"
+  },
+  "eventCounts": {
+    "decision": 123,
+    "camera_observation": 448,
+    "notification": 13,
+    "read_requested": 3,
+    "acknowledged": 5,
+    "expired": 3
+  },
+  "loggedDecisionSequence": [
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Focus",
+      "channel": "Visual",
+      "selected": "View left",
+      "contextReason": "work_object_and_stable_head_proxy"
+    },
+    {
+      "context": "Focus",
+      "channel": "Visual",
+      "selected": "View right",
+      "contextReason": "work_object_and_stable_head_proxy"
+    },
+    {
+      "context": "Focus",
+      "channel": "Visual",
+      "selected": "View upper",
+      "contextReason": "work_object_and_stable_head_proxy"
+    },
+    {
+      "context": "Focus",
+      "channel": "Visual",
+      "selected": "View right",
+      "contextReason": "work_object_and_stable_head_proxy"
+    },
+    {
+      "context": "Focus",
+      "channel": "Visual",
+      "selected": "View upper",
+      "contextReason": "work_object_and_stable_head_proxy"
+    },
+    {
+      "context": "Focus",
+      "channel": "Visual",
+      "selected": "View left",
+      "contextReason": "work_object_and_stable_head_proxy"
+    },
+    {
+      "context": "Focus",
+      "channel": "Visual",
+      "selected": "View right",
+      "contextReason": "work_object_and_stable_head_proxy"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "person_aligned_social_presence_proxy"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Conversation",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "person_aligned_social_presence_proxy"
+    },
+    {
+      "context": "Conversation",
+      "channel": "Peripheral",
+      "selected": "View center",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View right",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View right",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View right",
+      "contextReason": "insufficient_visual_evidence"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Deferred",
+      "selected": "none",
+      "contextReason": "no_fresh_camera_observation"
+    },
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "selected": "View right",
+      "contextReason": "work_object_and_stable_head_proxy"
+    }
+  ],
+  "visualContextTransitionConfirmation": "Passed controlled A-only text comparison; operator confirmed text changes. Explicit trigger-read overrides the cue as intended.",
+  "remainingChecks": [
+    "person/social-presence ground truth and screen/poster false positives",
+    "physical-task proxy with tracked-controller motion and supported object",
+    "projected person/object alignment and stereo legibility",
+    "pause/resume, permission denial and manual/auto toggles",
+    "sustained CPU/GPU frame times, thermal behavior and comfort"
+  ],
+  "privacy": "Only aggregate derived observations saved to repository; raw session logs remain local and no camera images were recorded.",
+  "confirmedDeliveryPairs": [
+    {
+      "context": "Unknown",
+      "channel": "Peripheral",
+      "notificationEvents": 6
+    },
+    {
+      "context": "Focus",
+      "channel": "Visual",
+      "notificationEvents": 7
+    }
+  ],
+  "controlledComparisonNotifications": [
+    {
+      "context": "Unknown",
+      "priority": "Normal",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "detectedClasses": []
+    },
+    {
+      "context": "Unknown",
+      "priority": "Normal",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "detectedClasses": []
+    },
+    {
+      "context": "Unknown",
+      "priority": "Normal",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "detectedClasses": []
+    },
+    {
+      "context": "Unknown",
+      "priority": "Normal",
+      "channel": "Peripheral",
+      "selected": "View left",
+      "detectedClasses": [
+        63
+      ]
+    },
+    {
+      "context": "Focus",
+      "priority": "Normal",
+      "channel": "Visual",
+      "selected": "View right",
+      "detectedClasses": [
+        63,
+        62
+      ]
+    }
+  ]
+}
