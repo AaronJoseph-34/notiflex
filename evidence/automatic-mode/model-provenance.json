@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/oculus-samples/Unity-PassthroughCameraApiSamples",
+  "commit": "3baac1a1a53aa00af3f639425914f14238a97f84",
+  "sourcePath": "Assets/PassthroughCameraApiSamples/MultiObjectDetection/SentisInference/Model/yolov9sentis.sentis",
+  "sha256": "cc25e14d60a90efeddaeedcc5a666c342345e722b281a3f6e73c692adb796b21",
+  "bytes": 2365288,
+  "input": "RGB NCHW float32 [0,1], 640x640",
+  "preprocessing": "aspect preserving letterbox 114/255; invert content rectangle and Y origin for rays",
+  "classes": 80
+}

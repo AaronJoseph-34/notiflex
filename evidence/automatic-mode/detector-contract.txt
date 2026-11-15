@@ -1,0 +1,1 @@
+CPU inference passed: input 640x640; 8400 output proposals; finite boxes, COCO class range, bounded scores. Blank input is not an accuracy test.

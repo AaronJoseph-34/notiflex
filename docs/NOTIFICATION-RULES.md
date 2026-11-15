@@ -1,3 +1,5 @@
+> Version scope: the 35 rules below document the original supplied-context/manual baseline (0.3.x), including the corresponding Word manual. Version 0.4.0 adds optional automatic camera observations. [AUTOMATIC-MODE.md](AUTOMATIC-MODE.md) specifies the new input provenance, thresholds, motion proxies, validity rules and person-protection constraints; it supersedes manual-only statements when automatic mode is active. The baseline visual cost profiles and separate modality selection remain unchanged.
+
 # Notiflex notification placement and delivery rules
 
 Version 0.3 | November 11 2026 | Technical specification and experiment manual

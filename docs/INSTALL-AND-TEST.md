@@ -20,7 +20,7 @@ Wait at least 1.2 seconds after changing activity or head direction for context 
 
 ## Quest 3S installation
 
-Use a Quest developer account and enable Developer Mode through Meta's current device setup flow. Connect the awake headset to the computer with a USB data cable, put it on and accept its USB debugging prompt. No eye tracking or microphone permission is needed by this prototype.
+Use a Quest developer account and enable Developer Mode through Meta's current device setup flow. Connect the awake headset to the computer with a USB data cable, put it on and accept its USB debugging prompt. No eye tracking or microphone permission is needed. Version 0.4.0 automatic mode additionally requests headset camera permission inside the app.
 
 With Android platform-tools installed, run:
 
@@ -32,7 +32,7 @@ adb shell am start -n org.notiflex.prototype/com.unity3d.player.UnityPlayerGameA
 
 `adb devices` must show the device as `device`, not `unauthorized`. Alternatively, install the APK through Meta Quest Developer Hub's device application tools. Launch **Notiflex VR** from the headset's Unknown Sources/developer applications list. The Android package starts in **Passthrough**. Keep normal headset boundaries enabled.
 
-The app requests OS-composited passthrough; it does not request access to raw RGB camera frames. Live passthrough and stereo tracking must be confirmed on hardware. The installation commands can only be completed when a headset is available.
+The app uses OS-composited passthrough. Version 0.4.0 also requests access to the left RGB camera for local object inference in automatic mode. Accept the OS camera dialog to test it. The new camera mode still needs hardware acceptance; the earlier 0.3.1 passthrough and basic controls were confirmed on a Quest 3S.
 
 ## Quest controller controls
 
@@ -43,16 +43,19 @@ The app requests OS-composited passthrough; it does not request access to raw RG
 | Right trigger | Read/expand |
 | Left X | Cycle Passthrough → Desk → Kitchen → Living room |
 | Left Y | Cycle urgency: Normal → Urgent → Low |
-| Left stick click | Cycle supplied activity: Focus → Physical → Conversation → Unknown |
+| Left stick click | Switch to manual and cycle supplied activity: Focus → Physical → Conversation → Unknown |
+| Right stick click in Passthrough (0.4.0) | Toggle automatic camera/manual context |
 | Right stick up/down in Passthrough | Change annotation distance, 0.8–3.2 m; initial 2 m |
 | Right grip in Passthrough | Replace task annotation along right controller forward ray |
 | Left grip in Passthrough | Replace partner annotation along left controller forward ray |
 
-Controller annotations use an operator-selected ray distance. They are not measured surface hits. Set the distance deliberately and point toward the intended task/partner before pressing grip. There is no persistent spatial anchor mapping across app sessions. In live mode only the notification appears; annotations have no visible markers or headset control panel. Supply activity using the controller, then use the desktop inspector or logs to verify decisions.
+Controller annotations use an operator-selected ray distance. They are not measured surface hits. Set the distance deliberately and point toward the intended task/partner before pressing grip. There is no persistent spatial anchor mapping across app sessions. In live mode only the notification appears; annotations have no visible markers or headset control panel. Manual annotations switch live Passthrough to manual mode. In automatic mode, local detections provide context proxies and protected angular regions; use logs to verify decisions. See [automatic rules and tests](AUTOMATIC-MODE.md).
 
 Press A to create a notification before trying the right trigger. The trigger expands an active request; it does not create one. Virtual controller models are not drawn. Version 0.3.1 logs received actions as `NOTIFLEX_INPUT` and reports controller connection, position-tracking and VR focus changes as `NOTIFLEX_INPUT_STATUS` in Unity logcat. Return from the Quest system menu to the app before testing; controls intentionally do nothing while the menu owns focus.
 
 ## Demonstration sequence
+
+For these controlled simulation tests, use supplied activity as below. For automatic real-room checks, follow AUTOMATIC-MODE.md.
 
 1. **Focused work:** choose Desk, keep head toward the monitor, supply Focus, wait 1.5 seconds, press A/Space. Normal priority should display a full panel at a low-cost eligible location. Turn the head to change costs and observe the logged selection.
 2. **Physical task:** choose Kitchen, supply Physical, wait 1.5 seconds, send. Normal priority with audio enabled produces a positional chime and no panel. Trigger/E requests the visual card if geometry is eligible. The supplied hot-surface region constrains visual overlap.

@@ -2,7 +2,9 @@
   "name": "Notiflex.Runtime",
   "references": [
     "Oculus.VR",
-    "UnityEngine.UI"
+    "UnityEngine.UI",
+    "meta.xr.mrutilitykit",
+    "Unity.InferenceEngine"
   ],
   "autoReferenced": true
 }

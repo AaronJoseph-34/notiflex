@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-15",
+  "model": "Quest 3S",
+  "horizonOsVersion": 209,
+  "androidVersion": 14,
+  "androidApi": 34,
+  "usbDebugging": "authorized",
+  "cameraService": "left and right passthrough RGB sources enumerated via vendor tags; no images acquired",
+  "batteryPercent": 84,
+  "charging": true,
+  "availableStorageApproxGiB": 99,
+  "cameraFramesInNotiflex": "pending new build installation and OS permission",
+  "onDeviceInference": "pending",
+  "automaticContextAcceptance": "pending"
+}

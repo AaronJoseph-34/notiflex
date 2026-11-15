@@ -1,0 +1,39 @@
+{
+  "version": "0.4.0",
+  "versionCode": 3,
+  "sha256": "c98f2b19ef7bc6b5d213e971add6f2f7157fb56dd9ebb0a8b8fda14ed4eb87e3",
+  "bytes": 93625016,
+  "libraries": [
+    "lib/arm64-v8a/LibRuntimeOptimizer.so",
+    "lib/arm64-v8a/libOVRMetricsTool.so",
+    "lib/arm64-v8a/libOVRPlugin.so",
+    "lib/arm64-v8a/libUnityOpenXR.so",
+    "lib/arm64-v8a/libUnityOpenXRHands.so",
+    "lib/arm64-v8a/libXrApiLayer_METAX_operator.so",
+    "lib/arm64-v8a/libc++_shared.so",
+    "lib/arm64-v8a/libgame.so",
+    "lib/arm64-v8a/libloaderimpl.so",
+    "lib/arm64-v8a/libmain.so",
+    "lib/arm64-v8a/libmrutilitykitshared.so",
+    "lib/arm64-v8a/libopenxr_loader.so",
+    "lib/arm64-v8a/libswappywrapper.so",
+    "lib/arm64-v8a/lib_burst_generated.so",
+    "lib/arm64-v8a/libil2cpp.so",
+    "lib/arm64-v8a/libunity.so"
+  ],
+  "signature": "APK Signature Scheme v2 verified",
+  "cameraPermission": "horizonos.permission.HEADSET_CAMERA",
+  "microphonePermission": false,
+  "liveCameraAcceptance": "pending; not installed as part of the preflight",
+  "automatedTests": {
+    "groups": 6,
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0
+  },
+  "buildResult": "Succeeded",
+  "buildErrors": 0,
+  "buildWarnings": 35,
+  "androidInputBackend": "Input System only",
+  "activity": "com.unity3d.player.UnityPlayerGameActivity"
+}

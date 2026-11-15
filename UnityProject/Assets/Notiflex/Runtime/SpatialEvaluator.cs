@@ -9,8 +9,12 @@ namespace Notiflex.VR
     {
         public readonly List<PlacementResult> Results=new List<PlacementResult>();
         public Vector2 PanelSize=new Vector2(.62f,.29f);
-        public void Evaluate(Camera head,Transform referent,Transform partner,IList<ProtectedRegion> regions,ContextSnapshot context,Priority priority,int words)
+        IList<ViewportRegion> cameraRegions;
+        Vector3? observedPartner;
+        public void Evaluate(Camera head,Transform referent,Transform partner,IList<ProtectedRegion> regions,ContextSnapshot context,Priority priority,int words,
+            IList<ViewportRegion> observedRegions=null,Vector3? partnerDirection=null)
         {
+            cameraRegions=observedRegions;observedPartner=partnerDirection;
             Results.Clear();
             var h=head.transform;
             Add("View center",h.TransformPoint(new Vector3(0,0,1.8f)),head,partner,regions,context,priority,words);
@@ -33,7 +37,7 @@ namespace Notiflex.VR
             Transform h=head.transform;
             Vector3 direction=position-h.position;
             var r=new PlacementResult { id=id,position=position,distance=direction.magnitude,headAngle=Vector3.Angle(h.forward,direction),
-                partnerAngle=partner==null?0:Vector3.Angle(partner.position-h.position,direction),eligible=true,rejected="" };
+                partnerAngle=observedPartner.HasValue?Vector3.Angle(observedPartner.Value,direction):partner==null?0:Vector3.Angle(partner.position-h.position,direction),eligible=true,rejected="" };
             Results.Add(r);
             if(!context.poseValid || !PlacementPolicy.Finite(context.age) || context.age<0 || context.age>PlacementPolicy.MaxContextAge) PlacementPolicy.Reject(r,"invalid_or_stale_pose");
             else if(r.distance<PlacementPolicy.MinDistance || r.distance>PlacementPolicy.MaxDistance) PlacementPolicy.Reject(r,"reading_distance");
@@ -52,7 +56,7 @@ namespace Notiflex.VR
                         if(v.z<=0 || v.x<.04f || v.x>.96f || v.y<.04f || v.y>.96f) PlacementPolicy.Reject(r,"outside_stereo_view");
                     }
             }
-            foreach(var region in regions)
+            if(regions!=null)foreach(var region in regions)
             {
                 if(region==null || !region.isActiveAndEnabled) continue;
                 Rect protectedRect;
@@ -66,6 +70,18 @@ namespace Notiflex.VR
                 if(region.kind==RegionKind.Hazard)r.hazardCoverage=Mathf.Max(r.hazardCoverage,coverage);
                 if(region.kind==RegionKind.Face && coverage>PlacementPolicy.MaxFaceCoverage) PlacementPolicy.Reject(r,"face_coverage");
                 if(region.kind==RegionKind.Hazard && coverage>PlacementPolicy.MaxHazardCoverage) PlacementPolicy.Reject(r,"hazard_coverage");
+            }
+            if(cameraRegions!=null)foreach(var region in cameraRegions)
+            {
+                float coverage=PlacementPolicy.Coverage(panel,region.rect);r.occlusion=Mathf.Max(r.occlusion,coverage);
+                if(region.kind==RegionKind.Face)
+                {
+                    r.faceCoverage=Mathf.Max(r.faceCoverage,coverage);
+                    // A full-person box is not a detected face. Reject essentially
+                    // any overlap; normalizing by a large person box alone could
+                    // otherwise permit a small card directly over their head.
+                    if(coverage>1e-5f)PlacementPolicy.Reject(r,"camera_person_coverage");
+                }
             }
             // A swept rectangular prism conservatively contains all head-to-panel rays.
             // It rejects more than a visibility pyramid, but does not miss thin occluders

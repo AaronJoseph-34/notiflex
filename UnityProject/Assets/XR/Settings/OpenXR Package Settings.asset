@@ -277,7 +277,7 @@ MonoBehaviour:
   - {fileID: 2577528373984641698}
   customLoaderName: 
   m_renderMode: 1
-  m_latencyOptimization: 0
+  m_latencyOptimization: 1
   m_autoColorSubmissionMode: 1
   m_colorSubmissionModes:
     m_List: 00000000
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   m_symmetricProjection: 0
   systemSplashScreen: {fileID: 0}
   enableSystemKeyboard: 0
-  m_optimizeBufferDiscards: 1
+  m_optimizeBufferDiscards: 0
   lateLatchingMode: 0
   lateLatchingDebug: 0
   optimizeMultiviewRenderRegions: 0

@@ -4,6 +4,14 @@ Original software baseline: version 0.3.0 · November 11, 2026 · Mac developmen
 
 The original Android APK and Mac player were built successfully. No Quest was attached for the November 11 software baseline. On November 15, version 0.3.1 was built, installed and launched on a physical Quest 3S: passthrough and A/trigger/B/X behavior were confirmed by the operator and app logs. The three Unity MCP regression groups passed again. See the [controller fix record](CONTROLLER-FIX-0.3.1.md) for exact evidence and scope. This is not a certification of flawless VR behavior or a validation of human interruption costs.
 
+## Automatic-mode 0.4.0 software addendum — November 15
+
+The new camera code imports and compiles with MRUK 209.0.0 and Unity Inference Engine 2.2.1. The Android development APK builds with zero errors and its v2 signature, camera permission, ARM64 libraries and single GameActivity manifest entry were verified; remaining warnings are recorded in the versioned evidence. All six EditMode groups passed with zero skips/failures, including the actual bundled model on CPU, the original 486 spatial scenarios and automatic evidence/freshness, letterbox/Y-origin mapping, class-aware NMS and person protection. Evidence is separated under `evidence/automatic-mode/`; original release evidence remains intact.
+
+Three supplied photos were processed locally with both stretched and aspect-preserving inputs. Letterboxing fixed the desk-image detection miss: keyboard 0.905 and mouse 0.757 versus neither above the 0.50 acceptance threshold when stretched. Person scores were approximately 0.826 in the portrait and 0.646 in the mechanic image. Those detections do not validate live camera alignment or identify a conversation/repair task. See `reference-image-probe.json`.
+
+Physical prerequisite checks confirm Quest 3S, Horizon OS v209, authorized USB debugging, both passthrough camera sources, sufficient battery and storage. New camera permission, actual frames, live inference, context transitions, overlay alignment, stereo comfort and sustained performance remain pending for version 0.4.0. [Automatic rules and hardware procedure](AUTOMATIC-MODE.md) specify the acceptance gates.
+
 ## Completed software checks
 
 | Check | Result | Evidence |

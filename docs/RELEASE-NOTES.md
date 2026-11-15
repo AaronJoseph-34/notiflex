@@ -1,3 +1,15 @@
+# Notiflex VR 0.4.0 — experimental automatic camera mode
+
+Adds local Quest camera acquisition, a bundled object detector and explicit context heuristics for focused viewing, controller-assisted physical-task activity and possible social interaction. Existing normalized placement costs and separate delivery selection remain intact. No cloud service or microphone capture is used.
+
+Automatic mode starts in live Passthrough after the camera permission dialog. Right stick click toggles manual/automatic; left stick click or either grip annotation returns to manual. Authored rooms remain supplied-context simulations. The headset view retains only the room and notification.
+
+Six Unity MCP test groups passed. Offline tests on the three supplied photos exposed a desk detection miss caused by stretched input; aspect-preserving letterboxing recovered keyboard/mouse detections. Coordinate inversion and person-protection tests passed. These are software results; live camera behavior and performance require hardware acceptance before making reliability claims.
+
+The physical Quest 3S prerequisite checks passed on Horizon OS v209. This version's camera permission, live frames, detections, automatic switching, placement alignment and thermal performance remain pending. The earlier 0.3.1 A/trigger/B/X controls were confirmed on hardware.
+
+This is a research development build. Social interaction is inferred from a large aligned person, not detected speech or a confirmed conversation. Physical mode currently requires tracked-controller motion with a supported visible object; it is not a finished hands-free action recognizer. The camera pipeline has no metric room reconstruction or automatic hazard recognition. See AUTOMATIC-MODE.md for every coefficient, limitation and test step.
+
 # Notiflex VR 0.3.1 — Quest controller fix
 
 Fixes unresponsive A/B/X/Y, trigger and grip polling by reading Meta XR Core OVRInput after its frame update. Adds controller connection/focus and action diagnostics, and corrects controller annotation positions to use the rig tracking space. Placement scores and modality rules are unchanged.

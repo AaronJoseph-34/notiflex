@@ -108,8 +108,10 @@ namespace Notiflex.VR.Editor
         [MenuItem("Notiflex/Configure Quest build")]
         public static void ConfigureQuest()
         {
-            PlayerSettings.companyName="Notiflex Research";PlayerSettings.productName="Notiflex VR";PlayerSettings.bundleVersion="0.3.1";
-            PlayerSettings.Android.bundleVersionCode=2;
+            PlayerSettings.companyName="Notiflex Research";PlayerSettings.productName="Notiflex VR";PlayerSettings.bundleVersion="0.4.0";
+            PlayerSettings.Android.bundleVersionCode=3;
+            PlayerSettings.defaultInterfaceOrientation=UIOrientation.LandscapeLeft;
+            PlayerSettings.Android.applicationEntry=AndroidApplicationEntry.GameActivity;
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android,"org.notiflex.prototype");
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Standalone,"org.notiflex.prototype");
             PlayerSettings.Android.minSdkVersion=AndroidSdkVersions.AndroidApiLevel32;
@@ -120,6 +122,8 @@ namespace Notiflex.VR.Editor
             var meta=OVRProjectConfig.CachedProjectConfig;
             meta.targetDeviceTypes=new List<OVRProjectConfig.DeviceType>{OVRProjectConfig.DeviceType.Quest3S,OVRProjectConfig.DeviceType.Quest3};
             meta.insightPassthroughSupport=OVRProjectConfig.FeatureSupport.Supported;
+            meta.isPassthroughCameraAccessEnabled=true;
+            meta.systemLoadingScreenBackground=OVRProjectConfig.SystemLoadingScreenBackground.ContextualPassthrough;
             meta.handTrackingSupport=OVRProjectConfig.HandTrackingSupport.ControllersOnly;
             OVRProjectConfig.CommitProjectConfig(meta);
             PlayerSettings.runInBackground=true;PlayerSettings.defaultScreenWidth=1440;PlayerSettings.defaultScreenHeight=900;
@@ -127,7 +131,7 @@ namespace Notiflex.VR.Editor
             PlayerSettings.fullScreenMode=FullScreenMode.Windowed;PlayerSettings.MTRendering=false;
             PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android,false);PlayerSettings.SetGraphicsAPIs(BuildTarget.Android,new[]{UnityEngine.Rendering.GraphicsDeviceType.OpenGLES3});
             var serialized=new SerializedObject(Unsupported.GetSerializedAssetInterfaceSingleton("PlayerSettings"));
-            var input=serialized.FindProperty("activeInputHandler");if(input!=null)input.intValue=2;
+            var input=serialized.FindProperty("activeInputHandler");if(input!=null)input.intValue=1;
             // Meta Core references Unity's microphone API even though this app does not capture it.
             // Unity's Mac build scanner requires this description; it does not grant permission.
             var microphone=serialized.FindProperty("microphoneUsageDescription");
@@ -149,14 +153,25 @@ namespace Notiflex.VR.Editor
             {
                 string type=f.GetType().Name;
                 if(type=="MetaXRFeature" || type=="MetaQuestFeature" || type.Contains("OculusTouchControllerProfile") || type.Contains("TouchPlusControllerProfile"))f.enabled=true;
+                if(type=="MetaQuestFeature")
+                {
+                    var settings=new SerializedObject(f);var discard=settings.FindProperty("m_optimizeBufferDiscards");
+                    if(discard!=null){discard.boolValue=false;settings.ApplyModifiedPropertiesWithoutUndo();}
+                }
                 evidence.Add(type+"="+f.enabled);
             }
+            xr.optimizeBufferDiscards=false;
+            xr.latencyOptimization=OpenXRSettings.LatencyOptimization.PrioritizeInputPolling;
             Directory.CreateDirectory(Root+"/evidence");File.WriteAllLines(Root+"/evidence/openxr-features.txt",evidence);
             EditorUtility.SetDirty(general);EditorUtility.SetDirty(general.Manager);EditorUtility.SetDirty(xr);AssetDatabase.SaveAssets();
         }
         public static void BuildMac()
         {
             AuthorScenes();ConfigureQuest();Checks.Run();
+            // Both input backends are supported on desktop; the simulation uses
+            // legacy keyboard input. Android uses only the new input backend.
+            var settings=new SerializedObject(Unsupported.GetSerializedAssetInterfaceSingleton("PlayerSettings"));
+            settings.FindProperty("activeInputHandler").intValue=2;settings.ApplyModifiedPropertiesWithoutUndo();
             Directory.CreateDirectory(Root+"/Builds");
             var r=BuildPipeline.BuildPlayer(EditorBuildSettings.scenes,Root+"/Builds/NotiflexVR.app",BuildTarget.StandaloneOSX,BuildOptions.Development);
             if(r.summary.result!=BuildResult.Succeeded)throw new Exception("Mac build failed");

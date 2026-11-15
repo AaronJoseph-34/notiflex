@@ -1,10 +1,10 @@
 # Meta Quest 3S platform assessment
 
-Checked against Meta's documentation on November 11, 2026.
+Original assessment November 11; camera integration checked November 15, 2026. Physical Quest 3S reports Horizon OS v209 and Android 14/API 34.
 
 Quest 3S supports six-degree-of-freedom head tracking, Touch Plus controller input, hand tracking and color stereoscopic passthrough. Meta lists head/hand tracking for Quest 3S; this implementation uses head orientation and does not enable eye-gaze tracking. See [Meta's device comparison](https://developers.meta.com/vr/essentials/compare-devices/).
 
-Standard passthrough is composited by the OS behind app content. Raw camera-frame access is a separate capability with its own permissions and policies. The MVP uses standard passthrough, with no camera-frame processing. See [Meta's passthrough overview](https://developers.meta.com/vr/essentials/horizon-os-passthrough/).
+Standard passthrough is composited by the OS behind app content. Raw camera-frame access is a separate capability with its own permissions and policies. Version 0.4.0 adds optional local camera-frame processing through MRUK, with its separate camera permission; the original 0.3.x builds use composition only. See [Meta's passthrough overview](https://developers.meta.com/vr/essentials/horizon-os-passthrough/).
 
 Meta's [Unity passthrough tutorial](https://developers.meta.com/vr/documentation/unity/unity-passthrough-tutorial/) includes Quest 3S, macOS development, Android builds, Unity OpenXR and the Meta XR Core SDK. Those capabilities make this stack suitable for a standalone prototype.
 
@@ -12,7 +12,8 @@ Meta's [Unity passthrough tutorial](https://developers.meta.com/vr/documentation
 
 - Unity 6000.4.7f1; built-in renderer with linear color space.
 - Unity OpenXR 1.19.0; Android loader initializes on startup.
-- Meta XR Core SDK 209.0.0; OVR tracked rig and passthrough underlay.
+- Meta XR Core SDK/MRUK 209.0.0; OVR tracked rig, passthrough underlay and PassthroughCameraAccess.
+- Unity Inference Engine 2.2.1; bundled quantized YOLOv9t model, CPU backend, aspect-preserving GPU preprocessing.
 - Android ARM64, IL2CPP, OpenGLES3; minimum API 32, target API 35.
 - Version 0.3.1 reads Touch controller buttons and annotation poses through Meta XR Core's OVRInput, in LateUpdate after OVRManager refreshes its input state. Actions are suppressed while system menus own VR focus. No Interaction SDK dependency is needed for these controls.
 - Unity MCP v10.3.0 for editor authoring, inspection and tests.
@@ -21,4 +22,4 @@ Meta's [Unity passthrough tutorial](https://developers.meta.com/vr/documentation
 
 The application must be foregrounded as its own immersive app. It is not a system-wide notification overlay injected into other Quest applications. Live mode displays only its notification over the real room. Simulated modes provide authored geometry and annotations for repeatable algorithm tests.
 
-Hand tracking is a device capability but this build deliberately uses controllers. No speech detector, arbitrary-room object detector, live face detector, fitted activity classifier, or raw-camera processing pipeline is included. Room geometry in passthrough is not automatically reconstructed; only the supplied task/partner rectangles constrain projected occlusion. Unannotated objects and hazards are not detected. A future sensing adapter can provide those inputs while retaining the policy's units and validity contract.
+Hand tracking is a device capability but this build deliberately uses controllers. Experimental camera mode provides a limited COCO object detector and heuristic context proxies. It includes no speech detector, face detector, identity recognition or fitted activity classifier. Passthrough geometry is not automatically reconstructed: automatic mode protects angular detection boxes without claiming metric depth, and manual mode uses supplied rectangles. Unsupported objects and hazards can be missed. Live camera-mode hardware acceptance is pending; see AUTOMATIC-MODE.md.
