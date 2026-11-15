@@ -108,7 +108,8 @@ namespace Notiflex.VR.Editor
         [MenuItem("Notiflex/Configure Quest build")]
         public static void ConfigureQuest()
         {
-            PlayerSettings.companyName="Notiflex Research";PlayerSettings.productName="Notiflex VR";PlayerSettings.bundleVersion="0.3.0";
+            PlayerSettings.companyName="Notiflex Research";PlayerSettings.productName="Notiflex VR";PlayerSettings.bundleVersion="0.3.1";
+            PlayerSettings.Android.bundleVersionCode=2;
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android,"org.notiflex.prototype");
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Standalone,"org.notiflex.prototype");
             PlayerSettings.Android.minSdkVersion=AndroidSdkVersions.AndroidApiLevel32;

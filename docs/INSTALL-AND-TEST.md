@@ -50,6 +50,8 @@ The app requests OS-composited passthrough; it does not request access to raw RG
 
 Controller annotations use an operator-selected ray distance. They are not measured surface hits. Set the distance deliberately and point toward the intended task/partner before pressing grip. There is no persistent spatial anchor mapping across app sessions. In live mode only the notification appears; annotations have no visible markers or headset control panel. Supply activity using the controller, then use the desktop inspector or logs to verify decisions.
 
+Press A to create a notification before trying the right trigger. The trigger expands an active request; it does not create one. Virtual controller models are not drawn. Version 0.3.1 logs received actions as `NOTIFLEX_INPUT` and reports controller connection, position-tracking and VR focus changes as `NOTIFLEX_INPUT_STATUS` in Unity logcat. Return from the Quest system menu to the app before testing; controls intentionally do nothing while the menu owns focus.
+
 ## Demonstration sequence
 
 1. **Focused work:** choose Desk, keep head toward the monitor, supply Focus, wait 1.5 seconds, press A/Space. Normal priority should display a full panel at a low-cost eligible location. Turn the head to change costs and observe the logged selection.
@@ -69,12 +71,12 @@ Logs contain UTC timestamps, source provenance, context, urgency, channel, selec
 - Quest development package:
 
 ```sh
-adb shell run-as org.notiflex.prototype ls /sdcard/Android/data/org.notiflex.prototype/files
+adb shell ls /sdcard/Android/data/org.notiflex.prototype/files
 adb pull /sdcard/Android/data/org.notiflex.prototype/files ./quest-session
 adb logcat -d -s Unity > quest-unity-log.txt
 ```
 
-Android file access varies with OS configuration. If direct `adb pull` is denied, use the developer hub's device file tools or inspect the development app's storage through `run-as`; preserve the original files and record device/OS versions alongside the session.
+Android file access varies with OS configuration. On the tested Quest 3S Android 14 setup, ordinary `adb shell ls` and `adb pull` work for this external app directory; `run-as` cannot list it. If direct access is denied, use the developer hub's device file tools. Preserve original files and record device/OS versions alongside the session.
 
 ## Hardware acceptance record
 

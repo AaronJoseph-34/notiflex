@@ -1,8 +1,8 @@
 # Notiflex VR validation record
 
-Version 0.3.0 · November 11, 2026 · Mac development host · Unity 6000.4.7f1
+Original software baseline: version 0.3.0 · November 11, 2026 · Mac development host · Unity 6000.4.7f1
 
-The Android APK and Mac player were built successfully. Software checks establish implementation consistency and interactive desktop behavior. No Quest was attached (`adb devices` returned no devices), so this is a headset-installable research prototype with physical acceptance still pending. It is not a certification of flawless VR behavior or a validation of human interruption costs.
+The original Android APK and Mac player were built successfully. No Quest was attached for the November 11 software baseline. On November 15, version 0.3.1 was built, installed and launched on a physical Quest 3S: passthrough and A/trigger/B/X behavior were confirmed by the operator and app logs. The three Unity MCP regression groups passed again. See the [controller fix record](CONTROLLER-FIX-0.3.1.md) for exact evidence and scope. This is not a certification of flawless VR behavior or a validation of human interruption costs.
 
 ## Completed software checks
 
@@ -60,10 +60,10 @@ The rooms are authored geometric simulations, with stylized partner proxies and 
 
 | Gate | Status |
 |---|---|
-| Install and launch on the actual headset/OS | Pending hardware |
+| Install and launch on the actual headset/OS | Passed: Quest 3S, Android 14, version 0.3.1, November 15 |
 | Tracked head pose and correct left/right stereo presentation | Pending hardware |
-| Controller mappings and manual task/partner annotations | Pending hardware |
-| Passthrough startup, return from immersive scenes and recovery | Pending hardware |
+| Controller mappings and manual task/partner annotations | A/trigger/B/X passed; remaining mappings and annotations pending |
+| Passthrough startup, return from immersive scenes and recovery | Startup and transition into authored room passed; return/recovery pending |
 | Text size, distance, per-eye field of view and comfort | Pending hardware |
 | Audio audibility, direction and acceptable interruption | Pending hardware |
 | Tracking-loss hiding and recovery latency | Pending hardware |

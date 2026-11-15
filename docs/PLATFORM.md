@@ -14,7 +14,7 @@ Meta's [Unity passthrough tutorial](https://developers.meta.com/vr/documentation
 - Unity OpenXR 1.19.0; Android loader initializes on startup.
 - Meta XR Core SDK 209.0.0; OVR tracked rig and passthrough underlay.
 - Android ARM64, IL2CPP, OpenGLES3; minimum API 32, target API 35.
-- Controller buttons through Unity XR InputDevices; no Interaction SDK dependency is needed for the notification-only interaction model.
+- Version 0.3.1 reads Touch controller buttons and annotation poses through Meta XR Core's OVRInput, in LateUpdate after OVRManager refreshes its input state. Actions are suppressed while system menus own VR focus. No Interaction SDK dependency is needed for these controls.
 - Unity MCP v10.3.0 for editor authoring, inspection and tests.
 
 ## Boundaries of the deliverable

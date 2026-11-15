@@ -1,0 +1,40 @@
+PASS Task alignment and low movement infer focused work
+PASS Occupied hands and movement infer a physical task
+PASS Conversation takes precedence when partner is in range
+PASS Conversation signal alone does not establish partner engagement
+PASS Stale context returns unknown
+PASS Stale context cannot deliver urgent visual content
+PASS Tracking loss defers presentation
+PASS Hands-busy physical task selects audio
+PASS Audio-disabled fallback remains visual when a candidate exists
+PASS No safe placement and no audio defers even urgent content
+PASS Speaking suppresses audio fallback
+PASS Conversation suppresses no-placement audio fallback
+PASS Weights sum to one Unknown/Low
+PASS Weights sum to one Unknown/Normal
+PASS Weights sum to one Unknown/Urgent
+PASS Urgent visual delivery Unknown
+PASS Weights sum to one Focus/Low
+PASS Weights sum to one Focus/Normal
+PASS Weights sum to one Focus/Urgent
+PASS Urgent visual delivery Focus
+PASS Weights sum to one Physical/Low
+PASS Weights sum to one Physical/Normal
+PASS Weights sum to one Physical/Urgent
+PASS Urgent visual delivery Physical
+PASS Weights sum to one Conversation/Low
+PASS Weights sum to one Conversation/Normal
+PASS Weights sum to one Conversation/Urgent
+PASS Urgent visual delivery Conversation
+PASS 864 context priority angle overlap length combinations remain normalized
+PASS Full geometric coverage
+PASS Disjoint geometric coverage
+PASS Half geometric coverage
+PASS Context dwell resists early switching
+PASS Stable context activates after 1.2 seconds
+PASS Transient conversation evidence does not flicker context
+PASS Empty eligible set has no forced visual selection
+PASS Partner-relative separation increases social risk
+PASS Reading duration contributes to social risk
+PASS Distant panel preserves reference angular size
+PASS Near panel retains its minimum world scale

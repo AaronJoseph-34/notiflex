@@ -1,0 +1,43 @@
+NOTIFLEX_INPUT_STATUS RTouch focus=True rightTracked=True leftTracked=False
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_trigger_read
+NOTIFLEX_INPUT_STATUS None focus=True rightTracked=False leftTracked=False
+NOTIFLEX_INPUT_STATUS RTouch focus=True rightTracked=True leftTracked=False
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_trigger_read
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_trigger_read
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_trigger_read
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_trigger_read
+NOTIFLEX_INPUT right_trigger_read
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_trigger_read
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_b_dismiss
+NOTIFLEX_INPUT_STATUS None focus=True rightTracked=False leftTracked=False
+NOTIFLEX_INPUT_STATUS RTouch focus=True rightTracked=True leftTracked=False
+NOTIFLEX_INPUT_STATUS Touch focus=True rightTracked=True leftTracked=False
+NOTIFLEX_INPUT_STATUS Touch focus=True rightTracked=True leftTracked=True
+NOTIFLEX_INPUT_STATUS LTouch focus=True rightTracked=False leftTracked=True
+NOTIFLEX_INPUT left_x_scene
+NOTIFLEX_INPUT_STATUS None focus=True rightTracked=False leftTracked=False
+NOTIFLEX_INPUT_STATUS LTouch focus=True rightTracked=False leftTracked=True
+NOTIFLEX_INPUT left_x_scene
+NOTIFLEX_INPUT left_x_scene
+NOTIFLEX_INPUT left_x_scene
+NOTIFLEX_INPUT left_x_scene
+NOTIFLEX_INPUT left_x_scene
+NOTIFLEX_INPUT_STATUS Touch focus=True rightTracked=True leftTracked=True
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_trigger_read
+NOTIFLEX_INPUT right_a_send
+NOTIFLEX_INPUT right_trigger_read

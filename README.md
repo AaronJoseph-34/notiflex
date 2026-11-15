@@ -4,7 +4,7 @@ A Unity application for studying context-aware XR notification placement. It inc
 
 The system scores eligible visual candidates for interruption, projected occlusion and social disengagement, selects a position, then separately selects full visual, peripheral cue, positional chime or deferred delivery. Head direction is an attention proxy. Activity modes, task references and conversation partner annotations are explicitly supplied; automatic camera understanding, conversational sensing and eye tracking are not implemented.
 
-Download the APK, universal Mac player and manual from the [v0.3.0 development release](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.3.0). Physical Quest acceptance is pending.
+Download the updated Quest APK from the [v0.3.1 development release](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.3.1), and the universal Mac player and complete manual from [v0.3.0](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.3.0). Current source builds version 0.3.1 with the [controller input fix and physical Quest 3S test record](docs/CONTROLLER-FIX-0.3.1.md). Installation, passthrough and A/trigger/B/X controls have now been confirmed on hardware; remaining physical acceptance checks are listed in the validation report.
 
 ## Start here
 

@@ -26,6 +26,7 @@ namespace Notiflex.VR
         List<ProtectedRegion> regions=new List<ProtectedRegion>();
         NotificationView view;
         OVRManager manager;
+        Transform trackingSpace;
         OVRPassthroughLayer passthrough;
         AudioSource audioSource;
         PlacementResult current;
@@ -34,6 +35,7 @@ namespace Notiflex.VR
         float expiry,nextEvaluation,lastPlacement,requestAt;
         int requestId;
         string logPath,lastDecision="";
+        string lastControllerStatus="";
         const string Message="Your next update is ready. Review it at a suitable stopping point.";
         bool OnDevice {get{return Application.platform==RuntimePlatform.Android;}}
 
@@ -50,6 +52,7 @@ namespace Notiflex.VR
                 var root=new GameObject("Tracked XR rig");root.transform.SetParent(transform);
                 manager=root.AddComponent<OVRManager>();manager.trackingOriginType=OVRManager.TrackingOrigin.FloorLevel;
                 var rig=root.AddComponent<OVRCameraRig>();rig.EnsureGameObjectIntegrity();Head=rig.centerEyeAnchor.GetComponent<Camera>();
+                trackingSpace=rig.trackingSpace;
                 if(Head==null) Head=rig.centerEyeAnchor.gameObject.AddComponent<Camera>();
                 passthrough=root.AddComponent<OVRPassthroughLayer>();passthrough.enabled=false;
             }
@@ -102,36 +105,54 @@ namespace Notiflex.VR
                 Vector3 forward=Vector3.ProjectOnPlane(Head.transform.forward,Vector3.up).normalized;
                 Head.transform.position+=(Head.transform.right*move.x+forward*move.z)*Time.unscaledDeltaTime;
             }
-            else Controllers();
             if(Time.unscaledTime>=nextEvaluation) { Tick(false);nextEvaluation=Time.unscaledTime+.1f; }
             if(active && Time.unscaledTime>=expiry){Record("expired");active=false;view.Hide();}
         }
+        // OVRManager refreshes OVRInput in Update. Read it afterward, once per frame.
+        void LateUpdate() { if(OnDevice && environment!=null)Controllers(); }
         void CyclePriority(){priority=(Priority)(((int)priority+1)%3);lastDecision="";}
         void CycleActivity(){suppliedActivity=(Activity)(((int)suppliedActivity+1)%4);lastDecision="";}
-        bool Press(InputDevice d,InputFeatureUsage<bool> feature,ref bool prior)
-        {d.TryGetFeatureValue(feature,out bool value);bool down=value&&!prior;prior=value;return down;}
+        bool Press(OVRInput.RawButton button,OVRInput.Controller controller,ref bool prior)
+        {bool value=OVRInput.Get(button,controller);bool down=value&&!prior;prior=value;return down;}
+        void ControllerAction(string name,Action action)
+        {Debug.Log("NOTIFLEX_INPUT "+name);action();}
         void Controllers()
         {
-            var right=InputDevices.GetDeviceAtXRNode(XRNode.RightHand);var left=InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-            if(Press(right,CommonUsages.primaryButton,ref rightA))Send();if(Press(right,CommonUsages.secondaryButton,ref rightB))Dismiss();
-            if(Press(left,CommonUsages.primaryButton,ref leftA))SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex+1)%4);
-            if(Press(left,CommonUsages.secondaryButton,ref leftB))CyclePriority();
-            if(Press(left,CommonUsages.primary2DAxisClick,ref leftStick))CycleActivity();
-            if(Press(right,CommonUsages.triggerButton,ref rightTrigger))Read();
+            const OVRInput.Controller right=OVRInput.Controller.RTouch,left=OVRInput.Controller.LTouch;
+            string status=OVRInput.GetConnectedControllers()+" focus="+OVRManager.hasVrFocus+
+                " rightTracked="+OVRInput.GetControllerPositionTracked(right)+" leftTracked="+OVRInput.GetControllerPositionTracked(left);
+            if(status!=lastControllerStatus){lastControllerStatus=status;Debug.Log("NOTIFLEX_INPUT_STATUS "+status);}
+            if(!OVRManager.hasVrFocus)
+            {
+                // Suppress presses begun in system menus until they have been released.
+                rightA=OVRInput.Get(OVRInput.RawButton.A,right);rightB=OVRInput.Get(OVRInput.RawButton.B,right);
+                leftA=OVRInput.Get(OVRInput.RawButton.X,left);leftB=OVRInput.Get(OVRInput.RawButton.Y,left);
+                leftStick=OVRInput.Get(OVRInput.RawButton.LThumbstick,left);rightTrigger=OVRInput.Get(OVRInput.RawButton.RIndexTrigger,right);
+                rightGrip=OVRInput.Get(OVRInput.RawButton.RHandTrigger,right);leftGrip=OVRInput.Get(OVRInput.RawButton.LHandTrigger,left);return;
+            }
+            if(Press(OVRInput.RawButton.A,right,ref rightA))ControllerAction("right_a_send",Send);
+            if(Press(OVRInput.RawButton.B,right,ref rightB))ControllerAction("right_b_dismiss",Dismiss);
+            if(Press(OVRInput.RawButton.X,left,ref leftA))
+            {ControllerAction("left_x_scene",()=>SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex+1)%SceneManager.sceneCountInBuildSettings));return;}
+            if(Press(OVRInput.RawButton.Y,left,ref leftB))ControllerAction("left_y_urgency",CyclePriority);
+            if(Press(OVRInput.RawButton.LThumbstick,left,ref leftStick))ControllerAction("left_stick_activity",CycleActivity);
+            if(Press(OVRInput.RawButton.RIndexTrigger,right,ref rightTrigger))ControllerAction("right_trigger_read",Read);
             if(environment.passthrough)
             {
-                if(Press(right,CommonUsages.gripButton,ref rightGrip))Annotate(right,false);
-                if(Press(left,CommonUsages.gripButton,ref leftGrip))Annotate(left,true);
-                if(right.TryGetFeatureValue(CommonUsages.primary2DAxis,out Vector2 stick))annotationDistance=Mathf.Clamp(annotationDistance+stick.y*Time.unscaledDeltaTime,.8f,3.2f);
+                if(Press(OVRInput.RawButton.RHandTrigger,right,ref rightGrip))ControllerAction("right_grip_task",()=>Annotate(right,false));
+                if(Press(OVRInput.RawButton.LHandTrigger,left,ref leftGrip))ControllerAction("left_grip_partner",()=>Annotate(left,true));
+                Vector2 stick=OVRInput.Get(OVRInput.RawAxis2D.RThumbstick,right);
+                annotationDistance=Mathf.Clamp(annotationDistance+stick.y*Time.unscaledDeltaTime,.8f,3.2f);
             }
         }
-        void Annotate(InputDevice device,bool face)
+        void Annotate(OVRInput.Controller controller,bool face)
         {
-            if(!device.TryGetFeatureValue(CommonUsages.devicePosition,out Vector3 p) || !device.TryGetFeatureValue(CommonUsages.deviceRotation,out Quaternion q))return;
+            if(!OVRInput.GetControllerPositionTracked(controller)||!OVRInput.GetControllerOrientationTracked(controller))return;
+            Vector3 p=OVRInput.GetLocalControllerPosition(controller);Quaternion q=OVRInput.GetLocalControllerRotation(controller);
             Transform previous=face?environment.partner:environment.task;
             if(previous!=null){var old=previous.GetComponent<ProtectedRegion>();regions.Remove(old);Destroy(previous.gameObject);}
             var anchor=new GameObject(face?"Supplied partner annotation":"Supplied task annotation");
-            anchor.transform.position=transform.TransformPoint(p+q*Vector3.forward*annotationDistance);
+            anchor.transform.position=trackingSpace.TransformPoint(p+q*Vector3.forward*annotationDistance);
             anchor.transform.rotation=Quaternion.LookRotation(anchor.transform.position-Head.transform.position,Vector3.up);
             var region=anchor.AddComponent<ProtectedRegion>();region.kind=face?RegionKind.Face:RegionKind.Task;region.size=face?new Vector2(.4f,.5f):new Vector2(.8f,.55f);
             regions.Add(region);if(face)environment.partner=anchor.transform;else environment.task=anchor.transform;Record("manual_annotation");
