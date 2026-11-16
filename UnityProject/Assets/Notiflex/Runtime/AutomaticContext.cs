@@ -4,6 +4,40 @@ using UnityEngine;
 
 namespace Notiflex.VR
 {
+    // Integrate evidence duration rather than demanding uninterrupted samples.
+    // A 2 s window requires 1.2 s support (60% occupancy). Long frame gaps and
+    // stale observations never count as evidence. Manual/simulation dwell is separate.
+    public sealed class AutomaticContextDwell
+    {
+        struct Interval {public float start,end;public Activity activity;}
+        readonly List<Interval> intervals=new List<Interval>();
+        readonly float[] support=new float[4];
+        float lastTime;
+        Activity previous;
+        bool initialized;
+        public Activity Current {get;private set;}=Activity.Unknown;
+        public float Support(Activity activity) => support[(int)activity];
+        public void Reset()
+        {intervals.Clear();Array.Clear(support,0,support.Length);initialized=false;Current=Activity.Unknown;}
+        public bool Update(Activity proposed,float now,bool fresh)
+        {
+            Activity before=Current;
+            if(!fresh||!PlacementPolicy.Finite(now)){Reset();return before!=Current;}
+            float dt=now-lastTime;
+            if(initialized&&(dt<0||dt>.25f)){Reset();}
+            if(initialized&&dt>0)
+                intervals.Add(new Interval {start=lastTime,end=now,activity=previous});
+            lastTime=now;previous=proposed;initialized=true;
+            float cutoff=now-2;
+            intervals.RemoveAll(x=>x.end<=cutoff);
+            Array.Clear(support,0,support.Length);
+            foreach(var x in intervals)support[(int)x.activity]+=x.end-Mathf.Max(cutoff,x.start);
+            if(support[(int)proposed]>=1.2f-1e-4f)Current=proposed;
+            else if(support[(int)Activity.Unknown]>=1.2f-1e-4f||support[(int)Current]<1e-4f)Current=Activity.Unknown;
+            return before!=Current;
+        }
+    }
+
     // COCO labels supplied with Meta's quantized YOLOv9t sample. A detection score
     // is object-model confidence, not a calibrated probability of an activity.
     public sealed class CameraDetection

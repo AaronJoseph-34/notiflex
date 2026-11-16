@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "fastmcp": {
+      "wrap_result": true
+    }
+  },
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job status retrieved.\",\"error\":null,\"data\":{\"job_id\":\"ee94364c3cd14d06a1ae3303abae6266\",\"status\":\"succeeded\",\"mode\":\"EditMode\",\"started_unix_ms\":1794799951985,\"finished_unix_ms\":1794799953364,\"last_update_unix_ms\":1794799953364,\"progress\":{\"completed\":8,\"total\":8,\"current_test_full_name\":null,\"current_test_started_unix_ms\":null,\"last_finished_test_full_name\":\"Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases\",\"last_finished_unix_ms\":1794799953344,\"stuck_suspected\":false,\"editor_is_focused\":true,\"run_in_background\":true,\"focus_nudge_attempts\":null,\"focus_nudge_limit\":null,\"focus_nudge_status\":null,\"blocked_reason\":null,\"failures_so_far\":[],\"failures_capped\":false},\"error\":null,\"result\":{\"mode\":\"EditMode\",\"summary\":{\"total\":8,\"passed\":8,\"failed\":0,\"skipped\":0,\"durationSeconds\":1.1711821,\"resultState\":\"Passed\"},\"results\":[{\"name\":\"AutomaticEvidenceWindowAndDelivery\",\"fullName\":\"Notiflex.VR.Editor.AutomaticContextTests.AutomaticEvidenceWindowAndDelivery\",\"state\":\"Passed\",\"durationSeconds\":0.0061458,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"BareHandManipulationAndTrackingRecovery\",\"fullName\":\"Notiflex.VR.Editor.AutomaticContextTests.BareHandManipulationAndTrackingRecovery\",\"state\":\"Passed\",\"durationSeconds\":0.0040897,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"BundledDetectorExecutesAndMatchesContract\",\"fullName\":\"Notiflex.VR.Editor.AutomaticContextTests.BundledDetectorExecutesAndMatchesContract\",\"state\":\"Passed\",\"durationSeconds\":0.1772213,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"ContextEvidenceAndFreshness\",\"fullName\":\"Notiflex.VR.Editor.AutomaticContextTests.ContextEvidenceAndFreshness\",\"state\":\"Passed\",\"durationSeconds\":0.0009274,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"DetectionCoordinatesNmsAndProtection\",\"fullName\":\"Notiflex.VR.Editor.AutomaticContextTests.DetectionCoordinatesNmsAndProtection\",\"state\":\"Passed\",\"durationSeconds\":0.0074814,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"PolicyRulesAndBoundedScores\",\"fullName\":\"Notiflex.VR.Editor.PolicyTests.PolicyRulesAndBoundedScores\",\"state\":\"Passed\",\"durationSeconds\":0.0018014,\"message\":null,\"stackTrace\":null,\"output\":\"NOTIFLEX_POLICY_PASS 40\\n\"},{\"name\":\"RoomGeometryAndSpatialConstraints\",\"fullName\":\"Notiflex.VR.Editor.PolicyTests.RoomGeometryAndSpatialConstraints\",\"state\":\"Passed\",\"durationSeconds\":0.7911654,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SpatialFailureAndTrackingCases\",\"fullName\":\"Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases\",\"state\":\"Passed\",\"durationSeconds\":0.1712217,\"message\":null,\"stackTrace\":null,\"output\":\"\"}]}},\"hint\":null}",
+      "annotations": null,
+      "meta": null
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "ee94364c3cd14d06a1ae3303abae6266",
+        "status": "succeeded",
+        "mode": "EditMode",
+        "started_unix_ms": 1794799951985,
+        "finished_unix_ms": 1794799953364,
+        "last_update_unix_ms": 1794799953364,
+        "progress": {
+          "completed": 8,
+          "total": 8,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases",
+          "last_finished_unix_ms": 1794799953344,
+          "stuck_suspected": false,
+          "editor_is_focused": true,
+          "run_in_background": true,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "EditMode",
+          "summary": {
+            "total": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "durationSeconds": 1.1711821,
+            "resultState": "Passed"
+          },
+          "results": [
+            {
+              "name": "AutomaticEvidenceWindowAndDelivery",
+              "fullName": "Notiflex.VR.Editor.AutomaticContextTests.AutomaticEvidenceWindowAndDelivery",
+              "state": "Passed",
+              "durationSeconds": 0.0061458,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "BareHandManipulationAndTrackingRecovery",
+              "fullName": "Notiflex.VR.Editor.AutomaticContextTests.BareHandManipulationAndTrackingRecovery",
+              "state": "Passed",
+              "durationSeconds": 0.0040897,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "BundledDetectorExecutesAndMatchesContract",
+              "fullName": "Notiflex.VR.Editor.AutomaticContextTests.BundledDetectorExecutesAndMatchesContract",
+              "state": "Passed",
+              "durationSeconds": 0.1772213,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "ContextEvidenceAndFreshness",
+              "fullName": "Notiflex.VR.Editor.AutomaticContextTests.ContextEvidenceAndFreshness",
+              "state": "Passed",
+              "durationSeconds": 0.0009274,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "DetectionCoordinatesNmsAndProtection",
+              "fullName": "Notiflex.VR.Editor.AutomaticContextTests.DetectionCoordinatesNmsAndProtection",
+              "state": "Passed",
+              "durationSeconds": 0.0074814,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "PolicyRulesAndBoundedScores",
+              "fullName": "Notiflex.VR.Editor.PolicyTests.PolicyRulesAndBoundedScores",
+              "state": "Passed",
+              "durationSeconds": 0.0018014,
+              "message": null,
+              "stackTrace": null,
+              "output": "NOTIFLEX_POLICY_PASS 40\n"
+            },
+            {
+              "name": "RoomGeometryAndSpatialConstraints",
+              "fullName": "Notiflex.VR.Editor.PolicyTests.RoomGeometryAndSpatialConstraints",
+              "state": "Passed",
+              "durationSeconds": 0.7911654,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SpatialFailureAndTrackingCases",
+              "fullName": "Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases",
+              "state": "Passed",
+              "durationSeconds": 0.1712217,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

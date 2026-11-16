@@ -1,4 +1,14 @@
-# Bare-hand activity update — 0.5.0
+# Bare-hand activity updates — 0.5.0 / 0.5.1
+
+## 0.5.1 timing correction and isolated sound check
+
+The first 0.5.0 device trial acquired real bare hands and emitted Physical proposals, but never settled into Physical and never requested audio. In the captured 150-event sample, 13 events had a Physical proposal, 38 had two working hands, and the motion-support accumulator reached 2 s. Small motion/confidence gaps repeatedly reset the uninterrupted 1.2 s dwell. This was a context acceptance failure, not evidence of broken sound output.
+
+Automatic mode in 0.5.1 replaces the uninterrupted context timer with duration support over a trailing 2 s window. For context `a`, `support(a,t) = integral[t−2,t] 1[valid proposal(s) = a] ds`. The current proposal is accepted at 1.2 s support (60% of the window). Unknown uses the same threshold; an incumbent with no remaining support clears to Unknown. Camera/head validity loss clears the window immediately. Frame gaps above 0.25 s clear the window and never add suspended time as evidence. Manual/simulation mode keeps its original uninterrupted dwell. These window coefficients are explicit prototype engineering choices, not fitted human-performance parameters. Hand confidence, motion/workspace thresholds, visual scoring and person/audio exclusions are unchanged.
+
+A regression reproduces the old failure with 0.4 s Physical / 0.2 s Unknown repetition and checks that the new window settles. It also checks rest, sparse isolated pulses, stale input, suspension and the resulting delivery rule. Additional logs expose duration support, audio permission and motion inputs.
+
+For a separate playback diagnosis, the development-only launch extra `--ez notiflex_test_audio true` plays exactly one normal chime after five continuous seconds of VR focus. It does not require a Physical context and does not count as recognition success. It is off for ordinary launches. Use this alone first, then restart with only `notiflex_test_notifications` for the actual task trial. Never count the diagnostic chime as automatic delivery acceptance.
 
 ## Requirement and previous test
 
@@ -19,7 +29,7 @@ Two routes supply physical evidence:
 - **Object-associated manipulation:** a supported work/manipulable object and a real active hand align within 25 degrees; object bearing is within 70 degrees of head forward. Evidence is `objectScore × clamp01(handSpeed / 0.16)`.
 - **Bimanual manipulation:** two real hands work together in the lower workspace. It does not require a recognized COCO object. Evidence is `0.85 × clamp01(handSpeed / 0.16)`.
 
-Both routes retain the 0.55 decision threshold and 1.2 s context dwell. Sustained hand movement suppresses the focused-viewing proposal. Social presence still takes precedence. Hands-busy remains conservatively latched while the Physical context is retained by dwell, so a brief hand occlusion cannot promote an audio cue to a full card. Missing/stale camera or head pose still defers delivery.
+Both routes retain the 0.55 decision threshold. Version 0.5.0 used uninterrupted 1.2 s context dwell; 0.5.1 uses the duration window specified above. Sustained hand movement suppresses the focused-viewing proposal. Social presence still takes precedence. Hands-busy remains conservatively latched while the Physical context is retained by dwell, so a brief hand occlusion cannot promote an audio cue to a full card. Missing/stale camera or head pose still defers delivery.
 
 These are explicit manipulation heuristics, not a trained classifier for every named activity. They can miss occluded, subtle or unusual tasks and can confuse other sustained hand motions with manipulation. No metric hand-object contact is inferred from camera bearing alone. Existing interruption/occlusion/social placement weights and separate delivery selection remain unchanged.
 
@@ -48,7 +58,10 @@ The automatic scheduler avoids picking up a controller to send a test notificati
 
 ## Validation status
 
-Seven software test groups cover the prior policy/model/geometry tests plus hand-motion noise, tracking recovery, finger-confidence changes, bimanual activity without an object label, object/hand association, brief motion and missing tracking. The clean Android build succeeded with zero errors; package signature/manifest/version checks passed and 0.5.0 is installed on Quest 3S. Live hand acquisition, natural-task recognition and audible notification behavior must be verified on the headset before reporting the physical mode as passed. No camera recordings are required for these checks.
+Version 0.5.1 adds the duration-window regression for eight passing groups total. Its Android package builds with zero errors and 35 warnings, passes signature/manifest/version checks, and is installed on Quest 3S. The independent sound and updated physical-task acceptance checks are pending.
+
+
+The 0.5.0 seven software test groups cover the prior policy/model/geometry tests plus hand-motion noise, tracking recovery, finger-confidence changes, bimanual activity without an object label, object/hand association, brief motion and missing tracking. The clean Android build succeeded with zero errors; package signature/manifest/version checks passed and 0.5.0 is installed on Quest 3S. Live hand acquisition, natural-task recognition and audible notification behavior must be verified on the headset before reporting the physical mode as passed. No camera recordings are required for these checks.
 
 Official SDK references: [Multimodal hands/controllers](https://developers.meta.com/vr/documentation/unity/unity-multimodal/), [hand tracking overview](https://developers.meta.com/vr/documentation/unity/unity-handtracking-overview/). Local implementation is verified against the pinned Meta XR Core SDK 209.0.0 source.
 

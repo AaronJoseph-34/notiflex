@@ -18,6 +18,10 @@ The operator reported the social test working, but no audible chime during the p
 
 Seven Unity MCP EditMode groups now pass, including high-confidence hand-motion processing, stationary jitter, tracking reacquisition, finger-confidence transitions, bimanual evidence without an object class, object/hand association and negative controls. The original model, coordinate, policy and geometry regressions also pass. Results are under `evidence/bare-hands-0.5.0/`. The source-only temporary Android build succeeded with zero errors and 55 warnings after duplicate generated cache files caused packaging failures in the original project. The warnings include deprecated Unity APIs and package shader/compiler diagnostics; they are retained in the versioned evidence. Version 0.5.0/code 4, its v2 signature, ARM64 package and camera/hand-tracking permissions were verified, and the APK was installed on the Quest 3S. Download size is 67,741,311 bytes; the larger Unity build-report total is not the APK file size. Live hand acquisition, natural-task classification and operator-confirmed sound remain pending. See [the full update rules](BARE-HAND-MODE.md).
 
+## Bare-hand 0.5.1 timing correction
+
+The operator reported no chime in 0.5.0. The captured 150-event test sample confirms real hand acquisition (38 two-working-hand events), 13 Physical proposals and a maximum two seconds of hand-motion support, but zero settled Physical states and zero audio requests. Intermittent proposal gaps exposed the overly strict uninterrupted dwell. The 0.5.1 duration window now has a regression that reproduces this failure and verifies a Physical/SpatialAudio result, alongside negative and stale-input controls. All eight software groups pass. Playback and natural-task acceptance remain distinct pending device checks. See `evidence/bare-hands-0.5.1/previous-device-test.json` and the updated bare-hand rules.
+
 ## Completed software checks
 
 | Check | Result | Evidence |

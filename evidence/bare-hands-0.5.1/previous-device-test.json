@@ -1,0 +1,33 @@
+{
+  "localDate": "2026-11-15",
+  "testedVersion": "0.5.0",
+  "operatorReport": "still no chime",
+  "sampleEvents": 150,
+  "eventCounts": {
+    "decision": 32,
+    "camera_observation": 108,
+    "notification": 5,
+    "scheduled_test_notification": 5
+  },
+  "settledContexts": {
+    "Unknown": 132,
+    "Conversation": 18
+  },
+  "proposedContexts": {
+    "Unknown": 118,
+    "Physical": 13,
+    "Conversation": 19
+  },
+  "handStatus": {
+    "no_bare_hands": 2,
+    "two_bare_hands": 38,
+    "no_confident_bare_hands": 102,
+    "hands_outside_lower_workspace": 2,
+    "one_bare_hand": 6
+  },
+  "maxHandSpeed": 1.2492347955703735,
+  "maxHandActivitySeconds": 2.0,
+  "audioRequests": 0,
+  "diagnosis": "Real bare hands and physical proposals acquired. No settled Physical context and no audio request. Brief threshold losses reset the uninterrupted 1.2 s dwell. Audibility untested; no playback was requested.",
+  "rawImagesSaved": false
+}

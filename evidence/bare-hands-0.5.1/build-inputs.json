@@ -1,0 +1,27 @@
+{
+  "version": "0.5.1",
+  "editor": "6000.4.7f1",
+  "changedSourceFiles": [
+    {
+      "path": "UnityProject/Assets/Notiflex/Runtime/AutomaticContext.cs",
+      "sha256": "455d9a12038925e3e09a5ce8855335bc8cac0136f7c3e339849dc54c1695f57d"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Runtime/NotiflexRuntime.cs",
+      "sha256": "7f70ee652a53603ac612680a8d0348f2eb91d9393b5b59ff90fa0e02dafe0028"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Editor/AutomaticContextTests.cs",
+      "sha256": "6f48a0d78eb481eaafabfcb878da4035d06727e32a1c155cc504c9abc0c7d15a"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Editor/PlatformBuilder.cs",
+      "sha256": "dec74fb4502865cc317639345065daeaf8bfbf7d95d6eb78fb0241f81a658342"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Runtime/BareHandActivity.cs",
+      "sha256": "58e6eb61803cec79f9cf474c6eea623b224e74f43b3f1880f7ec18768bf6a0ad"
+    }
+  ],
+  "softwareTests": "8 passed, 0 failed, 0 skipped"
+}

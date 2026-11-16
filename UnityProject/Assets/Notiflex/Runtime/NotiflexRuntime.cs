@@ -19,10 +19,11 @@ namespace Notiflex.VR
         public bool NotificationActive => active;
         public bool NotificationVisible => view!=null && view.gameObject.activeSelf;
         public Channel DeliveryChannel => channel;
-        public Activity InferredActivity => dwell.Current;
+        public Activity InferredActivity => CameraMode?automaticDwell.Current:dwell.Current;
         public PlacementResult SelectedPlacement => current;
         readonly SpatialEvaluator evaluator=new SpatialEvaluator();
         ContextDwell dwell=new ContextDwell();
+        readonly AutomaticContextDwell automaticDwell=new AutomaticContextDwell();
         EnvironmentBindings environment;
         List<ProtectedRegion> regions=new List<ProtectedRegion>();
         NotificationView view;
@@ -40,7 +41,8 @@ namespace Notiflex.VR
         CameraContextSensor cameraSensor;
         int lastObservation=-1;
         bool rightStick;
-        bool scheduledDemo;
+        bool scheduledDemo,audioDiagnostic;
+        float audioDiagnosticAt=-1;
         float nextDemo,demoUntil;
         bool CameraMode => OnDevice && environment!=null && environment.passthrough && automaticMode;
         const string Message="Your next update is ready. Review it at a suitable stopping point.";
@@ -73,6 +75,7 @@ namespace Notiflex.VR
                     using var activity=player.GetStatic<AndroidJavaObject>("currentActivity");
                     using var intent=activity.Call<AndroidJavaObject>("getIntent");
                     scheduledDemo=intent.Call<bool>("getBooleanExtra","notiflex_test_notifications",false);
+                    audioDiagnostic=intent.Call<bool>("getBooleanExtra","notiflex_test_audio",false);
                     nextDemo=Time.unscaledTime+12;demoUntil=Time.unscaledTime+180;
                 }
             }
@@ -96,7 +99,7 @@ namespace Notiflex.VR
         void BindEnvironment()
         {
             environment=FindFirstObjectByType<EnvironmentBindings>();regions=new List<ProtectedRegion>(FindObjectsByType<ProtectedRegion>(FindObjectsSortMode.None));
-            active=false;expanded=false;current=null;dwell=new ContextDwell();lastDecision="";view.Hide();
+            active=false;expanded=false;current=null;dwell=new ContextDwell();automaticDwell.Reset();lastDecision="";view.Hide();
             if(environment!=null && OnDevice)
             {
                 manager.isInsightPassthroughEnabled=environment.passthrough;passthrough.enabled=environment.passthrough;
@@ -130,6 +133,13 @@ namespace Notiflex.VR
             if(Time.unscaledTime>=nextEvaluation) { Tick(false);nextEvaluation=Time.unscaledTime+.1f; }
             if(scheduledDemo&&Time.unscaledTime<=demoUntil&&Time.unscaledTime>=nextDemo&&CameraMode&&OVRManager.hasVrFocus&&cameraSensor.HasObservation)
             {nextDemo=Time.unscaledTime+15;Send();Record("scheduled_test_notification");}
+            if(audioDiagnostic&&OVRManager.hasVrFocus)
+            {
+                if(audioDiagnosticAt<0)audioDiagnosticAt=Time.unscaledTime+5;
+                if(Time.unscaledTime>=audioDiagnosticAt)
+                {audioDiagnostic=false;Record("diagnostic_audio_requested");PlayChime();}
+            }
+            else if(audioDiagnostic)audioDiagnosticAt=-1;
             if(active && Time.unscaledTime>=expiry){Record("expired");active=false;view.Hide();}
         }
         // OVRManager refreshes OVRInput in Update. Read it afterward, once per frame.
@@ -138,7 +148,7 @@ namespace Notiflex.VR
         void CycleActivity(){if(CameraMode)SetAutomatic(false);suppliedActivity=(Activity)(((int)suppliedActivity+1)%4);lastDecision="";}
         void SetAutomatic(bool value)
         {
-            automaticMode=value;dwell=new ContextDwell();lastDecision="";
+            automaticMode=value;dwell=new ContextDwell();automaticDwell.Reset();lastDecision="";
             cameraSensor?.SetCapture(CameraMode);
             Debug.Log("NOTIFLEX_MODE "+(CameraMode?"automatic_camera":"manual_or_simulation"));
         }
@@ -211,7 +221,10 @@ namespace Notiflex.VR
         }
         void Tick(bool immediate)
         {
-            ContextSnapshot c=Snapshot();if(dwell.Update(PlacementPolicy.Infer(c),Time.unscaledTime))lastDecision="";c.activity=dwell.Current;
+            ContextSnapshot c=Snapshot();
+            Activity proposed=PlacementPolicy.Infer(c);
+            bool changed=CameraMode?automaticDwell.Update(proposed,Time.unscaledTime,c.poseValid&&cameraSensor.HasObservation):dwell.Update(proposed,Time.unscaledTime);
+            if(changed)lastDecision="";c.activity=InferredActivity;
             // Retain the busy-hands assumption while Physical is latched by dwell;
             // brief hand occlusion must not promote an audio cue to a full card.
             if(CameraMode&&c.activity==Activity.Physical)c.handsBusy=true;
@@ -245,13 +258,14 @@ namespace Notiflex.VR
             public int request;public bool poseValid;public List<PlacementResult> candidates;
             public string cameraStatus,proposedContext,contextReason;public float contextConfidence,observationAge,inferenceMs;
             public int[] detectedClasses;
-            public int bareHands;public float handSpeed,handActivitySeconds;public string handStatus;
+            public int bareHands;public float handSpeed,handActivitySeconds,contextSupportSeconds;public string handStatus;
+            public bool audioAllowed,handsBusy;public float movement;
         }
         void Record(string type)
         {
             if(environment==null||logPath==null)return;
             var r=new EventRecord {utc=DateTime.UtcNow.ToString("o"),eventType=type,environment=environment.environmentName,inputSource=CameraMode?"local_camera_and_bare_hand_tracking":environment.passthrough?"tracked_head_with_manual_annotations_and_supplied_activity":"simulation_ground_truth",
-                context=dwell.Current.ToString(),priority=priority.ToString(),channel=channel.ToString(),selected=current==null?"none":current.id,request=requestId,poseValid=Snapshot().poseValid,candidates=evaluator.Results};
+                context=InferredActivity.ToString(),priority=priority.ToString(),channel=channel.ToString(),selected=current==null?"none":current.id,request=requestId,poseValid=Snapshot().poseValid,candidates=evaluator.Results};
             if(CameraMode)
             {
                 bool fresh=cameraSensor.HasObservation;
@@ -262,6 +276,8 @@ namespace Notiflex.VR
                 r.detectedClasses=fresh?cameraSensor.Detections.ConvertAll(d=>d.classId).ToArray():Array.Empty<int>();
                 r.bareHands=cameraSensor.Hands.Evidence.trackedHands;r.handSpeed=cameraSensor.Hands.Evidence.speed;
                 r.handActivitySeconds=cameraSensor.Hands.Evidence.activeFor;r.handStatus=cameraSensor.Hands.Status;
+                r.contextSupportSeconds=automaticDwell.Support(fresh?cameraSensor.Estimate.proposed:Activity.Unknown);
+                var snapshot=Snapshot();r.audioAllowed=snapshot.audioEnabled;r.handsBusy=snapshot.handsBusy;r.movement=snapshot.movement;
             }
             File.AppendAllText(logPath,JsonUtility.ToJson(r)+"\n");
         }

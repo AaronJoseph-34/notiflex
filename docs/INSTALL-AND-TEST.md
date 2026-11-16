@@ -88,3 +88,7 @@ Record the headset model/OS, app version, date and operator for each check. Conf
 ## Bare-hand physical activity, 0.5.0
 
 Use the [bare-hand procedure](BARE-HAND-MODE.md) with both controllers put down. It includes an explicitly armed, time-limited incoming-notification schedule so no controller is needed to send test notifications. The prior controller-motion physical test is superseded. Social remains a person-presence estimate.
+
+### 0.5.1 isolated sound diagnosis
+
+Start with `adb shell am force-stop org.notiflex.prototype`, then `adb shell am start -n org.notiflex.prototype/com.unity3d.player.UnityPlayerGameActivity --ez notiflex_test_audio true`. After five continuous seconds of VR focus, one normal chime is requested. This explicitly enabled development diagnostic bypasses context selection and does not count as activity recognition. Restart without the audio extra before the real hands-free notification trial. Automatic 0.5.1 context acceptance uses 1.2 s proposal support in a trailing 2 s window; see BARE-HAND-MODE.md for every condition.

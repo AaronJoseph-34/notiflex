@@ -1,0 +1,12 @@
+{
+  "localDate": "2026-11-15",
+  "appId": "org.notiflex.prototype",
+  "device": "Quest 3S",
+  "versionName": "0.5.1",
+  "versionCode": 5,
+  "install": "Success",
+  "activityLaunch": "Status ok; COLD; TotalTime 366 ms",
+  "test": "one-shot diagnostic sound extra enabled; operator response pending",
+  "automaticPhysicalAcceptance": "pending",
+  "rawCameraImagesSaved": false
+}

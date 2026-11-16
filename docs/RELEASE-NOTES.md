@@ -1,3 +1,9 @@
+# Notiflex VR 0.5.1 — automatic context timing correction
+
+The first bare-hand device trial acquired real hand motion and proposed Physical, but brief threshold gaps repeatedly reset the uninterrupted context timer. No settled Physical state or audio request occurred. This version integrates proposal duration over a trailing two-second window and accepts 1.2 seconds of support. Stale input and long frame gaps clear the window. Manual dwell, confidence gates, visual costs and person/audio exclusions are unchanged.
+
+Adds an explicitly enabled one-shot sound diagnostic, separate from automatic recognition, and logs context support and audio eligibility. All eight Unity MCP regression groups pass, including intermittent working motion, rest, isolated pulses, stale data and suspended time. The Android package built with zero errors and 35 warnings; signature/manifest/version checks passed and 0.5.1/code 5 is installed on Quest 3S. Device acceptance is pending.
+
 # Notiflex VR 0.5.0 — bare-hand activity update (hardware acceptance pending)
 
 Replaces the automatic physical-task controller-motion proxy with actual Quest hand tracking. High-confidence wrist and finger movement, a lower working area, sustained-motion gates and object/hand alignment provide explicit physical-activity evidence. A bimanual route supports tasks without a known object label. Tracking gaps, jumps and finger-confidence changes reset or suppress motion evidence. Social presence retains precedence. This remains a manipulation heuristic rather than recognition of every named task.

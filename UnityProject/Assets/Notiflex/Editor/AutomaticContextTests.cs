@@ -55,6 +55,42 @@ namespace Notiflex.VR.Editor
         }
 
         [Test]
+        public void AutomaticEvidenceWindowAndDelivery()
+        {
+            var filter=new AutomaticContextDwell();
+            var original=new ContextDwell();
+            var c=new ContextSnapshot {poseValid=true,age=.2f,audioEnabled=true,workload=.65f};
+            // A natural repeated movement crosses the speed gate briefly. The
+            // original uninterrupted timer never accepts this 4-on/2-off trace.
+            for(int i=0;i<=36;i++)
+            {
+                bool moving=i%6<4;
+                c.handsBusy=moving;c.movement=moving?.3f:0;c.taskAngle=180;
+                Activity raw=PlacementPolicy.Infer(c);
+                filter.Update(raw,i*.1f,true);original.Update(raw,i*.1f);
+            }
+            Assert.AreEqual(Activity.Unknown,original.Current,"Reproduces the interrupted-dwell failure");
+            Assert.AreEqual(Activity.Physical,filter.Current,"Duration support accepts sustained activity with brief pauses");
+            c.activity=filter.Current;c.handsBusy=true;
+            Assert.AreEqual(Channel.SpatialAudio,PlacementPolicy.Delivery(c,Priority.Normal,true));
+            c.audioEnabled=false;
+            Assert.AreNotEqual(Channel.SpatialAudio,PlacementPolicy.Delivery(c,Priority.Normal,true),"Person/audio exclusion remains authoritative");
+            for(int i=37;i<=61;i++)filter.Update(Activity.Unknown,i*.1f,true);
+            Assert.AreEqual(Activity.Unknown,filter.Current,"Resting hands clear accumulated activity");
+            filter.Reset();
+            for(int i=0;i<80;i++)filter.Update(i%6==0?Activity.Physical:Activity.Unknown,i*.1f,true);
+            Assert.AreEqual(Activity.Unknown,filter.Current,"Sparse isolated pulses do not establish activity");
+            filter.Reset();
+            for(int i=0;i<16;i++)filter.Update(Activity.Physical,i*.1f,true);
+            Assert.AreEqual(Activity.Physical,filter.Current);
+            filter.Update(Activity.Physical,1.6f,false);
+            Assert.AreEqual(Activity.Unknown,filter.Current,"Stale camera/head data clears automatic context immediately");
+            for(int i=0;i<8;i++)filter.Update(Activity.Physical,2+i*.1f,true);
+            filter.Update(Activity.Physical,8,true);
+            Assert.AreEqual(Activity.Unknown,filter.Current,"Suspended time cannot become evidence");
+        }
+
+        [Test]
         public void ContextEvidenceAndFreshness()
         {
             Assert.AreEqual(Activity.Unknown,Infer(new List<CameraDetection>()).proposed);

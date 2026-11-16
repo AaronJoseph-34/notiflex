@@ -6,7 +6,7 @@ The system scores eligible visual candidates for interruption, projected occlusi
 
 Download the [experimental 0.4.0 Quest APK](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.4.0). Its camera permission, live local detections, focused-work estimate and visible notification passed an initial Quest 3S test. The controlled short-cue/full-card comparison also passed; broader hardware acceptance remains incomplete. See the automatic-mode record. The [0.3.1 release](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.3.1) is the prior headset-tested version for passthrough and A/trigger/B/X controls. The existing Mac simulation and original Word manual remain in [0.3.0](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.3.0).
 
-The [0.5.0 bare-hand test build](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.5.0) is built, signed and installed on Quest 3S. All seven software test groups pass. The [bare-hand update rules and hands-free test procedure](docs/BARE-HAND-MODE.md) describe the replacement physical estimator. Hardware acceptance for that replacement is pending.
+Version **0.5.1** builds, signs and installs on Quest 3S. All eight software test groups pass. The [0.5.0 test build](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.5.0) established real hand acquisition, but its physical context did not settle; 0.5.1 corrects the timing and adds an isolated sound check. The [bare-hand update rules and hands-free test procedure](docs/BARE-HAND-MODE.md) describe the replacement physical estimator. Hardware acceptance for that replacement is pending.
 
 ## Start here
 
