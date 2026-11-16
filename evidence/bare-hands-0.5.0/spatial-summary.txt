@@ -1,0 +1,3 @@
+PASS 486 scenarios across three environments
+Visual candidate available 486; no eligible visual 0
+All eligible results satisfy face hazard viewport distance and urgency constraints

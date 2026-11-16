@@ -108,8 +108,8 @@ namespace Notiflex.VR.Editor
         [MenuItem("Notiflex/Configure Quest build")]
         public static void ConfigureQuest()
         {
-            PlayerSettings.companyName="Notiflex Research";PlayerSettings.productName="Notiflex VR";PlayerSettings.bundleVersion="0.4.0";
-            PlayerSettings.Android.bundleVersionCode=3;
+            PlayerSettings.companyName="Notiflex Research";PlayerSettings.productName="Notiflex VR";PlayerSettings.bundleVersion="0.5.0";
+            PlayerSettings.Android.bundleVersionCode=4;
             PlayerSettings.defaultInterfaceOrientation=UIOrientation.LandscapeLeft;
             PlayerSettings.Android.applicationEntry=AndroidApplicationEntry.GameActivity;
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android,"org.notiflex.prototype");
@@ -124,7 +124,9 @@ namespace Notiflex.VR.Editor
             meta.insightPassthroughSupport=OVRProjectConfig.FeatureSupport.Supported;
             meta.isPassthroughCameraAccessEnabled=true;
             meta.systemLoadingScreenBackground=OVRProjectConfig.SystemLoadingScreenBackground.ContextualPassthrough;
-            meta.handTrackingSupport=OVRProjectConfig.HandTrackingSupport.ControllersOnly;
+            meta.handTrackingSupport=OVRProjectConfig.HandTrackingSupport.ControllersAndHands;
+            OVRRuntimeSettings.Instance.HandSkeletonVersion=OVRHandSkeletonVersion.OpenXR;
+            EditorUtility.SetDirty(OVRRuntimeSettings.Instance);
             OVRProjectConfig.CommitProjectConfig(meta);
             PlayerSettings.runInBackground=true;PlayerSettings.defaultScreenWidth=1440;PlayerSettings.defaultScreenHeight=900;
             PlayerSettings.colorSpace=ColorSpace.Linear;
@@ -182,8 +184,13 @@ namespace Notiflex.VR.Editor
             var scenes=new[]{"Passthrough","Desk","Kitchen","LivingRoom"};
             var paths=Array.ConvertAll(scenes,n=>SceneDir+"/"+n+".unity");
             var r=BuildPipeline.BuildPlayer(paths,Root+"/Builds/NotiflexVR.apk",BuildTarget.Android,BuildOptions.Development);
-            if(r.summary.result!=BuildResult.Succeeded)throw new Exception("Android build failed");
+            Directory.CreateDirectory(Root+"/evidence/bare-hands-0.5.0");
+            var report=new AndroidBuildRecord {result=r.summary.result.ToString(),errors=r.summary.totalErrors,warnings=r.summary.totalWarnings,
+                version=PlayerSettings.bundleVersion,bytes=r.summary.totalSize};
+            File.WriteAllText(Root+"/evidence/bare-hands-0.5.0/build-summary.json",JsonUtility.ToJson(report,true));
+            if(r.summary.result!=BuildResult.Succeeded||r.summary.totalErrors>0)throw new Exception("Android build failed or reported errors; inspect build-summary.json and generated cache metadata");
         }
+        [Serializable] sealed class AndroidBuildRecord {public string result,version;public int errors,warnings;public ulong bytes;}
         public static void BuildMacAndRender()
         {
             BuildMac();Checks.RenderEvidence();

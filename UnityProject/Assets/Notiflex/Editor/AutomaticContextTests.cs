@@ -16,7 +16,43 @@ namespace Notiflex.VR.Editor
                 cornerDirections=new[]{r*new Vector3(-.2f,-.2f,1),r*new Vector3(-.2f,.2f,1),r*new Vector3(.2f,-.2f,1),r*new Vector3(.2f,.2f,1)}};
         }
         static AutomaticEstimate Infer(List<CameraDetection> input,float headSpeed=0,float headTurn=0,float hands=0) =>
-            AutomaticContext.Estimate(input,Vector3.forward,headSpeed,headTurn,hands);
+            AutomaticContext.Estimate(input,Vector3.forward,headSpeed,headTurn,
+                new HandActivityEvidence {valid=hands!=0,inWorkspace=true,trackedHands=1,speed=hands,activeFor=1.5f,direction=Vector3.forward});
+
+        [Test]
+        public void BareHandManipulationAndTrackingRecovery()
+        {
+            var hands=new HandActivityEvidence {valid=true,inWorkspace=true,bimanual=true,trackedHands=2,speed=.2f,activeFor=1.5f,direction=Vector3.forward};
+            var e=AutomaticContext.Estimate(new List<CameraDetection>(),Vector3.forward,0,0,hands);
+            Assert.AreEqual(Activity.Physical,e.proposed,"Two working bare hands can establish activity without a COCO object label");
+            StringAssert.Contains("bimanual",e.reason);
+            hands.bimanual=false;hands.trackedHands=1;
+            Assert.AreEqual(Activity.Unknown,AutomaticContext.Estimate(new List<CameraDetection>(),Vector3.forward,0,0,hands).proposed,"An isolated hand wave is insufficient");
+            Assert.AreEqual(Activity.Physical,AutomaticContext.Estimate(new List<CameraDetection>{Detection(41)},Vector3.forward,0,0,hands).proposed);
+            hands.direction=Vector3.right;
+            Assert.AreEqual(Activity.Unknown,AutomaticContext.Estimate(new List<CameraDetection>{Detection(41)},Vector3.forward,0,0,hands).proposed,"Object must align with the active hand");
+            hands.direction=Vector3.forward;hands.activeFor=.2f;
+            Assert.AreEqual(Activity.Unknown,AutomaticContext.Estimate(new List<CameraDetection>{Detection(41)},Vector3.forward,0,0,hands).proposed,"Brief motion is not sustained manipulation");
+            hands.activeFor=1.5f;hands.valid=false;
+            Assert.AreEqual(Activity.Unknown,AutomaticContext.Estimate(new List<CameraDetection>{Detection(41)},Vector3.forward,0,0,hands).proposed,"Lost/untrusted tracking cannot support physical context");
+            var history=new HandMotionHistory();
+            for(int i=0;i<150;i++)history.Sample(new Vector3((i%2)*.0005f,0,.5f),Vector3.zero,Vector3.zero,i*.014f);
+            Assert.Less(history.Speed,.03f,"Stationary tracking jitter is suppressed before differentiation");
+            float t=2.2f;
+            for(int i=0;i<120;i++)history.Sample(new Vector3(i*.0028f,0,.5f),Vector3.zero,Vector3.zero,t+i*.014f);
+            Assert.Greater(history.Speed,.15f,"Sustained real translation remains detectable");
+            history.Reset();history.Sample(new Vector3(4,0,.5f),Vector3.zero,Vector3.zero,5);
+            Assert.AreEqual(0,history.Speed,"Reacquisition does not produce a velocity spike");
+            history.Sample(new Vector3(float.NaN,0,0),Vector3.zero,Vector3.zero,5.02f);Assert.IsFalse(history.Valid);
+            history.Reset();
+            history.Sample(Vector3.forward*.5f,Vector3.right*.1f,Vector3.up*.1f,6);
+            history.Sample(Vector3.forward*.5f,Vector3.zero,Vector3.zero,6.02f,false);
+            history.Sample(Vector3.forward*.5f,Vector3.left*.1f,Vector3.down*.1f,6.04f,true);
+            Assert.AreEqual(0,history.Speed,"Finger confidence transitions are not articulation motion");
+            Assert.IsTrue(BareHandActivity.InWorkspace(new Vector3(0,-.5f,.5f),Vector3.forward));
+            Assert.IsFalse(BareHandActivity.InWorkspace(new Vector3(0,.2f,.5f),Vector3.forward));
+            Assert.IsFalse(BareHandActivity.InWorkspace(new Vector3(0,-.5f,-.5f),Vector3.forward));
+        }
 
         [Test]
         public void ContextEvidenceAndFreshness()

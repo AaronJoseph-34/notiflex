@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-15",
+  "appVersion": "0.4.0",
+  "operatorReportedSocialTest": "worked",
+  "operatorReportedPhysicalTest": "no chime; requires bare-hand activity, not controllers",
+  "automaticPhysicalEvents": 0,
+  "automaticSpatialAudioEvents": 0,
+  "manualAndSimulationEvents": 42,
+  "mediaStreamMuted": false,
+  "mediaStreamSpeakerVolume": 6,
+  "mediaStreamMaxVolume": 15,
+  "diagnosis": "No automatic Physical/SpatialAudio selection occurred. This does not establish an audio hardware failure. Replacing the controller proxy rather than claiming that physical sensing passed."
+}

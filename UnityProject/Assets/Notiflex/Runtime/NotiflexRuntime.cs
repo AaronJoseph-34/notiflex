@@ -40,6 +40,8 @@ namespace Notiflex.VR
         CameraContextSensor cameraSensor;
         int lastObservation=-1;
         bool rightStick;
+        bool scheduledDemo;
+        float nextDemo,demoUntil;
         bool CameraMode => OnDevice && environment!=null && environment.passthrough && automaticMode;
         const string Message="Your next update is ready. Review it at a suitable stopping point.";
         bool OnDevice {get{return Application.platform==RuntimePlatform.Android;}}
@@ -55,12 +57,24 @@ namespace Notiflex.VR
             if(OnDevice)
             {
                 var root=new GameObject("Tracked XR rig");root.transform.SetParent(transform);
+                root.SetActive(false);
                 manager=root.AddComponent<OVRManager>();manager.trackingOriginType=OVRManager.TrackingOrigin.FloorLevel;
+                manager.launchSimultaneousHandsControllersOnStartup=true;
+                manager.controllerDrivenHandPosesType=OVRManager.ControllerDrivenHandPosesType.None;
                 var rig=root.AddComponent<OVRCameraRig>();rig.EnsureGameObjectIntegrity();Head=rig.centerEyeAnchor.GetComponent<Camera>();
                 trackingSpace=rig.trackingSpace;
                 if(Head==null) Head=rig.centerEyeAnchor.gameObject.AddComponent<Camera>();
                 passthrough=root.AddComponent<OVRPassthroughLayer>();passthrough.enabled=false;
-                cameraSensor=gameObject.AddComponent<CameraContextSensor>();cameraSensor.Initialize(Head);
+                root.SetActive(true);
+                cameraSensor=gameObject.AddComponent<CameraContextSensor>();cameraSensor.Initialize(Head,trackingSpace);
+                if(Debug.isDebugBuild)
+                {
+                    using var player=new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                    using var activity=player.GetStatic<AndroidJavaObject>("currentActivity");
+                    using var intent=activity.Call<AndroidJavaObject>("getIntent");
+                    scheduledDemo=intent.Call<bool>("getBooleanExtra","notiflex_test_notifications",false);
+                    nextDemo=Time.unscaledTime+12;demoUntil=Time.unscaledTime+180;
+                }
             }
             else
             {
@@ -70,8 +84,9 @@ namespace Notiflex.VR
             Head.nearClipPlane=.08f;Head.farClipPlane=50;Head.tag="MainCamera";
             if(Head.GetComponent<AudioListener>()==null)Head.gameObject.AddComponent<AudioListener>();
             view=new GameObject("World space notification",typeof(RectTransform)).AddComponent<NotificationView>();view.transform.SetParent(transform);view.Initialize();
-            audioSource=new GameObject("Notification sound").AddComponent<AudioSource>();audioSource.transform.SetParent(transform);audioSource.spatialBlend=1;audioSource.volume=.2f;
-            var samples=new float[11025];for(int i=0;i<samples.Length;i++) samples[i]=.18f*Mathf.Sin(i*2*Mathf.PI*660/44100)*Mathf.Sin(Mathf.PI*i/samples.Length);
+            audioSource=new GameObject("Notification sound").AddComponent<AudioSource>();audioSource.transform.SetParent(transform);audioSource.spatialBlend=1;audioSource.volume=.4f;
+            audioSource.rolloffMode=AudioRolloffMode.Linear;audioSource.minDistance=1;audioSource.maxDistance=6;
+            var samples=new float[11025];for(int i=0;i<samples.Length;i++) samples[i]=.35f*Mathf.Sin(i*2*Mathf.PI*660/44100)*Mathf.Sin(Mathf.PI*i/samples.Length);
             audioSource.clip=AudioClip.Create("Chime",samples.Length,1,44100,false);audioSource.clip.SetData(samples,0);
             logPath=Path.Combine(Application.persistentDataPath,"decisions-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss")+".jsonl");
             SceneManager.sceneLoaded+=Loaded;BindEnvironment();
@@ -113,6 +128,8 @@ namespace Notiflex.VR
                 Head.transform.position+=(Head.transform.right*move.x+forward*move.z)*Time.unscaledDeltaTime;
             }
             if(Time.unscaledTime>=nextEvaluation) { Tick(false);nextEvaluation=Time.unscaledTime+.1f; }
+            if(scheduledDemo&&Time.unscaledTime<=demoUntil&&Time.unscaledTime>=nextDemo&&CameraMode&&OVRManager.hasVrFocus&&cameraSensor.HasObservation)
+            {nextDemo=Time.unscaledTime+15;Send();Record("scheduled_test_notification");}
             if(active && Time.unscaledTime>=expiry){Record("expired");active=false;view.Hide();}
         }
         // OVRManager refreshes OVRInput in Update. Read it afterward, once per frame.
@@ -154,8 +171,8 @@ namespace Notiflex.VR
             if(environment.passthrough)
             {
                 if(Press(OVRInput.RawButton.RThumbstick,right,ref rightStick))ControllerAction("right_stick_automatic_mode",()=>SetAutomatic(!automaticMode));
-                if(Press(OVRInput.RawButton.RHandTrigger,right,ref rightGrip))ControllerAction("right_grip_task",()=>Annotate(right,false));
-                if(Press(OVRInput.RawButton.LHandTrigger,left,ref leftGrip))ControllerAction("left_grip_partner",()=>Annotate(left,true));
+                if(Press(OVRInput.RawButton.RHandTrigger,right,ref rightGrip)&&!CameraMode)ControllerAction("right_grip_task",()=>Annotate(right,false));
+                if(Press(OVRInput.RawButton.LHandTrigger,left,ref leftGrip)&&!CameraMode)ControllerAction("left_grip_partner",()=>Annotate(left,true));
                 Vector2 stick=OVRInput.Get(OVRInput.RawAxis2D.RThumbstick,right);
                 annotationDistance=Mathf.Clamp(annotationDistance+stick.y*Time.unscaledDeltaTime,.8f,3.2f);
             }
@@ -195,6 +212,9 @@ namespace Notiflex.VR
         void Tick(bool immediate)
         {
             ContextSnapshot c=Snapshot();if(dwell.Update(PlacementPolicy.Infer(c),Time.unscaledTime))lastDecision="";c.activity=dwell.Current;
+            // Retain the busy-hands assumption while Physical is latched by dwell;
+            // brief hand occlusion must not promote an audio cue to a full card.
+            if(CameraMode&&c.activity==Activity.Physical)c.handsBusy=true;
             evaluator.Evaluate(Head,CameraMode?null:environment.task,CameraMode?null:environment.partner,
                 CameraMode?null:regions,c,priority,Message.Split(' ').Length,
                 CameraMode&&cameraSensor.HasObservation?cameraSensor.Regions:null,
@@ -213,18 +233,24 @@ namespace Notiflex.VR
             if(active && current!=null && (channel==Channel.Visual||channel==Channel.Peripheral))view.Present(current.position,Head.transform.rotation,channel,priority,Message,PlacementPolicy.PresentationScale(current.distance));
             else view.Hide();
         }
-        void PlayChime(){audioSource.transform.position=CameraMode||environment.task==null?Head.transform.TransformPoint(Vector3.forward*2):environment.task.position;audioSource.Play();}
+        void PlayChime()
+        {
+            audioSource.transform.position=CameraMode||environment.task==null?Head.transform.TransformPoint(Vector3.forward*2):environment.task.position;
+            audioSource.Play();Debug.Log("NOTIFLEX_AUDIO play_requested volume="+audioSource.volume+" listener="+AudioListener.volume+" playing="+audioSource.isPlaying);
+            Record("audio_play_requested");
+        }
         [Serializable] class EventRecord
         {
             public string utc,eventType,environment,inputSource,context,priority,channel,selected;
             public int request;public bool poseValid;public List<PlacementResult> candidates;
             public string cameraStatus,proposedContext,contextReason;public float contextConfidence,observationAge,inferenceMs;
             public int[] detectedClasses;
+            public int bareHands;public float handSpeed,handActivitySeconds;public string handStatus;
         }
         void Record(string type)
         {
             if(environment==null||logPath==null)return;
-            var r=new EventRecord {utc=DateTime.UtcNow.ToString("o"),eventType=type,environment=environment.environmentName,inputSource=CameraMode?"local_camera_object_and_motion_proxies":environment.passthrough?"tracked_head_with_manual_annotations_and_supplied_activity":"simulation_ground_truth",
+            var r=new EventRecord {utc=DateTime.UtcNow.ToString("o"),eventType=type,environment=environment.environmentName,inputSource=CameraMode?"local_camera_and_bare_hand_tracking":environment.passthrough?"tracked_head_with_manual_annotations_and_supplied_activity":"simulation_ground_truth",
                 context=dwell.Current.ToString(),priority=priority.ToString(),channel=channel.ToString(),selected=current==null?"none":current.id,request=requestId,poseValid=Snapshot().poseValid,candidates=evaluator.Results};
             if(CameraMode)
             {
@@ -234,6 +260,8 @@ namespace Notiflex.VR
                 r.contextConfidence=fresh?cameraSensor.Estimate.confidence:0;
                 r.observationAge=PlacementPolicy.Finite(cameraSensor.Age)?cameraSensor.Age:-1;r.inferenceMs=cameraSensor.InferenceMs;
                 r.detectedClasses=fresh?cameraSensor.Detections.ConvertAll(d=>d.classId).ToArray():Array.Empty<int>();
+                r.bareHands=cameraSensor.Hands.Evidence.trackedHands;r.handSpeed=cameraSensor.Hands.Evidence.speed;
+                r.handActivitySeconds=cameraSensor.Hands.Evidence.activeFor;r.handStatus=cameraSensor.Hands.Status;
             }
             File.AppendAllText(logPath,JsonUtility.ToJson(r)+"\n");
         }

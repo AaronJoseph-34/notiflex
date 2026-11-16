@@ -1,0 +1,8 @@
+package: org.notiflex.prototype
+uses-permission: name='android.permission.INTERNET'
+uses-permission: name='com.oculus.permission.HAND_TRACKING'
+uses-permission: name='horizonos.permission.HEADSET_CAMERA'
+uses-permission: name='android.permission.FOREGROUND_SERVICE'
+uses-permission: name='android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION'
+permission: org.notiflex.prototype.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+uses-permission: name='org.notiflex.prototype.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'

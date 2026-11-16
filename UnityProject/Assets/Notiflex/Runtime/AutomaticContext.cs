@@ -39,12 +39,15 @@ namespace Notiflex.VR
         public static bool Relevant(int id) => id==0 || WorkObject(id) || ManipulableObject(id);
 
         public static AutomaticEstimate Estimate(IList<CameraDetection> detections,Vector3 headForward,
-            float headSpeed,float headAngularSpeed,float handSpeed)
+            float headSpeed,float headAngularSpeed,HandActivityEvidence hands)
         {
             var result=new AutomaticEstimate { proposed=Activity.Unknown, reason="insufficient_visual_evidence",taskAngle=180,partnerAngle=180 };
-            if(!PlacementPolicy.Finite(headSpeed)||!PlacementPolicy.Finite(headAngularSpeed)||!PlacementPolicy.Finite(handSpeed))
+            if(!PlacementPolicy.Finite(headSpeed)||!PlacementPolicy.Finite(headAngularSpeed)||!PlacementPolicy.Finite(hands.speed))
             {result.reason="invalid_motion";return result;}
-            float social=0,focus=0,physical=0,focusAngle=180,toolAngle=180;
+            bool activeHands=hands.valid&&hands.inWorkspace&&hands.activeFor>=1&&hands.speed>=.10f;
+            float handMotion=Mathf.Clamp01(hands.speed/.16f);
+            float social=0,focus=0,physical=activeHands&&hands.bimanual?.85f*handMotion:0,focusAngle=180,toolAngle=Vector3.Angle(headForward,hands.direction);
+            string physicalReason="sustained_bimanual_manipulation_proxy";
             foreach(var d in detections)
             {
                 if(!Valid(d))continue;
@@ -57,24 +60,25 @@ namespace Notiflex.VR
                     float evidence=d.score*Mathf.Exp(-.5f*Mathf.Pow(angle/40,2));
                     if(evidence>social){social=evidence;result.partnerAngle=angle;result.partnerDirection=d.direction;}
                 }
-                if(WorkObject(d.classId) && angle<=24 && headSpeed<.12f && headAngularSpeed<15)
+                if(WorkObject(d.classId) && angle<=24 && headSpeed<.12f && headAngularSpeed<15 && (!hands.valid||hands.speed<.07f))
                 {
                     float evidence=d.score*alignment;
                     if(evidence>focus){focus=evidence;focusAngle=angle;}
                 }
-                // Physical activity requires both a visible manipulable object and
-                // measured tracked-controller motion. Room labels alone never suffice.
-                if(ManipulableObject(d.classId) && angle<=40 && handSpeed>=.18f)
+                // Associate a real moving hand with a visual task object by bearing.
+                // Metric contact is not inferred from a 2D object rectangle.
+                if((ManipulableObject(d.classId)||WorkObject(d.classId)) && angle<=70 && activeHands &&
+                    Vector3.Angle(hands.direction,d.direction)<=25)
                 {
-                    float evidence=d.score*Mathf.Clamp01(handSpeed/.30f)*Mathf.Exp(-.5f*Mathf.Pow(angle/40,2));
-                    if(evidence>physical){physical=evidence;toolAngle=angle;}
+                    float evidence=d.score*handMotion;
+                    if(evidence>physical){physical=evidence;toolAngle=angle;physicalReason="object_and_bare_hand_manipulation_proxy";}
                 }
             }
             // Social presence takes precedence to avoid an audio cue over a person.
             if(social>=DecisionThreshold)
             {result.proposed=Activity.Conversation;result.confidence=social;result.reason="person_aligned_social_presence_proxy";}
             else if(physical>=DecisionThreshold)
-            {result.proposed=Activity.Physical;result.confidence=physical;result.reason="object_and_tracked_controller_motion_proxy";result.handsBusy=true;result.taskAngle=toolAngle;result.movement=Mathf.Clamp01(handSpeed/.5f);}
+            {result.proposed=Activity.Physical;result.confidence=physical;result.reason=physicalReason;result.handsBusy=true;result.taskAngle=toolAngle;result.movement=Mathf.Max(.25f,Mathf.Clamp01(hands.speed/.4f));}
             else if(focus>=DecisionThreshold)
             {result.proposed=Activity.Focus;result.confidence=focus;result.reason="work_object_and_stable_head_proxy";result.taskAngle=focusAngle;}
             return result;

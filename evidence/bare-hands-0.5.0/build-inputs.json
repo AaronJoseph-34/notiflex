@@ -1,0 +1,30 @@
+{
+  "build": "source-only isolated Unity project",
+  "editor": "6000.4.7f1",
+  "changedSourceFiles": [
+    {
+      "path": "UnityProject/Assets/Notiflex/Editor/AutomaticContextTests.cs",
+      "sha256": "8d1d3ebd0008959bb3b6eeb8c3eb56ade23425bf265485107bb19eb60d599519"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Editor/PlatformBuilder.cs",
+      "sha256": "46faee4e0197d90db4a932dc9f7b3af7d38e526f92dc10ccc1c848fd2315edad"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Runtime/AutomaticContext.cs",
+      "sha256": "3fa43848a412a152cd0e9cc9f6042826565d7eca0c0ffa308d453003ee326dd4"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Runtime/CameraContextSensor.cs",
+      "sha256": "6ed1a8a3f7f6521518adc54d9fc4ab943408b543fb4ef9155215da13c990e509"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Runtime/NotiflexRuntime.cs",
+      "sha256": "0289f65ea9c77e84ac9836c052de1d608a8d83ccf1364932862bd6ecc1048ea0"
+    },
+    {
+      "path": "UnityProject/Assets/Notiflex/Runtime/BareHandActivity.cs",
+      "sha256": "58e6eb61803cec79f9cf474c6eea623b224e74f43b3f1880f7ec18768bf6a0ad"
+    }
+  ]
+}

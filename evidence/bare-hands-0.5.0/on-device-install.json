@@ -1,0 +1,14 @@
+{
+  "recordedUtc": "2026-11-16T03:25:11.908018+00:00",
+  "device": "Quest 3S",
+  "appId": "org.notiflex.prototype",
+  "versionName": "0.5.0",
+  "versionCode": 4,
+  "adbInstall": "Success",
+  "activityStart": "Status ok; COLD; TotalTime 331 ms",
+  "initialForegroundState": "Headset lock screen; no new app decision log yet",
+  "bareHandAcquisition": "pending",
+  "physicalTaskAcceptance": "pending",
+  "chimeAudibility": "pending",
+  "rawCameraImagesSaved": false
+}

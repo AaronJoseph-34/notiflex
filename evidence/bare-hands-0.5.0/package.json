@@ -1,0 +1,8 @@
+{
+  "version": "0.5.0",
+  "versionCode": 4,
+  "apkBytes": 67741311,
+  "sha256": "9aba633a83fabdc277ec6ce4d3f2af6d8db2583541b21519f752e04f57806843",
+  "signatureSchemeV2": true,
+  "buildSummaryBytesMeaning": "Unity report total size; use apkBytes for downloadable APK size"
+}

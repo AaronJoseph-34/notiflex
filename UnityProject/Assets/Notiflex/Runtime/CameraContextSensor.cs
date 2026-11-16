@@ -23,11 +23,13 @@ namespace Notiflex.VR
         public float ObservationTime {get;private set;}=float.NegativeInfinity;
         public int FrameSequence {get;private set;}
         public AutomaticEstimate Estimate {get;private set;}
+        public readonly BareHandActivity Hands=new BareHandActivity();
         public float Age => Time.unscaledTime-ObservationTime;
         public bool Fresh => cameraAccess!=null && cameraAccess.IsPlaying && OVRManager.hasVrFocus &&
             HeadTracked && !paused && wanted && AutomaticContext.Fresh(Age,captureHead,head.transform.position);
         public bool HasObservation => Fresh;
         Camera head;
+        Transform trackingSpace;
         PassthroughCameraAccess cameraAccess;
         GameObject cameraObject;
         Worker worker;
@@ -38,7 +40,7 @@ namespace Notiflex.VR
         bool wanted,paused,permissionRequested,failed;
         Vector3 captureHead,previousHead;
         Quaternion previousRotation;
-        float headSpeed,angularSpeed,handSpeed;
+        float headSpeed,angularSpeed;
         DateTime lastFrame;
         PermissionCallbacks permissionCallbacks;
         string lastStatus;
@@ -51,9 +53,9 @@ namespace Notiflex.VR
             }
         }
 
-        public void Initialize(Camera camera)
+        public void Initialize(Camera camera,Transform space)
         {
-            head=camera;previousHead=head.transform.position;previousRotation=head.transform.rotation;
+            head=camera;trackingSpace=space;previousHead=head.transform.position;previousRotation=head.transform.rotation;
             cameraObject=new GameObject("Local context camera");cameraObject.transform.SetParent(transform);cameraObject.SetActive(false);
             cameraAccess=cameraObject.AddComponent<PassthroughCameraAccess>();
             cameraAccess.enabled=false;cameraAccess.CameraPosition=PassthroughCameraAccess.CameraPositionType.Left;
@@ -85,10 +87,6 @@ namespace Notiflex.VR
                 float blend=1-Mathf.Exp(-dt/.25f);
                 headSpeed=Mathf.Lerp(headSpeed,Vector3.Distance(previousHead,head.transform.position)/dt,blend);
                 angularSpeed=Mathf.Lerp(angularSpeed,Quaternion.Angle(previousRotation,head.transform.rotation)/dt,blend);
-                float speed=0;
-                foreach(var c in new[]{OVRInput.Controller.LTouch,OVRInput.Controller.RTouch})
-                    if(OVRInput.GetControllerPositionTracked(c))speed=Mathf.Max(speed,OVRInput.GetLocalControllerVelocity(c).magnitude);
-                handSpeed=Mathf.Lerp(handSpeed,speed,blend);
             }
             previousHead=head.transform.position;previousRotation=head.transform.rotation;
             if(!wanted||paused||failed||!OVRManager.hasVrFocus||!HeadTracked)
@@ -113,10 +111,16 @@ namespace Notiflex.VR
             if(!cameraAccess.enabled){Invalidate();SetStatus("camera_start_failed_manual_available");return;}
             if(Fresh)
             {
-                Estimate=AutomaticContext.Estimate(Detections,head.transform.forward,headSpeed,angularSpeed,handSpeed);
+                Estimate=AutomaticContext.Estimate(Detections,head.transform.forward,headSpeed,angularSpeed,Hands.Evidence);
                 UpdateRegions();
             }
             else Regions.Clear();
+        }
+        void LateUpdate()
+        {
+            if(wanted&&!paused&&OVRManager.hasVrFocus&&HeadTracked)
+                Hands.Update(head.transform,trackingSpace,Time.unscaledTime,Time.unscaledDeltaTime);
+            else Hands.Reset();
         }
         void UpdateRegions()
         {
@@ -209,9 +213,10 @@ namespace Notiflex.VR
             var b=boxes.DownloadToArray();var c=ids.DownloadToArray();var s=scores.DownloadToArray();
             AutomaticContext.Decode(b,c,s,width,height,ray0,rayX,rayY,Detections,content);
             captureHead=capturedHead;ObservationTime=capturedAt;FrameSequence++;
-            Estimate=AutomaticContext.Estimate(Detections,head.transform.forward,headSpeed,angularSpeed,handSpeed);UpdateRegions();SetStatus("observing");
+            Estimate=AutomaticContext.Estimate(Detections,head.transform.forward,headSpeed,angularSpeed,Hands.Evidence);UpdateRegions();SetStatus("observing");
             Debug.Log("NOTIFLEX_OBSERVATION frame="+FrameSequence+" objects="+Detections.Count+" inferenceMs="+InferenceMs.ToString("F1")+
-                " proposed="+Estimate.proposed+" confidence="+Estimate.confidence.ToString("F2")+" reason="+Estimate.reason);
+                " proposed="+Estimate.proposed+" confidence="+Estimate.confidence.ToString("F2")+" reason="+Estimate.reason+
+                " bareHands="+Hands.Evidence.trackedHands+" handSpeed="+Hands.Evidence.speed.ToString("F2"));
         }
         void OnApplicationPause(bool value)
         {

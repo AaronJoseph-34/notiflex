@@ -1,3 +1,11 @@
+# Notiflex VR 0.5.0 — bare-hand activity update (hardware acceptance pending)
+
+Replaces the automatic physical-task controller-motion proxy with actual Quest hand tracking. High-confidence wrist and finger movement, a lower working area, sustained-motion gates and object/hand alignment provide explicit physical-activity evidence. A bimanual route supports tasks without a known object label. Tracking gaps, jumps and finger-confidence changes reset or suppress motion evidence. Social presence retains precedence. This remains a manipulation heuristic rather than recognition of every named task.
+
+Enables simultaneous hands/controllers, disables controller-driven hand poses and preserves the notification-only passthrough view. Side grips no longer accidentally leave automatic mode. Adds an optional, time-limited hands-free notification test and audio-request diagnostics, with a louder positional chime. No cloud service or microphone is added.
+
+All seven Unity MCP EditMode groups passed. A source-only isolated Android build succeeded with zero errors; its v2 signature, version code 4 and camera/hand-tracking manifest permissions were verified. The 67,741,311-byte APK is installed on the Quest 3S. Live bare-hand recognition and audible delivery are awaiting operator acceptance. See [bare-hand rules and test procedure](BARE-HAND-MODE.md).
+
 # Notiflex VR 0.4.0 — experimental automatic camera mode
 
 Adds local Quest camera acquisition, a bundled object detector and explicit context heuristics for focused viewing, controller-assisted physical-task activity and possible social interaction. Existing normalized placement costs and separate delivery selection remain intact. No cloud service or microphone capture is used.

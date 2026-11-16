@@ -49,7 +49,7 @@ The app uses OS-composited passthrough. Version 0.4.0 also requests access to th
 | Right grip in Passthrough | Replace task annotation along right controller forward ray |
 | Left grip in Passthrough | Replace partner annotation along left controller forward ray |
 
-Controller annotations use an operator-selected ray distance. They are not measured surface hits. Set the distance deliberately and point toward the intended task/partner before pressing grip. There is no persistent spatial anchor mapping across app sessions. In live mode only the notification appears; annotations have no visible markers or headset control panel. Manual annotations switch live Passthrough to manual mode. In automatic mode, local detections provide context proxies and protected angular regions; use logs to verify decisions. See [automatic rules and tests](AUTOMATIC-MODE.md).
+Controller annotations use an operator-selected ray distance. They are not measured surface hits. Set the distance deliberately and point toward the intended task/partner before pressing grip. There is no persistent spatial anchor mapping across app sessions. In live mode only the notification appears; annotations have no visible markers or headset control panel. From 0.5.0, switch to manual with right stick click before grip annotations. Grips are ignored in automatic mode. In automatic mode, local detections provide context proxies and protected angular regions; use logs to verify decisions. See [automatic rules and tests](AUTOMATIC-MODE.md).
 
 Press A to create a notification before trying the right trigger. The trigger expands an active request; it does not create one. Virtual controller models are not drawn. Version 0.3.1 logs received actions as `NOTIFLEX_INPUT` and reports controller connection, position-tracking and VR focus changes as `NOTIFLEX_INPUT_STATUS` in Unity logcat. Return from the Quest system menu to the app before testing; controls intentionally do nothing while the menu owns focus.
 
@@ -84,3 +84,7 @@ Android file access varies with OS configuration. On the tested Quest 3S Android
 ## Hardware acceptance record
 
 Record the headset model/OS, app version, date and operator for each check. Confirm launch, both-eye rendering, controller mappings, passthrough startup and scene transitions, annotation location, text legibility at selected distance, chime audibility/direction, tracking-loss hiding, recovery, and 10-minute stability. Profile CPU/GPU frame times on the device, targeting the configured 72 Hz budget of 13.89 ms/frame. Do not equate editor evaluation timings with headset frame rate. Run in bright and dim rooms and with seated and standing head heights. These checks remain pending until the APK is installed on a physical headset.
+
+## Bare-hand physical activity, 0.5.0
+
+Use the [bare-hand procedure](BARE-HAND-MODE.md) with both controllers put down. It includes an explicitly armed, time-limited incoming-notification schedule so no controller is needed to send test notifications. The prior controller-motion physical test is superseded. Social remains a person-presence estimate.
