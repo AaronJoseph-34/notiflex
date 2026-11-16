@@ -6,7 +6,7 @@
   "versionCode": 5,
   "install": "Success",
   "activityLaunch": "Status ok; COLD; TotalTime 366 ms",
-  "test": "one-shot diagnostic sound extra enabled; operator response pending",
-  "automaticPhysicalAcceptance": "pending",
+  "test": "one-shot diagnostic chime heard by operator and matched playback log",
+  "automaticPhysicalAcceptance": "initial two-handed task passed; separate trial with diagnostic disabled",
   "rawCameraImagesSaved": false
 }

@@ -2,7 +2,7 @@
 
 The first bare-hand device trial acquired real hand motion and proposed Physical, but brief threshold gaps repeatedly reset the uninterrupted context timer. No settled Physical state or audio request occurred. This version integrates proposal duration over a trailing two-second window and accepts 1.2 seconds of support. Stale input and long frame gaps clear the window. Manual dwell, confidence gates, visual costs and person/audio exclusions are unchanged.
 
-Adds an explicitly enabled one-shot sound diagnostic, separate from automatic recognition, and logs context support and audio eligibility. All eight Unity MCP regression groups pass, including intermittent working motion, rest, isolated pulses, stale data and suspended time. The Android package built with zero errors and 35 warnings; signature/manifest/version checks passed and 0.5.1/code 5 is installed on Quest 3S. Device acceptance is pending.
+Adds an explicitly enabled one-shot sound diagnostic, separate from automatic recognition, and logs context support and audio eligibility. All eight Unity MCP regression groups pass, including intermittent working motion, rest, isolated pulses, stale data and suspended time. The Android package built with zero errors and 35 warnings; signature/manifest/version checks passed and 0.5.1/code 5 is installed on Quest 3S. An isolated sound check and a separate automatic two-handed task trial passed on Quest 3S: real bare-hand activity settled into Physical/SpatialAudio, the operator heard the chime, and slowing motion cleared Physical. Delivery changes can repeat the chime on the same request; broader task and interruption testing remain incomplete. See HARDWARE-TEST-0.5.1.md.
 
 # Notiflex VR 0.5.0 — bare-hand activity update (hardware acceptance pending)
 

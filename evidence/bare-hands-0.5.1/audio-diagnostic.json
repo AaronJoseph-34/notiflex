@@ -1,0 +1,16 @@
+{
+  "localDate": "2026-11-15",
+  "version": "0.5.1",
+  "test": "explicit one-shot diagnostic; automatic notification scheduler disabled",
+  "operatorReport": "Yes, I heard it",
+  "diagnosticUtc": "2026-11-16T03:39:05.8245320Z",
+  "audioRequestUtc": "2026-11-16T03:39:05.8255860Z",
+  "requestId": 0,
+  "context": "Unknown",
+  "channel": "Deferred",
+  "sourceVolume": 0.4,
+  "listenerVolume": 1,
+  "sourceIsPlaying": true,
+  "conclusion": "Normal chime playback is audible. This bypasses context selection and does not validate automatic physical-task delivery.",
+  "rawCameraImagesSaved": false
+}

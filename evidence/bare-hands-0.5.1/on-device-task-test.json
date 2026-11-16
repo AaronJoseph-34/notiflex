@@ -1,0 +1,97 @@
+{
+  "localDate": "2026-11-15",
+  "version": "0.5.1",
+  "device": "Quest 3S",
+  "operatorProcedure": "Controllers down; two-handed folding task then rest requested",
+  "operatorReport": "Yes, during the task",
+  "scope": "Initial bare-hand physical-task recognition and audible automatic delivery pass; not a general action-recognition validation",
+  "diagnosticAudioEnabled": false,
+  "diagnosticAudioEvents": 0,
+  "sampleEvents": 100,
+  "eventCounts": {
+    "decision": 31,
+    "camera_observation": 59,
+    "notification": 3,
+    "scheduled_test_notification": 3,
+    "audio_play_requested": 4
+  },
+  "contextCounts": {
+    "Unknown": 49,
+    "Focus": 17,
+    "Physical": 30,
+    "Conversation": 4
+  },
+  "channelCounts": {
+    "Deferred": 16,
+    "Peripheral": 37,
+    "Visual": 21,
+    "SpatialAudio": 26
+  },
+  "audioRequests": [
+    {
+      "utc": "2026-11-16T03:40:05.1012140Z",
+      "eventType": "audio_play_requested",
+      "request": 1,
+      "context": "Physical",
+      "channel": "SpatialAudio",
+      "bareHands": 2,
+      "handStatus": "two_bare_hands",
+      "handSpeed": 0.2781016528606415,
+      "handActivitySeconds": 2.0,
+      "contextSupportSeconds": 1.2220687866210938,
+      "audioAllowed": true,
+      "detectedClasses": []
+    },
+    {
+      "utc": "2026-11-16T03:40:11.1149910Z",
+      "eventType": "audio_play_requested",
+      "request": 2,
+      "context": "Physical",
+      "channel": "SpatialAudio",
+      "bareHands": 2,
+      "handStatus": "two_bare_hands",
+      "handSpeed": 0.11742322146892548,
+      "handActivitySeconds": 2.0,
+      "contextSupportSeconds": 1.8889007568359375,
+      "audioAllowed": true,
+      "detectedClasses": []
+    },
+    {
+      "utc": "2026-11-16T03:40:15.3221030Z",
+      "eventType": "audio_play_requested",
+      "request": 2,
+      "context": "Physical",
+      "channel": "SpatialAudio",
+      "bareHands": 2,
+      "handStatus": "two_bare_hands",
+      "handSpeed": 0.10671184957027435,
+      "handActivitySeconds": 2.0,
+      "contextSupportSeconds": 1.7778053283691406,
+      "audioAllowed": true,
+      "detectedClasses": []
+    },
+    {
+      "utc": "2026-11-16T03:40:18.4335870Z",
+      "eventType": "audio_play_requested",
+      "request": 2,
+      "context": "Physical",
+      "channel": "SpatialAudio",
+      "bareHands": 2,
+      "handStatus": "two_bare_hands",
+      "handSpeed": 0.014894356951117516,
+      "handActivitySeconds": 0.9168033599853516,
+      "contextSupportSeconds": 0.5554847717285156,
+      "audioAllowed": true,
+      "detectedClasses": []
+    }
+  ],
+  "activityExit": {
+    "utc": "2026-11-16T03:40:19.0995020Z",
+    "context": "Unknown",
+    "bareHands": 2,
+    "handSpeed": 0.008,
+    "note": "Physical clears after slowed motion. Task/rest ground-truth times were not independently recorded."
+  },
+  "knownBehavior": "Delivery transitions can replay audio on the same notification. Request 2 played three times as person/audio exclusion toggled Visual/SpatialAudio. This remains a refinement for interruption testing; do not interpret four requests as four independent recognitions.",
+  "rawCameraImagesSaved": false
+}

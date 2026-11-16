@@ -58,7 +58,7 @@ The automatic scheduler avoids picking up a controller to send a test notificati
 
 ## Validation status
 
-Version 0.5.1 adds the duration-window regression for eight passing groups total. Its Android package builds with zero errors and 35 warnings, passes signature/manifest/version checks, and is installed on Quest 3S. The independent sound and updated physical-task acceptance checks are pending.
+Version 0.5.1 adds the duration-window regression for eight passing groups total. Its Android package builds with zero errors and 35 warnings, passes signature/manifest/version checks, and is installed on Quest 3S. The independent sound check and separate initial two-handed Physical/SpatialAudio trial passed on Quest 3S, with operator-confirmed audibility. Slowing motion cleared Physical. Delivery changes can replay audio on the same request; broader tasks and controlled headset negative checks remain open. See [hardware scope and remaining behavior](HARDWARE-TEST-0.5.1.md).
 
 
 The 0.5.0 seven software test groups cover the prior policy/model/geometry tests plus hand-motion noise, tracking recovery, finger-confidence changes, bimanual activity without an object label, object/hand association, brief motion and missing tracking. The clean Android build succeeded with zero errors; package signature/manifest/version checks passed and 0.5.0 is installed on Quest 3S. Live hand acquisition, natural-task recognition and audible notification behavior must be verified on the headset before reporting the physical mode as passed. No camera recordings are required for these checks.
