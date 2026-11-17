@@ -1,0 +1,10 @@
+{
+  "packageVersionCodeArm64": true,
+  "launchableGameActivity": true,
+  "signatureV2Verified": true,
+  "certificateMatchesPublished051": true,
+  "published051Sha256Verified": true,
+  "cameraHandSceneAnchorMicrophonePermissionsPresent": true,
+  "eyeTrackingPermissionAbsent": true,
+  "serializedPermissionPromptPolicyPresent": true
+}

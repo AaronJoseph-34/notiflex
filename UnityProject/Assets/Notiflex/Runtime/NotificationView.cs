@@ -7,6 +7,8 @@ namespace Notiflex.VR
         Canvas canvas;
         Text title,body;
         Image background;
+        Color baseColor;
+        public void SetHover(bool hovered){if(background!=null)background.color=hovered?Color.Lerp(baseColor,Color.white,.12f):baseColor;}
         public void Initialize()
         {
             canvas=gameObject.AddComponent<Canvas>(); canvas.renderMode=RenderMode.WorldSpace;
@@ -30,7 +32,15 @@ namespace Notiflex.VR
             var t=go.AddComponent<Text>();t.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");t.fontSize=fontSize;t.fontStyle=style;t.color=Color.white;
             t.horizontalOverflow=HorizontalWrapMode.Wrap;t.verticalOverflow=VerticalWrapMode.Truncate;return t;
         }
-        public void Present(Vector3 position,Quaternion rotation,Channel channel,Priority priority,string message,float scale=1)
+        public bool Hit(Ray pointer)
+        {
+            if(!gameObject.activeSelf)return false;
+            var plane=new Plane(transform.forward,transform.position);
+            if(!plane.Raycast(pointer,out float distance)||distance<.15f||distance>4)return false;
+            Vector3 local=transform.InverseTransformPoint(pointer.GetPoint(distance));
+            return GetComponent<RectTransform>().rect.Contains(new Vector2(local.x,local.y));
+        }
+        public void Present(Vector3 position,Quaternion rotation,Channel channel,Priority priority,string message,float scale=1,string heading="Notiflex")
         {
             gameObject.SetActive(channel==Channel.Visual || channel==Channel.Peripheral);
             transform.SetPositionAndRotation(position,rotation);
@@ -42,12 +52,27 @@ namespace Notiflex.VR
             body.rectTransform.anchoredPosition=cue?new Vector2(18,-52):new Vector2(28,-105);
             body.rectTransform.sizeDelta=cue?new Vector2(294,68):new Vector2(560,155);
             title.fontSize=cue?28:42;
-            title.text=priority==Priority.Urgent?"Priority update":"Notiflex";
-            body.text=cue?(Application.platform==RuntimePlatform.Android?"Update available\nTrigger to read":"Update available\nE to read"):message;
-            background.color=priority==Priority.Urgent?new Color(.24f,.13f,.06f,.96f):new Color(.08f,.14f,.18f,.94f);
+            title.text=priority==Priority.Urgent?"Priority update":string.IsNullOrWhiteSpace(heading)?"Notiflex":heading.Substring(0,Mathf.Min(22,heading.Length));
+            body.text=cue?(Application.platform==RuntimePlatform.Android?"Update available\nPoint + pinch to read":"Update available\nE to read"):message;
+            baseColor=priority==Priority.Urgent?new Color(.24f,.13f,.06f,.96f):new Color(.08f,.14f,.18f,.94f);background.color=baseColor;
             // A cue occupies the upper portion of the same scored full-card envelope.
             body.fontSize=cue?22:32;
         }
         public void Hide() { gameObject.SetActive(false); }
+    }
+    public static class NotificationText
+    {
+        public static string[] Pages(string text)
+        {
+            var pages=new System.Collections.Generic.List<string>();string current="";
+            foreach(string word in text.Split(new[]{' ','\n','\t'},System.StringSplitOptions.RemoveEmptyEntries))
+            {
+                string remaining=word;
+                while(remaining.Length>26){if(current.Length>0){pages.Add(current);current="";}pages.Add(remaining.Substring(0,26));remaining=remaining.Substring(26);}
+                if(current.Length+remaining.Length+1>100){pages.Add(current);current="";}
+                current+=(current.Length==0?"":" ")+remaining;
+            }
+            if(current.Length>0)pages.Add(current);return pages.Count>0?pages.ToArray():new[]{""};
+        }
     }
 }

@@ -1,5 +1,7 @@
 # Install and test Notiflex VR
 
+Version note: this document records an earlier implementation. See [the current 0.6.0 method](CURRENT-METHOD-0.6.0.md) and [new device acceptance steps](QUEST-ACCEPTANCE-0.6.0.md) for the speech, depth, tracking and interaction upgrade. New hardware results remain pending.
+
 ## Desktop preview
 
 Open `NotiflexVR.app` from the delivered Mac archive. This is the new Unity 3D test platform; the earlier photo-based Notiflex app is a separate preview and has not been replaced.

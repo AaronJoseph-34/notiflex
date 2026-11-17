@@ -1,5 +1,7 @@
 > Version scope: this document preserves the 0.4.0 camera baseline. Version 0.5.0 replaces its controller-motion physical proxy with [bare-hand manipulation evidence](BARE-HAND-MODE.md). The new document supersedes the physical-input and grip-control rules below; other camera/placement rules remain unchanged.
 
+Version note: this document records an earlier implementation. See [the current 0.6.0 method](CURRENT-METHOD-0.6.0.md) and [new device acceptance steps](QUEST-ACCEPTANCE-0.6.0.md) for the speech, depth, tracking and interaction upgrade. New hardware results remain pending.
+
 # Automatic camera mode — implementation and acceptance record
 
 ## Connected-headset preflight, November 15, 2026

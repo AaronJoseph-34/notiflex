@@ -1,0 +1,9 @@
+{
+  "version": "0.6.0",
+  "versionCode": 6,
+  "applicationId": "org.notiflex.prototype",
+  "apkBytes": 119740268,
+  "apkSha256": "8aab4b1a6a7ab50bec3fe09ec2423f09bfa364936937c5f3f31e995398ba4dd3",
+  "hardwareAcceptance": "pending; operator chose later testing",
+  "unityTestGroupsPassed": 16
+}

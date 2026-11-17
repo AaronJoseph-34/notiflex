@@ -1,0 +1,17 @@
+{
+  "sileroRevision": "066409f3d9db45a30d21dfcbf9147826ffdd7052",
+  "sileroSourceSha256": "7ed98ddbad84ccac4cd0aeb3099049280713df825c610a8ed34543318f1b2c49",
+  "speakerSourceUrl": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/wespeaker_en_voxceleb_resnet34.onnx",
+  "speakerSourceSha256": "5ef208a9da1453335308a6b6f4e6dfbd7e183a38b604de0a57664f45d257fe94",
+  "sileroDifferentialMaxAbsError": 0.0,
+  "speakerDifferentialMaxAbsError": 4.3213367462158203e-07,
+  "testInputs": "Synthetic silence/noise/features, no participant recordings",
+  "conversion": "Fixed shapes, 16 kHz constant, ORT basic constant folding; no learned weights changed",
+  "generatedSha256": {
+    "SpeakerEmbedding.onnx": "f0cee766deb241eddf1d9a56cdaba41ca7528357f543a996de22d97d417e0f9a",
+    "VoiceActivity.onnx": "301a48951bf2139025715211d66b648b1bf065530d29da84f322d50f20fd5f0f"
+  },
+  "numpyVersion": "2.5.5",
+  "onnxVersion": "1.23.2",
+  "ortVersion": "1.32.0"
+}

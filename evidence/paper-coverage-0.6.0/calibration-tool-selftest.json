@@ -1,0 +1,17 @@
+{
+  "syntheticOnly": true,
+  "cannotEnableParticipantFit": true,
+  "checks": [
+    "participant split enforced",
+    "nonnegative coefficients",
+    "held-out metrics computed"
+  ],
+  "metrics": {
+    "accepted": false,
+    "heldOutBrier": 0.0485838585045981,
+    "heldOutAuc": 1.0,
+    "trainingPrevalenceBaselineBrier": 0.2488,
+    "split": "participant-separated",
+    "limitations": "Conditional disengagement fit, not external validation; reading speed and channel durations remain hypotheses unless independently measured."
+  }
+}

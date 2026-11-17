@@ -1,0 +1,2 @@
+Local speech processing: Silero VAD (MIT), snakers4/silero-vad, revision 066409f3d9db45a30d21dfcbf9147826ffdd7052. Fixed 16 kHz/576-sample specialization preserves the upstream prediction.
+Anonymous speaker embeddings: WeSpeaker English VoxCeleb ResNet34, distributed by k2-fsa/sherpa-onnx. WeSpeaker code license: Apache-2.0; see accompanying license and source provenance. No named identity recognition, saved voice enrollment, speech transcript or cloud inference.

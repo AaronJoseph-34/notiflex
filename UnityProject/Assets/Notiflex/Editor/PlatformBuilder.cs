@@ -108,8 +108,8 @@ namespace Notiflex.VR.Editor
         [MenuItem("Notiflex/Configure Quest build")]
         public static void ConfigureQuest()
         {
-            PlayerSettings.companyName="Notiflex Research";PlayerSettings.productName="Notiflex VR";PlayerSettings.bundleVersion="0.5.1";
-            PlayerSettings.Android.bundleVersionCode=5;
+            PlayerSettings.companyName="Notiflex Research";PlayerSettings.productName="Notiflex VR";PlayerSettings.bundleVersion="0.6.0";
+            PlayerSettings.Android.bundleVersionCode=6;
             PlayerSettings.defaultInterfaceOrientation=UIOrientation.LandscapeLeft;
             PlayerSettings.Android.applicationEntry=AndroidApplicationEntry.GameActivity;
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android,"org.notiflex.prototype");
@@ -123,6 +123,8 @@ namespace Notiflex.VR.Editor
             meta.targetDeviceTypes=new List<OVRProjectConfig.DeviceType>{OVRProjectConfig.DeviceType.Quest3S,OVRProjectConfig.DeviceType.Quest3};
             meta.insightPassthroughSupport=OVRProjectConfig.FeatureSupport.Supported;
             meta.isPassthroughCameraAccessEnabled=true;
+            meta.sceneSupport=OVRProjectConfig.FeatureSupport.Supported;
+            meta.anchorSupport=OVRProjectConfig.AnchorSupport.Enabled;
             meta.systemLoadingScreenBackground=OVRProjectConfig.SystemLoadingScreenBackground.ContextualPassthrough;
             meta.handTrackingSupport=OVRProjectConfig.HandTrackingSupport.ControllersAndHands;
             OVRRuntimeSettings.Instance.HandSkeletonVersion=OVRHandSkeletonVersion.OpenXR;
@@ -134,10 +136,8 @@ namespace Notiflex.VR.Editor
             PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android,false);PlayerSettings.SetGraphicsAPIs(BuildTarget.Android,new[]{UnityEngine.Rendering.GraphicsDeviceType.OpenGLES3});
             var serialized=new SerializedObject(Unsupported.GetSerializedAssetInterfaceSingleton("PlayerSettings"));
             var input=serialized.FindProperty("activeInputHandler");if(input!=null)input.intValue=1;
-            // Meta Core references Unity's microphone API even though this app does not capture it.
-            // Unity's Mac build scanner requires this description; it does not grant permission.
             var microphone=serialized.FindProperty("microphoneUsageDescription");
-            if(microphone!=null)microphone.stringValue="The bundled XR SDK includes optional audio features. Notiflex does not record microphone input.";
+            if(microphone!=null)microphone.stringValue="Notiflex estimates speech and anonymous turn-taking on this headset. Audio is never saved or uploaded.";
             serialized.ApplyModifiedPropertiesWithoutUndo();
             var general=XRGeneralSettingsPerBuildTarget.XRGeneralSettingsForBuildTarget(BuildTargetGroup.Android);
             if(general==null)
@@ -184,13 +184,13 @@ namespace Notiflex.VR.Editor
             var scenes=new[]{"Passthrough","Desk","Kitchen","LivingRoom"};
             var paths=Array.ConvertAll(scenes,n=>SceneDir+"/"+n+".unity");
             var r=BuildPipeline.BuildPlayer(paths,Root+"/Builds/NotiflexVR.apk",BuildTarget.Android,BuildOptions.Development);
-            Directory.CreateDirectory(Root+"/evidence/bare-hands-0.5.1");
+            Directory.CreateDirectory(Root+"/evidence/paper-coverage-0.6.0");
             var report=new AndroidBuildRecord {result=r.summary.result.ToString(),errors=r.summary.totalErrors,warnings=r.summary.totalWarnings,
-                version=PlayerSettings.bundleVersion,bytes=r.summary.totalSize};
-            File.WriteAllText(Root+"/evidence/bare-hands-0.5.1/build-summary.json",JsonUtility.ToJson(report,true));
+                version=PlayerSettings.bundleVersion,bytes=(ulong)new FileInfo(Root+"/Builds/NotiflexVR.apk").Length,buildReportTotalBytes=r.summary.totalSize};
+            File.WriteAllText(Root+"/evidence/paper-coverage-0.6.0/build-summary.json",JsonUtility.ToJson(report,true));
             if(r.summary.result!=BuildResult.Succeeded||r.summary.totalErrors>0)throw new Exception("Android build failed or reported errors; inspect build-summary.json and generated cache metadata");
         }
-        [Serializable] sealed class AndroidBuildRecord {public string result,version;public int errors,warnings;public ulong bytes;}
+        [Serializable] sealed class AndroidBuildRecord {public string result,version;public int errors,warnings;public ulong bytes,buildReportTotalBytes;}
         public static void BuildMacAndRender()
         {
             BuildMac();Checks.RenderEvidence();

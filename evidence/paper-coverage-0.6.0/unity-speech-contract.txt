@@ -1,0 +1,1 @@
+Unity CPU synthetic-reference parity passed; includes model load / first-run compile. Desktop VAD ms=8; speaker ms=56. Not headset latency or speech/speaker accuracy validation.

@@ -39,13 +39,26 @@ namespace Notiflex.VR
         string logPath,lastDecision="";
         string lastControllerStatus="";
         CameraContextSensor cameraSensor;
+        LiveSpatialEnvironment liveSpatial;
+        LocalSpeechSensor speech;
+        NotificationRequest request=new NotificationRequest();
+        readonly NotificationAudioGate audioGate=new NotificationAudioGate();
+        readonly List<PlacementCandidate> liveCandidates=new List<PlacementCandidate>();
+        Vector3? referentPosition;
+        string referentStatus="no_referent_metadata";
+        int referentTrack=-1;
+        float referentSigma;
+        Vector3 requestHeadPosition;
+        string[] pages= {"Your next update is ready."};
+        int page;
+        float lastHandAction=-10;
         int lastObservation=-1;
         bool rightStick;
         bool scheduledDemo,audioDiagnostic;
         float audioDiagnosticAt=-1;
         float nextDemo,demoUntil;
         bool CameraMode => OnDevice && environment!=null && environment.passthrough && automaticMode;
-        const string Message="Your next update is ready. Review it at a suitable stopping point.";
+        string Message => pages[page]+(pages.Length>1?"\n"+(page+1)+" / "+pages.Length:"");
         bool OnDevice {get{return Application.platform==RuntimePlatform.Android;}}
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -68,7 +81,13 @@ namespace Notiflex.VR
                 if(Head==null) Head=rig.centerEyeAnchor.gameObject.AddComponent<Camera>();
                 passthrough=root.AddComponent<OVRPassthroughLayer>();passthrough.enabled=false;
                 root.SetActive(true);
-                cameraSensor=gameObject.AddComponent<CameraContextSensor>();cameraSensor.Initialize(Head,trackingSpace);
+                liveSpatial=gameObject.AddComponent<LiveSpatialEnvironment>();liveSpatial.Initialize(Head,trackingSpace);
+                speech=gameObject.AddComponent<LocalSpeechSensor>();speech.Initialize(true);
+                cameraSensor=gameObject.AddComponent<CameraContextSensor>();cameraSensor.Initialize(Head,trackingSpace,liveSpatial,speech);
+                using(var player=new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+                using(var activity=player.GetStatic<AndroidJavaObject>("currentActivity"))
+                using(var intent=activity.Call<AndroidJavaObject>("getIntent"))
+                    speech.SetConsent(intent.Call<bool>("getBooleanExtra","notiflex_local_speech",true));
                 if(Debug.isDebugBuild)
                 {
                     using var player=new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -93,6 +112,9 @@ namespace Notiflex.VR
             audioSource.clip=AudioClip.Create("Chime",samples.Length,1,44100,false);audioSource.clip.SetData(samples,0);
             logPath=Path.Combine(Application.persistentDataPath,"decisions-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss")+".jsonl");
             SceneManager.sceneLoaded+=Loaded;BindEnvironment();
+            var profile=Resources.Load<TextAsset>("Notiflex/SocialRiskProfile");
+            if(profile!=null)try{SocialRiskModel.SetProfile(JsonUtility.FromJson<SocialRiskProfile>(profile.text));}catch(Exception){Debug.LogWarning("NOTIFLEX_PROFILE invalid; using hypothesis default");}
+            if(OnDevice)Invoke(nameof(ReadLaunchRequest),2);
         }
         void OnDestroy() { SceneManager.sceneLoaded-=Loaded; }
         void Loaded(Scene scene,LoadSceneMode mode) { BindEnvironment(); }
@@ -109,9 +131,28 @@ namespace Notiflex.VR
         }
         public void Send()
         {
+            Send(new NotificationRequest {body="Your next update is ready. Review it at a suitable stopping point.",priority=priority,demonstration=true});
+        }
+        // Producer API: referent metadata must be explicit. Generic notifications
+        // never acquire a referent just because an object happens to be visible.
+        public void Send(NotificationRequest notification)
+        {
+            if(notification==null||string.IsNullOrWhiteSpace(notification.body)||notification.body.Length>600)throw new ArgumentException("Notification body must contain 1–600 characters");
+            if((int)notification.priority<0||(int)notification.priority>2)throw new ArgumentException("Invalid priority");
+            request=notification;priority=notification.priority;
+            pages=NotificationText.Pages(request.body);page=0;requestHeadPosition=Head.transform.position;liveSpatial?.BeginRequest();
             requestId++;requestAt=Time.unscaledTime;expiry=requestAt+16;active=true;expanded=false;lastDecision="";Tick(true);Record("notification");
         }
-        public void Read() { if(active){expanded=true;expiry=Time.unscaledTime+16;Tick(true);Record("read_requested");} }
+        void ReadLaunchRequest()
+        {
+            using var player=new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            using var activity=player.GetStatic<AndroidJavaObject>("currentActivity");
+            using var intent=activity.Call<AndroidJavaObject>("getIntent");
+            string json=intent.Call<string>("getStringExtra","notiflex_notification");
+            if(string.IsNullOrWhiteSpace(json))return;
+            try{Send(JsonUtility.FromJson<NotificationRequest>(json));}catch(Exception error){Debug.LogWarning("NOTIFLEX_REQUEST rejected: "+error.Message);}
+        }
+        public void Read() { if(active){if(expanded&&page+1<pages.Length)page++;expanded=true;expiry=Time.unscaledTime+Mathf.Max(16,SocialRiskModel.Exposure(request.Words,Channel.Visual));Tick(true);Record("read_requested");} }
         public void Dismiss() { Record("acknowledged");active=false;view.Hide(); }
         void Update()
         {
@@ -131,6 +172,14 @@ namespace Notiflex.VR
                 Head.transform.position+=(Head.transform.right*move.x+forward*move.z)*Time.unscaledDeltaTime;
             }
             if(Time.unscaledTime>=nextEvaluation) { Tick(false);nextEvaluation=Time.unscaledTime+.1f; }
+            bool handHover=false;
+            if(OnDevice&&CameraMode&&OVRManager.hasVrFocus&&active&&view.gameObject.activeSelf)
+            {
+                foreach(var aim in cameraSensor.Hands.AimRays)if(aim.HasValue&&view.Hit(aim.Value))handHover=true;
+                if(Time.unscaledTime-lastHandAction>=.7f&&cameraSensor.Hands.PinchRay.HasValue&&view.Hit(cameraSensor.Hands.PinchRay.Value))
+                {lastHandAction=Time.unscaledTime;if(expanded&&page+1>=pages.Length)Dismiss();else Read();}
+            }
+            view.SetHover(handHover);
             if(scheduledDemo&&Time.unscaledTime<=demoUntil&&Time.unscaledTime>=nextDemo&&CameraMode&&OVRManager.hasVrFocus&&cameraSensor.HasObservation)
             {nextDemo=Time.unscaledTime+15;Send();Record("scheduled_test_notification");}
             if(audioDiagnostic&&OVRManager.hasVrFocus)
@@ -211,8 +260,8 @@ namespace Notiflex.VR
                 return new ContextSnapshot {poseValid=valid,age=fresh?cameraSensor.Age:PlacementPolicy.MaxContextAge+1,
                     taskAngle=fresh?e.taskAngle:180,partnerAngle=fresh?e.partnerAngle:180,
                     conversation=fresh&&e.proposed==Activity.Conversation,handsBusy=fresh&&e.handsBusy,
-                    movement=fresh?e.movement:0,workload=fresh&&e.proposed!=Activity.Unknown?.65f:.1f,
-                    audioEnabled=audioEnabled&&(!fresh||!cameraSensor.Detections.Exists(d=>d.classId==0)),speaking=userSpeaking};
+                    movement=fresh?e.movement:0,workload=fresh?e.workload:.1f,interactionSupport=fresh?e.interactionSupport:0,
+                    audioEnabled=audioEnabled&&(!fresh||!cameraSensor.Detections.Exists(d=>d.classId==0)),speaking=userSpeaking||speech!=null&&speech.Evidence.available&&speech.Evidence.speaking};
             }
             return new ContextSnapshot {poseValid=valid,age=0,taskAngle=environment.task==null?180:Vector3.Angle(Head.transform.forward,environment.task.position-Head.transform.position),
                 partnerAngle=environment.partner==null?180:Vector3.Angle(Head.transform.forward,environment.partner.position-Head.transform.position),
@@ -228,10 +277,12 @@ namespace Notiflex.VR
             // Retain the busy-hands assumption while Physical is latched by dwell;
             // brief hand occlusion must not promote an audio cue to a full card.
             if(CameraMode&&c.activity==Activity.Physical)c.handsBusy=true;
+            ResolveSpatial(c);
             evaluator.Evaluate(Head,CameraMode?null:environment.task,CameraMode?null:environment.partner,
-                CameraMode?null:regions,c,priority,Message.Split(' ').Length,
+                CameraMode?null:regions,c,priority,request.Words,
                 CameraMode&&cameraSensor.HasObservation?cameraSensor.Regions:null,
-                CameraMode&&cameraSensor.HasObservation&&cameraSensor.Estimate.partnerAngle<65?(Vector3?)cameraSensor.Estimate.partnerDirection:null);
+                CameraMode&&cameraSensor.HasObservation&&cameraSensor.Estimate.partnerTrackId>=0?(Vector3?)cameraSensor.Estimate.partnerDirection:null,
+                liveCandidates,CameraMode?liveSpatial:null,referentPosition);
             var best=PlacementPolicy.Best(evaluator.Results);
             var incumbent=current==null?null:evaluator.Results.Find(r=>r.id==current.id);
             bool replace=immediate||lastDecision==""||incumbent==null||!incumbent.eligible||best==null||
@@ -240,16 +291,44 @@ namespace Notiflex.VR
             channel=PlacementPolicy.Delivery(c,priority,current!=null);
             if(expanded&&current!=null&&c.poseValid&&c.age<=PlacementPolicy.MaxContextAge)channel=Channel.Visual;
             string sig=c.activity+"/"+priority+"/"+channel+"/"+(current==null?"none":current.id);
-            if(sig!=lastDecision){lastDecision=sig;Record("decision");if(active&&channel==Channel.SpatialAudio)PlayChime();}
+            if(sig!=lastDecision){lastDecision=sig;Record("decision");}
+            if(active&&channel==Channel.SpatialAudio&&audioGate.TryConsume(requestId))PlayChime();
             if(CameraMode&&cameraSensor.FrameSequence!=lastObservation)
             {lastObservation=cameraSensor.FrameSequence;Record("camera_observation");}
-            if(active && current!=null && (channel==Channel.Visual||channel==Channel.Peripheral))view.Present(current.position,Head.transform.rotation,channel,priority,Message,PlacementPolicy.PresentationScale(current.distance));
+            if(active && current!=null && (channel==Channel.Visual||channel==Channel.Peripheral))view.Present(current.position,current.rotation,channel,priority,Message,PlacementPolicy.PresentationScale(current.distance),request.title);
             else view.Hide();
+        }
+        void ResolveSpatial(ContextSnapshot context)
+        {
+            liveCandidates.Clear();referentPosition=null;referentTrack=-1;referentSigma=0;referentStatus="no_referent_metadata";
+            if(!CameraMode||liveSpatial==null||!cameraSensor.HasObservation)return;
+            float now=Time.unscaledTime;
+            if(!string.IsNullOrEmpty(request.referentSceneId))
+            {
+                var anchor=liveSpatial.FindAnchor(request.referentSceneId);
+                if(anchor!=null){referentPosition=anchor.GetAnchorCenter();referentStatus="scene_anchor_referent";}
+                else referentStatus="scene_anchor_not_found";
+            }
+            else
+            {
+                var track=liveSpatial.Tracker.Resolve(request,Head.transform.position,Head.transform.forward,now,out referentStatus);
+                if(track!=null){referentPosition=track.Position(now);referentTrack=track.id;referentSigma=Mathf.Sqrt(track.filter.PredictedVariance(now));}
+            }
+            if(referentPosition.HasValue)SpatialCandidateBuilder.Around(liveCandidates,"Referent",referentPosition.Value,requestHeadPosition,
+                referentTrack>=0?referentTrack.ToString():request.referentSceneId,referentSigma,"tracked_referent_proximal");
+            if(context.conversation&&cameraSensor.Estimate.partnerMetric)
+            {
+                int id=cameraSensor.Estimate.partnerTrackId;
+                var partner=liveSpatial.Tracker.Tracks.Find(t=>t.id==id&&t.Grounded(now));
+                if(partner!=null)SpatialCandidateBuilder.Around(liveCandidates,"Partner",partner.Position(now),requestHeadPosition,id.ToString(),Mathf.Sqrt(partner.filter.PredictedVariance(now)),"tracked_partner_proximal");
+            }
+            liveSpatial.AddSurfaceCandidates(liveCandidates,evaluator.PanelSize);
         }
         void PlayChime()
         {
             audioSource.transform.position=CameraMode||environment.task==null?Head.transform.TransformPoint(Vector3.forward*2):environment.task.position;
             audioSource.Play();Debug.Log("NOTIFLEX_AUDIO play_requested volume="+audioSource.volume+" listener="+AudioListener.volume+" playing="+audioSource.isPlaying);
+            speech?.SuppressOwnAudio(Time.unscaledTime+.6f);
             Record("audio_play_requested");
         }
         [Serializable] class EventRecord
@@ -260,12 +339,20 @@ namespace Notiflex.VR
             public int[] detectedClasses;
             public int bareHands;public float handSpeed,handActivitySeconds,contextSupportSeconds;public string handStatus;
             public bool audioAllowed,handsBusy;public float movement;
+            public string notificationId,notificationSource,referentState,roomStatus,depthStatus,speechStatus,interactionEvidence,socialProfile;
+            public bool demonstration,participantFitted,partnerMetric;
+            public float vadElapsedMs,speakerElapsedMs,maxSpeechScheduleSliceMs;public int droppedAudioBlocks;
+            public int referentTrack,anonymousSpeakers,turnSwitches;public float referentSigma,voiceProbability,speechRatio,interactionSupport,presentationSeconds,presentationSocial;
         }
         void Record(string type)
         {
             if(environment==null||logPath==null)return;
-            var r=new EventRecord {utc=DateTime.UtcNow.ToString("o"),eventType=type,environment=environment.environmentName,inputSource=CameraMode?"local_camera_and_bare_hand_tracking":environment.passthrough?"tracked_head_with_manual_annotations_and_supplied_activity":"simulation_ground_truth",
+            var r=new EventRecord {utc=DateTime.UtcNow.ToString("o"),eventType=type,environment=environment.environmentName,inputSource=CameraMode?"local_camera_hands_room_depth_and_optional_speech":environment.passthrough?"tracked_head_with_manual_annotations_and_supplied_activity":"simulation_ground_truth",
                 context=InferredActivity.ToString(),priority=priority.ToString(),channel=channel.ToString(),selected=current==null?"none":current.id,request=requestId,poseValid=Snapshot().poseValid,candidates=evaluator.Results};
+            r.notificationId=request.id;r.notificationSource=request.source;r.demonstration=request.demonstration;r.referentState=referentStatus;r.referentTrack=referentTrack;r.referentSigma=referentSigma;
+            r.socialProfile=SocialRiskModel.Profile.id;r.participantFitted=SocialRiskModel.Profile.HasParticipantFit;
+            r.presentationSeconds=SocialRiskModel.Exposure(request.Words,channel)/(channel==Channel.Visual&&current!=null?Mathf.Max(.6f,current.viewIncidence):1);
+            r.presentationSocial=InferredActivity==Activity.Conversation&&current!=null?SocialRiskModel.Score(current.headAngle,current.partnerAngle,request.Words,channel,cameraSensor!=null?cameraSensor.Estimate.interactionSupport:1,current.viewIncidence):0;
             if(CameraMode)
             {
                 bool fresh=cameraSensor.HasObservation;
@@ -278,6 +365,10 @@ namespace Notiflex.VR
                 r.handActivitySeconds=cameraSensor.Hands.Evidence.activeFor;r.handStatus=cameraSensor.Hands.Status;
                 r.contextSupportSeconds=automaticDwell.Support(fresh?cameraSensor.Estimate.proposed:Activity.Unknown);
                 var snapshot=Snapshot();r.audioAllowed=snapshot.audioEnabled;r.handsBusy=snapshot.handsBusy;r.movement=snapshot.movement;
+                r.vadElapsedMs=speech.VadElapsedMs;r.speakerElapsedMs=speech.SpeakerElapsedMs;r.maxSpeechScheduleSliceMs=speech.MaxScheduleSliceMs;r.droppedAudioBlocks=speech.DroppedAudioBlocks;
+                r.roomStatus=liveSpatial.Status;r.depthStatus=liveSpatial.DepthStatus;r.speechStatus=speech.Status;
+                r.interactionEvidence=cameraSensor.Estimate.interactionEvidence;r.interactionSupport=cameraSensor.Estimate.interactionSupport;r.partnerMetric=cameraSensor.Estimate.partnerMetric;
+                var voice=speech.Evidence;r.voiceProbability=voice.probability;r.speechRatio=voice.recentSpeechRatio;r.anonymousSpeakers=voice.anonymousSpeakers;r.turnSwitches=voice.turnSwitches;
             }
             File.AppendAllText(logPath,JsonUtility.ToJson(r)+"\n");
         }

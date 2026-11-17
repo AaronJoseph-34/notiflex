@@ -1,3 +1,9 @@
+# Notiflex VR 0.6.0 — paper-coverage prerelease; device acceptance pending
+
+Implements real saved-room geometry and live depth queries, depth-supported Kalman object tracks with Hungarian association, producer-specified notification referents, scene-plane and task/partner-proximal placements, local permission-gated speech activity and anonymous speaker-turn evidence. Adds presentation-specific social exposure, a future participant-calibration workflow, point-and-pinch reading/pagination and one chime per request. Generic notifications do not invent object referents. No cloud AI, eye tracking, raw recording storage or named speaker identity is added.
+
+All 16 Unity MCP EditMode groups pass, including original room sweeps and actual speech-model execution/reference parity. A synthetic full-pipeline replay covers the three contexts and urgency profiles; it is explicitly not camera/headset evidence. Build and manifest/signature details are recorded in `evidence/paper-coverage-0.6.0`. The new device features, alignment and sustained performance have not been validated on the Quest; the operator chose later testing. Social costs remain unfitted hypotheses. See [current method](CURRENT-METHOD-0.6.0.md) and [acceptance procedure](QUEST-ACCEPTANCE-0.6.0.md).
+
 # Notiflex VR 0.5.1 — automatic context timing correction
 
 The first bare-hand device trial acquired real hand motion and proposed Physical, but brief threshold gaps repeatedly reset the uninterrupted context timer. No settled Physical state or audio request occurred. This version integrates proposal duration over a trailing two-second window and accepts 1.2 seconds of support. Stale input and long frame gaps clear the window. Manual dwell, confidence gates, visual costs and person/audio exclusions are unchanged.

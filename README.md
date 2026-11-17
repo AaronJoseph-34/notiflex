@@ -2,18 +2,24 @@
 
 A Unity application for studying context-aware XR notification placement. It includes three authored 3D test rooms—Desk, Kitchen and LivingRoom—and a separate Quest Passthrough scene that renders notifications over the live room. The headset view has no desktop control panel.
 
-The system scores eligible visual candidates for interruption, projected occlusion and social disengagement, selects a position, then separately selects full visual, peripheral cue, positional chime or deferred delivery. Head direction is an attention proxy. Version 0.4.0 added an experimental on-device camera mode for live Passthrough: object detections and head/controller motion propose focused viewing, physical-task and social-presence contexts. Version 0.5.0 replaces the controller-motion activity proxy with real bare-hand tracking and object-associated or bimanual manipulation evidence. Authored simulations and manual mode retain supplied context. These are heuristic proxies; speech/conversation recognition, eye tracking and metric room reconstruction are not implemented. See [automatic-mode rules and acceptance status](docs/AUTOMATIC-MODE.md).
+The system scores eligible visual candidates for interruption, geometric/projected occlusion and social disengagement, selects a position, then separately chooses visual, peripheral, spatial-audio or deferred delivery. Head direction is an attention proxy; there is no eye tracking.
+
+Download the [0.6.0 prerelease APK](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.6.0). **0.6.0 adds implemented paths for local speech/person interaction estimates, anonymous acoustic turn evidence, depth-supported object tracking, explicit notification referents, real saved-room geometry, world/task/partner placement candidates, and point-and-pinch reading. All 16 Unity test groups pass. The new features await headset acceptance; the user elected to test the device later.** This is an experimental prerelease, not a claim of flawless recognition or empirically validated social costs.
+
+Start with the [current complete method and rules](docs/CURRENT-METHOD-0.6.0.md), [0.6.0 install and device trials](docs/QUEST-ACCEPTANCE-0.6.0.md), [paper coverage](docs/PAPER-COVERAGE-IMPLEMENTATION.md), and [social calibration protocol](docs/SOCIAL-CALIBRATION.md). The original Word manual and older mode documents describe historical versions and are not the current sensing specification. No cloud AI is used; microphone processing is on-device, permission-gated, and does not save recordings or voice profiles.
 
 Download the [experimental 0.4.0 Quest APK](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.4.0). Its camera permission, live local detections, focused-work estimate and visible notification passed an initial Quest 3S test. The controlled short-cue/full-card comparison also passed; broader hardware acceptance remains incomplete. See the automatic-mode record. The [0.3.1 release](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.3.1) is the prior headset-tested version for passthrough and A/trigger/B/X controls. The existing Mac simulation and original Word manual remain in [0.3.0](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.3.0).
 
-The [0.5.1 test build](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.5.1) builds, signs and installs on Quest 3S. All eight software test groups pass. The [0.5.0 test build](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.5.0) established real hand acquisition, but its physical context did not settle; 0.5.1 corrects the timing and adds an isolated sound check. The [bare-hand update rules and hands-free test procedure](docs/BARE-HAND-MODE.md) describe the replacement physical estimator. The initial two-handed task and audible automatic delivery now pass on Quest 3S. General task reliability, one-handed work and unnecessary chime repeats remain open; see the [bounded hardware record](docs/HARDWARE-TEST-0.5.1.md).
+The [0.5.1 test build](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.5.1) builds, signs and installs on Quest 3S. All eight software test groups pass. The [0.5.0 test build](https://github.com/AaronJoseph-34/notiflex/releases/tag/v0.5.0) established real hand acquisition, but its physical context did not settle; 0.5.1 corrects the timing and adds an isolated sound check. The [bare-hand update rules and hands-free test procedure](docs/BARE-HAND-MODE.md) describe the replacement physical estimator. The initial two-handed task and audible automatic delivery now pass on Quest 3S. General task reliability and one-handed work remain open; repeated chimes are addressed by a software gate in 0.6.0, pending hardware verification; see the [bounded hardware record](docs/HARDWARE-TEST-0.5.1.md).
 
 ## Start here
 
-- [Automatic camera mode, complete rules and acceptance steps](docs/AUTOMATIC-MODE.md)
+- [Current 0.6.0 method, rules and bounds](docs/CURRENT-METHOD-0.6.0.md)
+- [Install and verify the new Quest build](docs/QUEST-ACCEPTANCE-0.6.0.md)
+- [Historical 0.4–0.5 automatic camera mode](docs/AUTOMATIC-MODE.md)
 - [Quest 3S capabilities and implementation boundaries](docs/PLATFORM.md)
 - [Install, controls and test scenarios](docs/INSTALL-AND-TEST.md)
-- [Complete notification rules](docs/NOTIFICATION-RULES.md) · [Word manual](docs/Notiflex-Notification-Rules.docx)
+- [Historical baseline rules](docs/NOTIFICATION-RULES.md) · [Original 0.3 Word manual](docs/Notiflex-Notification-Rules.docx)
 - [Validation report and hardware gates](docs/VALIDATION.md)
 - [Implementation plan](docs/IMPLEMENTATION-PLAN.md)
 - [Evidence](evidence/): test results, candidate scores and diagnostic renderings

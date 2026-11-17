@@ -13,7 +13,7 @@ namespace Notiflex.VR
     public struct ContextSnapshot
     {
         public bool poseValid, handsBusy, conversation, audioEnabled, speaking;
-        public float workload, movement, taskAngle, partnerAngle, age;
+        public float workload, movement, taskAngle, partnerAngle, age,interactionSupport;
         public Activity activity;
     }
     [Serializable]
@@ -21,6 +21,10 @@ namespace Notiflex.VR
     {
         public string id, rejected;
         public Vector3 position;
+        public Quaternion rotation;
+        public string source,anchorId,geometryStatus;
+        public bool hasReferent;
+        public float referentAngle,uncertainty,expectedReadSeconds,viewIncidence;
         public float interruption, occlusion, social, total, headAngle, partnerAngle, distance, faceCoverage, hazardCoverage;
         public bool eligible;
     }
@@ -58,9 +62,14 @@ namespace Notiflex.VR
             float central=Mathf.Exp(-.5f*Mathf.Pow(r.headAngle/18,2));
             float shift=Mathf.Clamp01(r.headAngle/90),load=Mathf.Clamp01(c.workload);
             r.interruption=c.activity==Activity.Physical?load*(.2f*central+.8f*shift):load*(.75f*central+.25f*shift);
+            if(r.hasReferent)
+            {
+                float taskShift=Mathf.Clamp01(r.referentAngle/90);
+                r.interruption=c.activity==Activity.Physical?load*(.15f*central+.35f*shift+.5f*taskShift):load*(.55f*central+.2f*shift+.25f*taskShift);
+            }
             r.occlusion=Mathf.Clamp01(r.occlusion);
-            float seconds=1.5f+Mathf.Max(0,words)/3.3f;
-            r.social=c.activity==Activity.Conversation?Mathf.Clamp01((.4f*shift+.6f*Mathf.Clamp01(r.partnerAngle/90))*(.5f+.5f*Mathf.Clamp01(seconds/8))):0;
+            r.expectedReadSeconds=SocialRiskModel.Exposure(words,Channel.Visual)/Mathf.Max(.6f,r.viewIncidence);
+            r.social=c.activity==Activity.Conversation?SocialRiskModel.Score(r.headAngle,r.partnerAngle,words,Channel.Visual,c.interactionSupport>0?c.interactionSupport:1,r.viewIncidence>0?r.viewIncidence:1):0;
             var w=Weights(c.activity,p);
             r.total=w.interruption*r.interruption+w.occlusion*r.occlusion+w.social*r.social;
             if(!Finite(r.total)) { r.total=1; r.interruption=1;r.occlusion=1;r.social=1;Reject(r,"nonfinite_cost"); }

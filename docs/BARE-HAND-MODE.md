@@ -1,5 +1,7 @@
 # Bare-hand activity updates — 0.5.0 / 0.5.1
 
+Version note: this document records an earlier implementation. See [the current 0.6.0 method](CURRENT-METHOD-0.6.0.md) and [new device acceptance steps](QUEST-ACCEPTANCE-0.6.0.md) for the speech, depth, tracking and interaction upgrade. New hardware results remain pending.
+
 ## 0.5.1 timing correction and isolated sound check
 
 The first 0.5.0 device trial acquired real bare hands and emitted Physical proposals, but never settled into Physical and never requested audio. In the captured 150-event sample, 13 events had a Physical proposal, 38 had two working hands, and the motion-support accumulator reached 2 s. Small motion/confidence gaps repeatedly reset the uninterrupted 1.2 s dwell. This was a context acceptance failure, not evidence of broken sound output.

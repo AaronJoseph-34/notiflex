@@ -16,3 +16,6 @@ UnityProject/Assets/Resources/DevAgentSettings.asset*
 
 UnityProject/.utmp/
 **/.gradle/
+
+# Python development-tool bytecode
+**/__pycache__/

@@ -13,7 +13,8 @@ using Debug=UnityEngine.Debug;
 namespace Notiflex.VR
 {
     // Camera images and tensors remain in memory. Only derived observations are
-    // exposed to diagnostics; no image saving, network inference, or microphone.
+    // exposed to diagnostics; no image saving or network inference. Microphone
+    // processing lives in the separate, permission-gated LocalSpeechSensor.
     public sealed class CameraContextSensor : MonoBehaviour
     {
         public readonly List<CameraDetection> Detections=new List<CameraDetection>();
@@ -24,6 +25,9 @@ namespace Notiflex.VR
         public int FrameSequence {get;private set;}
         public AutomaticEstimate Estimate {get;private set;}
         public readonly BareHandActivity Hands=new BareHandActivity();
+        public LiveSpatialEnvironment Spatial {get;private set;}
+        public LocalSpeechSensor Speech {get;private set;}
+        readonly MultimodalContextEstimator contextEstimator=new MultimodalContextEstimator();
         public float Age => Time.unscaledTime-ObservationTime;
         public bool Fresh => cameraAccess!=null && cameraAccess.IsPlaying && OVRManager.hasVrFocus &&
             HeadTracked && !paused && wanted && AutomaticContext.Fresh(Age,captureHead,head.transform.position);
@@ -42,7 +46,6 @@ namespace Notiflex.VR
         Quaternion previousRotation;
         float headSpeed,angularSpeed;
         DateTime lastFrame;
-        PermissionCallbacks permissionCallbacks;
         string lastStatus;
         bool HeadTracked
         {
@@ -53,8 +56,9 @@ namespace Notiflex.VR
             }
         }
 
-        public void Initialize(Camera camera,Transform space)
+        public void Initialize(Camera camera,Transform space,LiveSpatialEnvironment spatial=null,LocalSpeechSensor speech=null)
         {
+            Spatial=spatial;Speech=speech;
             head=camera;trackingSpace=space;previousHead=head.transform.position;previousRotation=head.transform.rotation;
             cameraObject=new GameObject("Local context camera");cameraObject.transform.SetParent(transform);cameraObject.SetActive(false);
             cameraAccess=cameraObject.AddComponent<PassthroughCameraAccess>();
@@ -66,6 +70,7 @@ namespace Notiflex.VR
         {
             if(wanted==value)return;
             wanted=value;generation++;Invalidate();
+            Spatial?.SetSensing(value);Speech?.SetSensing(value);contextEstimator.Reset();
             if(!value){cameraObject.SetActive(false);SetStatus("manual_or_simulation");}
         }
         void SetStatus(string value)
@@ -100,10 +105,9 @@ namespace Notiflex.VR
                 if(cameraObject.activeSelf){generation++;cameraObject.SetActive(false);Invalidate();}
                 if(!permissionRequested)
                 {
-                    permissionRequested=true;permissionCallbacks=new PermissionCallbacks();
-                    permissionCallbacks.PermissionDenied+=_=>SetStatus("camera_permission_denied_manual_available");
+                    permissionRequested=true;
                     SetStatus("requesting_camera_permission");
-                    Permission.RequestUserPermission(OVRPermissionsRequester.PassthroughCameraAccessPermission,permissionCallbacks);
+                    SensorPermissions.Request(OVRPermissionsRequester.PassthroughCameraAccessPermission,granted=>{if(!granted)SetStatus("camera_permission_denied_manual_available");});
                 }
                 return;
             }
@@ -111,7 +115,7 @@ namespace Notiflex.VR
             if(!cameraAccess.enabled){Invalidate();SetStatus("camera_start_failed_manual_available");return;}
             if(Fresh)
             {
-                Estimate=AutomaticContext.Estimate(Detections,head.transform.forward,headSpeed,angularSpeed,Hands.Evidence);
+                Estimate=EstimateContext();
                 UpdateRegions();
             }
             else Regions.Clear();
@@ -212,11 +216,20 @@ namespace Notiflex.VR
             {Invalidate();SetStatus("inference_observation_stale");yield break;}
             var b=boxes.DownloadToArray();var c=ids.DownloadToArray();var s=scores.DownloadToArray();
             AutomaticContext.Decode(b,c,s,width,height,ray0,rayX,rayY,Detections,content);
+            foreach(var detection in Detections)detection.origin=pose.position;
+            Spatial?.Observe(Detections,capturedAt,Time.unscaledTime);
             captureHead=capturedHead;ObservationTime=capturedAt;FrameSequence++;
-            Estimate=AutomaticContext.Estimate(Detections,head.transform.forward,headSpeed,angularSpeed,Hands.Evidence);UpdateRegions();SetStatus("observing");
+            Estimate=EstimateContext();UpdateRegions();SetStatus("observing");
             Debug.Log("NOTIFLEX_OBSERVATION frame="+FrameSequence+" objects="+Detections.Count+" inferenceMs="+InferenceMs.ToString("F1")+
                 " proposed="+Estimate.proposed+" confidence="+Estimate.confidence.ToString("F2")+" reason="+Estimate.reason+
                 " bareHands="+Hands.Evidence.trackedHands+" handSpeed="+Hands.Evidence.speed.ToString("F2"));
+        }
+        AutomaticEstimate EstimateContext()
+        {
+            var visual=AutomaticContext.Estimate(Detections,head.transform.forward,headSpeed,angularSpeed,Hands.Evidence);
+            if(Spatial==null)return visual;
+            return contextEstimator.Fuse(visual,Detections,Spatial.Tracker.Tracks,Hands.Evidence,Speech==null?default:Speech.Evidence,
+                head.transform.position,head.transform.forward,angularSpeed,Time.unscaledTime,headSpeed);
         }
         void OnApplicationPause(bool value)
         {

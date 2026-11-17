@@ -1,0 +1,157 @@
+{
+  "mode": "EditMode",
+  "summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 1.3840087,
+    "resultState": "Passed"
+  },
+  "results": [
+    {
+      "name": "AutomaticEvidenceWindowAndDelivery",
+      "fullName": "Notiflex.VR.Editor.AutomaticContextTests.AutomaticEvidenceWindowAndDelivery",
+      "state": "Passed",
+      "durationSeconds": 0.007628,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "BareHandManipulationAndTrackingRecovery",
+      "fullName": "Notiflex.VR.Editor.AutomaticContextTests.BareHandManipulationAndTrackingRecovery",
+      "state": "Passed",
+      "durationSeconds": 0.0041486,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "BundledDetectorExecutesAndMatchesContract",
+      "fullName": "Notiflex.VR.Editor.AutomaticContextTests.BundledDetectorExecutesAndMatchesContract",
+      "state": "Passed",
+      "durationSeconds": 0.1426693,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "ContextEvidenceAndFreshness",
+      "fullName": "Notiflex.VR.Editor.AutomaticContextTests.ContextEvidenceAndFreshness",
+      "state": "Passed",
+      "durationSeconds": 0.0009576,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "DetectionCoordinatesNmsAndProtection",
+      "fullName": "Notiflex.VR.Editor.AutomaticContextTests.DetectionCoordinatesNmsAndProtection",
+      "state": "Passed",
+      "durationSeconds": 0.0095693,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "AssignmentTrackingAndExplicitReferent",
+      "fullName": "Notiflex.VR.Editor.PaperCoverageTests.AssignmentTrackingAndExplicitReferent",
+      "state": "Passed",
+      "durationSeconds": 0.0026972,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "BundledSpeechModelsExecuteAndMatchReference",
+      "fullName": "Notiflex.VR.Editor.PaperCoverageTests.BundledSpeechModelsExecuteAndMatchReference",
+      "state": "Passed",
+      "durationSeconds": 0.0678062,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "DepthGroundingRejectsUnknownAndUnstableGeometry",
+      "fullName": "Notiflex.VR.Editor.PaperCoverageTests.DepthGroundingRejectsUnknownAndUnstableGeometry",
+      "state": "Passed",
+      "durationSeconds": 0.0017,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "PresentationRiskAndInteractionControls",
+      "fullName": "Notiflex.VR.Editor.PaperCoverageTests.PresentationRiskAndInteractionControls",
+      "state": "Passed",
+      "durationSeconds": 0.0146979,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpeechFeaturesMatchIndependentKaldiReference",
+      "fullName": "Notiflex.VR.Editor.PaperCoverageTests.SpeechFeaturesMatchIndependentKaldiReference",
+      "state": "Passed",
+      "durationSeconds": 0.0220722,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpeechPersonFusionAndAnonymousTurns",
+      "fullName": "Notiflex.VR.Editor.PaperCoverageTests.SpeechPersonFusionAndAnonymousTurns",
+      "state": "Passed",
+      "durationSeconds": 0.0022931,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SyntheticPipelineAcrossThreeContexts",
+      "fullName": "Notiflex.VR.Editor.PaperCoverageTests.SyntheticPipelineAcrossThreeContexts",
+      "state": "Passed",
+      "durationSeconds": 0.0023129,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "WorldCandidatesAndProtectedGeometry",
+      "fullName": "Notiflex.VR.Editor.PaperCoverageTests.WorldCandidatesAndProtectedGeometry",
+      "state": "Passed",
+      "durationSeconds": 0.0045867,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "PolicyRulesAndBoundedScores",
+      "fullName": "Notiflex.VR.Editor.PolicyTests.PolicyRulesAndBoundedScores",
+      "state": "Passed",
+      "durationSeconds": 0.0021334,
+      "message": null,
+      "stackTrace": null,
+      "output": "NOTIFLEX_POLICY_PASS 40\n"
+    },
+    {
+      "name": "RoomGeometryAndSpatialConstraints",
+      "fullName": "Notiflex.VR.Editor.PolicyTests.RoomGeometryAndSpatialConstraints",
+      "state": "Passed",
+      "durationSeconds": 0.8968607,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    },
+    {
+      "name": "SpatialFailureAndTrackingCases",
+      "fullName": "Notiflex.VR.Editor.PolicyTests.SpatialFailureAndTrackingCases",
+      "state": "Passed",
+      "durationSeconds": 0.1886354,
+      "message": null,
+      "stackTrace": null,
+      "output": ""
+    }
+  ]
+}

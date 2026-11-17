@@ -1,5 +1,7 @@
 # Notiflex VR validation record
 
+Version note: this document records an earlier implementation. See [the current 0.6.0 method](CURRENT-METHOD-0.6.0.md) and [new device acceptance steps](QUEST-ACCEPTANCE-0.6.0.md) for the speech, depth, tracking and interaction upgrade. New hardware results remain pending.
+
 Original software baseline: version 0.3.0 · November 11, 2026 · Mac development host · Unity 6000.4.7f1
 
 The original Android APK and Mac player were built successfully. No Quest was attached for the November 11 software baseline. On November 15, version 0.3.1 was built, installed and launched on a physical Quest 3S: passthrough and A/trigger/B/X behavior were confirmed by the operator and app logs. The three Unity MCP regression groups passed again. See the [controller fix record](CONTROLLER-FIX-0.3.1.md) for exact evidence and scope. This is not a certification of flawless VR behavior or a validation of human interruption costs.

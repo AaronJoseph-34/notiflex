@@ -47,6 +47,8 @@ namespace Notiflex.VR
         public Rect viewport;
         public Vector3 direction;
         public Vector3[] cornerDirections;
+        public Vector3 origin,ray0,rayX,rayY;
+        public Vector3 RayAt(Vector2 uv) => ray0.sqrMagnitude>0?(ray0+rayX*uv.x+rayY*uv.y).normalized:direction.normalized;
     }
 
     public struct ViewportRegion
@@ -62,6 +64,10 @@ namespace Notiflex.VR
         public bool handsBusy;
         public Vector3 partnerDirection;
         public string reason;
+        public string interactionEvidence;
+        public bool personPresent,partnerMetric;
+        public int partnerTrackId;
+        public float interactionSupport,workload;
     }
 
     public static class AutomaticContext
@@ -175,7 +181,7 @@ namespace Notiflex.VR
                 float x0=Mathf.Clamp01((boxes[j]/width-content.x)/content.width),x1=Mathf.Clamp01((boxes[j+2]/width-content.x)/content.width);
                 float y0=Mathf.Clamp01((1-boxes[j+3]/height-content.y)/content.height),y1=Mathf.Clamp01((1-boxes[j+1]/height-content.y)/content.height);
                 var r=Rect.MinMaxRect(x0,y0,x1,y1);
-                output.Add(new CameraDetection {classId=classes[i],score=scores[i],viewport=r,direction=Ray(r.center.x,r.center.y),
+                output.Add(new CameraDetection {classId=classes[i],score=scores[i],viewport=r,direction=Ray(r.center.x,r.center.y),ray0=ray0,rayX=rayX,rayY=rayY,
                     cornerDirections=new[]{Ray(x0,y0),Ray(x0,y1),Ray(x1,y0),Ray(x1,y1)}});
             }
             Suppress(output);
